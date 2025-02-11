@@ -1,0 +1,38 @@
+{
+  "index.qmd": {
+    "index.html": "90b6ffa1"
+  },
+  "quarto/Context_of_the_study.qmd": {
+    "Context_of_the_study.html": "c8b2c6b9"
+  },
+  "quarto/Growth_experiment.qmd": {
+    "Growth_experiment.html": "2144a8fb"
+  },
+  "quarto/Model_def_sim_data.qmd": {
+    "Model_def_sim_data.html": "c184c5d5"
+  },
+  "quarto/Growth_modeling.qmd": {
+    "Growth_modeling.html": "a5648a99"
+  },
+  "quarto/Less_replicates.qmd": {
+    "Less_replicates.html": "a755c291"
+  },
+  "quarto/references.qmd": {
+    "references.html": "644d1e1b"
+  },
+  "quarto/A_Context_of_the_study.qmd": {
+    "A_Context_of_the_study.html": "e7806e8e"
+  },
+  "quarto/B_Growth_experiment.qmd": {
+    "B_Growth_experiment.html": "a6729d56"
+  },
+  "quarto/C_Model_def_sim_data.qmd": {
+    "C_Model_def_sim_data.html": "155ddfcf"
+  },
+  "quarto/D_Growth_modeling.qmd": {
+    "D_Growth_modeling.html": "a9d9baf1"
+  },
+  "quarto/E_Less_replicates.qmd": {
+    "E_Less_replicates.html": "bd0cff93"
+  }
+}

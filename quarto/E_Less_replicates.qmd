@@ -1,0 +1,410 @@
+```{r, include=F, warning=F, message=F}
+library(tidyverse); library(here); library(ggthemes)
+library(viridis); library(tidybayes); library(wesanderson)
+library(ggdist); library(patchwork); library(extrafont)
+#library(scales); library(ggdist); library(ggsci)
+library(parallel); library(deSolve); library(tmvtnorm)
+library(fdrtool); library(readxl); library(here); library(easystats)
+library(RColorBrewer); library(devtools); library(car); library(plotly)
+library(knitr); library(Hmisc); library(nlstools); library(lsmeans)
+library(ggpubr); library(gridExtra) ;
+#library(glmmTMB)
+library(modelsummary);
+library(plan); library(brms); library(ggmcmc); library(latex2exp);
+library(reshape2); library(ggbreak); library(nord); library(ggtext); 
+library(kableExtra); library(DT)
+
+Nord_frost <- nord(palette = "frost")
+Nord_polar <- nord(palette = "polarnight")
+sizetitle <- 12
+
+col_blue <- "#5E81AC"
+col_red <- "#f42404"
+pal_col <- c(col_blue, col_red)
+
+pal_blue <- c("#5E81AC", "#7F9DC4", "#A0C1D9", "#DCE9F2")
+pal_red <- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
+```
+
+# Can we ignore individual differences? Bias, type M and type S errors in OECD guidelines using a simulation study
+
+We also sought to assess the accuracy of our inference if we had followed a typical biotest design for Environmental Risk Assessment (ERA). The standardized earthworm reproduction test of the OECD (TG n°222), which also assesses growth effects, recommends four replicates per treatment and eight replicates for the control condition, with each replicate containing 10 earthworms. To simulate this design, we used the results of our growth model to generate growth data for 500 individuals. Using this simulated dataset, we performed a bootstrap procedure with 1,000 iterations. Each iteration corresponded to an experimental design adhering to the OECD TG 222 guidelines, where individuals were randomly assigned to replicates according to the recommended structure. This approach allowed us to estimate the variability and potential biases in parameter inference under the constraints of a typical ERA experimental design. This approach allowed us to calculate the Type M (magnitude) and Type S (sign) errors on the effect estimation, providing insights into the reliability and accuracy of the inferred parameters under the constraints of a typical ERA experimental design.
+
+The R file used and the corresponding results are available in the `bootstrap` folder. The script ran on a Macbook Air M2 for about 12 hours.
+
+We start by loading the results of our previous model with all the 30 replicates per groups for comparison :
+
+```{r, message=F, warning=F}
+#| tbl-cap: Results summary of the model with 30 individuals in each group
+#| label: tbl-resmod30ind
+#| code-fold: show
+
+m.30 <- brm(file=here::here("mod/m_brms_VI_post"))
+res_30 <- as.data.frame(posterior_summary(m.30))
+
+L0_est30       <- res_30$Estimate[1]
+a_ctrl_est30   <- res_30$Estimate[2]
+a_trt_est30    <- res_30$Estimate[3]
+L0sd_est30     <- res_30$Estimate[4]
+asd_ctrl_est30 <- res_30$Estimate[5]
+asd_trt_est30  <- res_30$Estimate[6]
+
+effect_est30   <- a_trt_est30/a_ctrl_est30
+effectsd_est30 <- asd_trt_est30/asd_ctrl_est30
+
+res_show <- res_30[1:7,] |> 
+  datatable(options = list(dom = 't'), class="hover") 
+res_show
+```
+
+We can then load the results of the bootstrap :
+
+```{r}
+#| tbl-cap: 6 first line of the bootstrap result
+#| label: tbl-resOECDindboot
+#| code-fold: show
+
+load(file=here::here("bootstrap/Bootstrap_VI_OECD_seed121212_28j_f.RData"))
+
+df_draws <- res_f
+
+df_draws_show <- df_draws[1:4] |> 
+  datatable(options = list(dom = 't'), class="hover", rownames=FALSE) 
+df_draws_show
+```
+
+Finally, we can calculate the parameter estimation errors for all iterations.
+
+```{r errcalc}
+df_draws_f <- df_draws %>%
+  mutate(
+    err_L0              = (L0_est30-L0_est)/L0_est30,
+    err_a_ctrl          = (a_ctrl_est-a_ctrl_est30)/a_ctrl_est30,
+    err_a_trt           = (a_trt_est-a_trt_est30)/a_trt_est30,
+    effect              = a_trt_est/a_ctrl_est,
+    err_effect          = (effect-effect_est30)/effect_est30,
+    err_L0sd            = (L0sd_est-L0sd_est30)/L0sd_est30,
+    err_asd_ctrl        = (asd_ctrl_est-asd_ctrl_est30)/asd_ctrl_est30,
+    err_asd_trt         = (asd_trt_est-asd_trt_est30)/asd_trt_est30,
+    effectsd            = asd_trt_est/asd_ctrl_est,
+    err_effectsd        = (effectsd-effectsd_est30)/effectsd_est30,
+    bol_contrary_ccl_mu = (a_trt_est>a_ctrl_est),
+    bol_contrary_ccl_sd = (asd_trt_est<asd_ctrl_est)
+  )
+```
+
+```{r, warning=F, message=F}
+#| fig-cap: Error percentage on the different model parameters and the estimated effect on mean growth rate and its individual variation obtained with a bootstrap (n = 1000) with 8 or 4 replicates for the non-exposed and exposed conditions respectively (type M errors). One replicate represents 10 randomly chosen individuals. The bin width for estimated means and the error on the estimated individual variations are 5% and 15% respectively. The median of the distributions are 3.7% and 16.3% respectively. 
+#| label: fig-errOECDboot
+#| fig-height: 10
+#| fig-width: 6
+
+alpha_stat <- 0.7
+alpha_expo <- 0.3
+linevertic <- 1.2
+alpha_dens <- 0.5
+
+x_min_err    <- -0.3*100
+x_max_err    <- -x_min_err
+x_min_errsd  <- -4.4*100
+x_max_errsd  <- -x_min_errsd
+bin_width    <- 0.05*100
+bin_width_sd <- 0.15*100
+
+sizetitle <- 10
+
+plot_L0 <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_L0*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width,
+    color=Nord_polar[4], 
+    fill = Nord_polar[4], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0, , 
+    linetype="dashed"
+    )+
+  xlim(
+    x_min_err, 
+    x_max_err
+    )+
+  labs(
+    x=TeX(r"( Error on $L0_{\mu}$ (%) )"), 
+    y=""
+    )+
+  theme_bw(sizetitle)
+
+plot_a_ctrl <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_a_ctrl*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width,
+    color=pal_col[1], 
+    fill = pal_col[1], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0, 
+    linetype="dashed"
+    )+
+  labs(
+    x=TeX(r"( Error on $a_{non\ exposed,\mu}$ (%) )"), 
+    y=""
+    )+
+  xlim(
+    x_min_err, 
+    x_max_err
+    )+
+  theme_bw(sizetitle)
+
+plot_a_trt <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_a_trt*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width,
+    color=pal_col[2], 
+    fill = pal_col[2], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0, 
+    linetype="dashed"
+    )+
+  labs(
+    x=TeX(r"( Error on $a_{exposed,\mu}$ (%) )"), 
+    y=""
+    )+
+  xlim(
+    x_min_err, 
+    x_max_err
+    )+
+  theme_bw(sizetitle)
+
+plot_effect <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_effect*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width,
+    color=Nord_polar[1], 
+    fill = Nord_polar[1], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0, 
+    linetype="dashed"
+    )+
+  labs(
+    x=bquote("Error on the estimated mean effect (%)"), 
+    y=""
+    )+
+  xlim(
+    x_min_err, 
+    x_max_err
+    )+
+  theme_bw(sizetitle)
+
+plot_L0sd <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_L0sd*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width_sd,
+    color=Nord_polar[4], 
+    fill = Nord_polar[4], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0, 
+    linetype="dashed"
+    )+
+  labs(
+    x=TeX(r"( Error on $L0_{\sigma}$ (%) )"), 
+    y=""
+    )+
+  xlim(
+    x_min_errsd, 
+    x_max_errsd
+    )+
+  theme_bw(sizetitle)
+
+plot_asd_ctrl <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_asd_ctrl*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width_sd,
+    color=pal_col[1], 
+    fill = pal_col[1], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0, 
+    linetype="dashed"
+    )+
+  labs(
+    x=TeX(r"( Error on $a_{non\ exposed,\sigma}$ (%) )"), 
+    y=""
+    )+
+  xlim(
+    x_min_errsd, 
+    x_max_errsd
+    )+
+  theme_bw(sizetitle)
+
+plot_asd_trt <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_asd_trt*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width_sd,
+    color=pal_col[2], 
+    fill = pal_col[2], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0,
+    linetype="dashed"
+    )+
+  labs(
+    x=TeX(r"( Error on $a_{exposed,\sigma}$ (%) )"), 
+    y=""
+    )+
+  xlim(
+    x_min_errsd, 
+    x_max_errsd
+    )+
+  theme_bw(sizetitle)
+
+plot_effectsd <- ggplot(
+  data=df_draws_f, 
+  aes(x=err_effectsd*100)
+  )+
+  geom_histogram(
+    binwidth=bin_width_sd,
+    color=Nord_polar[1], 
+    fill = Nord_polar[1], 
+    alpha=alpha_expo
+    )+
+  geom_vline(
+    xintercept = 0,
+    linetype="dashed"
+    )+
+  labs(
+    x=bquote("Error on the estimated effect\n on individual variation (%)"), 
+    y=""
+    )+
+  xlim(
+    x_min_errsd, 
+    x_max_errsd
+    )+
+  theme_bw(sizetitle)
+
+plot <- plot_L0 + plot_L0sd + plot_a_ctrl + plot_asd_ctrl+ plot_a_trt+ plot_asd_trt + plot_effect + plot_effectsd +
+  plot_layout(
+    ncol=2, 
+    guides="collect"
+    ) & 
+  theme(
+    legend.position = "right", 
+    title=element_text(size=sizetitle, face="bold"), 
+    axis.title.x = element_text(face="plain")
+    )
+plot
+```
+
+```{r, include=F}
+ggsave(
+  filename="Bootstrap_OECD_res_err.png", 
+  plot=plot, 
+  width=6, 
+  height = 10, 
+  path=here::here("fig/")
+  )
+```
+
+```{r}
+#| tbl-cap: Statistical summary of the parameters distributions (in % or error)
+#| label: tbl-resOECDsummary
+
+df_res_draws <- df_draws_f %>%
+  pivot_longer(
+    cols = -ID_draws, # Garde ID_draws intact
+    names_to = "variable",
+    values_to = "value"
+  ) %>%
+  group_by(variable) %>%
+  summarise(
+    median = median(value)*100,
+    mean = mean(value)*100,
+    Q2.5 = quantile(value, 0.025)*100,
+    Q97.5 = quantile(value, 0.975)*100
+  )
+
+selected_var <- c("err_L0", "err_a_ctrl", "err_a_trt", "err_L0sd", "err_asd_ctrl", "err_asd_trt", "err_effect", "err_effectsd")
+
+df_res_draws <- df_res_draws |> 
+  filter(variable %in% selected_var)
+
+df_res_draws_show <- df_res_draws |> datatable(
+  options = list(dom = 't'), 
+  class="hover"
+  ) |> 
+  formatRound(columns = 2:length(df_res_draws), digits = 2)
+df_res_draws_show
+
+mean_err_effect <- round(subset(df_res_draws, variable == "err_effect")$mean,2)
+mean_err_effectsd <- round(subset(df_res_draws, variable == "err_effectsd")$mean,2)
+  
+```
+
+```{r}
+#| tbl-cap: Percentage of iteration for which the error on the different model parameters and effects on mean growth rate and its individual variation is inferior to the given x value. 
+#| label: tbl-resOECDind
+
+x = c(.05,.10,.25, .50, .75, .90, .95, 1, 2, 3, 4)
+
+df_err <- data.frame(x = x) %>%
+  mutate(
+    L0       = map_dbl(x, ~ sum(abs(df_draws_f$err_L0) <= .x) / 1000*100),
+    a_ctrl   = map_dbl(x, ~ sum(abs(df_draws_f$err_a_ctrl) <= .x) / 1000*100),
+    a_trt    = map_dbl(x, ~ sum(abs(df_draws_f$err_a_trt) <= .x) / 1000*100),
+    asd_ctrl = map_dbl(x, ~ sum(abs(df_draws_f$err_asd_ctrl) <= .x) / 1000*100),
+    asd_trt  = map_dbl(x, ~ sum(abs(df_draws_f$err_asd_trt) <= .x) / 1000*100),
+    effect   = map_dbl(x, ~ sum(abs(df_draws_f$err_effect) <= .x) / 1000*100),
+    effectsd = map_dbl(x, ~ sum(abs(df_draws_f$err_effectsd) <= .x) / 1000*100)
+  )
+
+l_df_err <- length(df_err)
+
+df_err_show <- df_err |> 
+  datatable(
+    options = list(dom = 't'), 
+    class="hover", 
+    rownames=FALSE
+    )  |> 
+  formatRound(columns = 1:length(df_err), digits = 2)
+
+df_err_show
+
+Per_sample_err_effect_5 <- subset(df_err, x == 0.05)$effect
+Per_sample_err_effect_10 <- subset(df_err, x == 0.10)$effect
+nb_err_effectsd_sup100 <- (100-subset(df_err, x == 1.0)$effectsd)/100*1000
+```
+
+```{r typeS}
+Count_mu_higher_in_exposed <- length(subset(df_draws_f, bol_contrary_ccl_mu==TRUE)$ID_draws)
+Count_sd_lower_in_exposed <- length(subset(df_draws_f, bol_contrary_ccl_sd==TRUE)$ID_draws)
+
+Per_contrary_ccl_mu <- Count_mu_higher_in_exposed/1000*100
+Per_contrary_ccl_sd <- Count_sd_lower_in_exposed/1000*100
+```
+
+When compared to our experimental design using 30 individuals, the results of this bootstrap indicate that the population-level effect would still be well estimated with deviations not exceeding ±5% and 10% in `r Per_sample_err_effect_5`% and `r Per_sample_err_effect_10`% of the samples, respectively, but with an average overestimation of `r mean_err_effect`%. However, estimating individual-level variability proved much more challenging, with errors reaching up to 200% in `r nb_err_effectsd_sup100` samples. This suggests that the variation in growth rate among individuals would likely be poorly captured, with the effect often underestimated by approximately 50%, and in some cases, overestimated by more than 200%. We also note that the direction of the effect was misestimated in `r Per_contrary_ccl_mu`% of cases for the mean effect and `r Per_contrary_ccl_sd`% for individual variation (type S error).
+
+These simulations of an OECD protocol identified important limitations of simplified traditional approaches, particularly in tests with a single control and one concentration. By simulating fewer replicates with measurements at the replicate scale, we demonstrated that small studies may fail to capture the full range of inter-individual differences and, in some cases, increase the risk of misinterpreting the direction of a substance’s effect. For example, in a hypothetical scenario of a simplified design of the OECD earthworm reproduction test with only one concentration tested, estimation errors could have led to incorrect conclusions about the effect direction in a non negligible percentage of cases, suggesting a beneficial effect. These results raise concerns about the robustness of underpowered studies with limited replicates and tested doses for environmental risk assessment, emphasizing the value of adequately sized experiments to improve the reliability of conclusions.

@@ -1,0 +1,409 @@
+```{r, include=F, warning=F, message=F}
+library(tidyverse); library(here); library(ggthemes)
+library(viridis); library(tidybayes); library(wesanderson)
+library(ggdist); library(patchwork); library(extrafont)
+library(parallel); library(deSolve); library(tmvtnorm)
+library(fdrtool); library(readxl); library(here); library(easystats)
+library(RColorBrewer); library(devtools); library(car); library(plotly)
+library(knitr); library(Hmisc); library(nlstools); library(lsmeans)
+library(ggpubr); library(gridExtra) ;
+library(modelsummary);
+library(plan); library(brms); library(ggmcmc); library(latex2exp);
+library(reshape2); library(ggbreak); library(nord); library(ggtext); 
+library(kableExtra); library(DT); library(glmmTMB); library(priorsense); 
+library(renv)
+
+sizetitle <- 12
+
+Nord_frost <- nord(palette = "frost")
+Nord_polar <- nord(palette = "polarnight")
+
+col_blue <- "#5E81AC"
+col_red <- "#f42404"
+pal_col <- c(col_blue, col_red)
+
+pal_blue <- c("#5E81AC", "#7F9DC4", "#A0C1D9", "#DCE9F2")
+pal_red <- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
+```
+
+# Supplementary information
+
+```{r, warning=F, message=F}
+
+df_growth <- read_excel("data/Data_growth_EPX_DMX.xlsx", sheet="Growth") # <1>
+
+dead <- subset(df_growth, t==14 & status == "D")$ID 
+                                                                         # <2>
+df_growth <- df_growth |> 
+  subset(t<57 & (!ID %in% dead)) |>                                      # <3>
+  mutate(
+    L            = w^(1/3),
+    exposition   = 0 + 1*(exposition == "Trt"),
+    exposition_f = as.factor(exposition)
+    )
+
+df_growth$exposition <- as.factor(df_growth$exposition)
+df_growth$ID <- as.factor(df_growth$ID)
+
+df_growth_mean <- df_growth |>                                           # <6>
+  aggregate(w ~ t + exposition, mean)                                    # <6>
+
+# Number of individuals in each group
+n_ctrl <- length(subset(df_growth, t==0 & exposition == 0)$ID)
+n_trt <- length(subset(df_growth, t==0 & exposition == 1)$ID)
+
+```
+
+## Choice of the model
+
+Different models were tested to chose the appropriate model. We tested the inclusion of individual variation and of a correlation between $L0$ and $a$. We also tested an other form of linearisation of growth with @eq-growth2.
+
+$$
+Log(w_{c,i})=L0_i+\alpha_{c,i}\times t
+$$ {#eq-growth2}
+
+With $w_{c,i}$ being the measured fresh weight of the earthworm $i$ exposed to the concentration $c$ of pesticides.
+
+```{r compmoddef}
+bf.mod.1 <- bf(# Equation
+  L ~ L0+a*t,
+  L0~1,
+  a~0+exposition,
+  # Data transformation for calculations
+  center=T,
+  # Non linearity
+  nl=T
+  )
+
+bf.mod.3.VI.cor <- bf(# Equation
+  L ~ L0+a*t,
+  L0~1+(1|c|ID),
+  a~0+exposition+(0+exposition|c|ID),
+  # Data transformation for calculations
+  center=T,
+  # Non linearity
+  nl=T
+  )
+
+bf.mod.4.log <- bf(# Equation
+  log(w) ~ L0+a*t, 
+  L0~1,
+  a~0+exposition,
+  # Data transformation for calculations
+  center=T,
+  # Non linearity
+  nl=T
+  )
+
+bf.mod.5.log.VI <- bf(# Equation
+  log(w) ~ L0+a*t, 
+  L0~1+(1||ID),
+  a~0+exposition+(0+exposition||ID),
+  # Data transformation for calculations
+  center=T,
+  # Non linearity
+  nl=T
+  )
+
+bf.mod.6.log.VI.cor <- bf(# Equation
+  log(w) ~ L0+a*t, 
+  L0~1+(1|c|ID),
+  a~0+exposition+(0+exposition|c|ID),
+  # Data transformation for calculations
+  center=T,
+  # Non linearity
+  nl=T
+  )
+
+```
+
+We use the same priors for all models.
+
+```{r priorscompmod}
+
+priors.VI.cor <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) + 
+  prior(normal(2.25*0.2, 2.25*0.2), class = sd, nlpar = L0)+
+  # Mean values of a for the two cohorts
+  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) + 
+  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) + 
+  # Individual variations values of a for the two cohorts
+  prior(normal(0.075*0.2, 0.075*0.2), class=sd, 
+        coef=exposition0, group=ID, nlpar = a)+
+  prior(normal(0.075*0.2, 0.075*0.2), class=sd, 
+        coef=exposition1, group=ID, nlpar = a)+
+  # Default prior for correlations
+  # Résidus
+  prior(exponential(1), sigma)
+
+priors.noVI <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) +
+  # Mean values of a for the two cohorts
+  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) + 
+  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) + 
+  # Résidus
+  prior(exponential(1), sigma)
+
+priors.3 <- priors.VI.cor
+priors.1 <- priors.noVI
+
+priors.4 <- priors.noVI
+priors.5 <- priors
+priors.6 <- priors.VI.cor
+
+```
+
+```{r compmodrun}
+
+m.1 <- brm(
+  data = df_growth, 
+  bf.mod.1, 
+  backend = "rstan",
+  prior = priors.1,
+  save_pars = save_pars(all = TRUE),
+  sample_prior = "yes",
+  seed = 42,
+  chains = 4, cores = 4,
+  iter = 6000, warmup = 1000,
+  control = list(
+    adapt_delta = .95,
+    max_treedepth = 12
+    ),
+  file="mod/model_choice/m.1"
+  )
+
+m.2 <- m.1.VI.post
+
+
+m.3 <- brm(
+  data = df_growth, 
+  bf.mod.3.VI.cor, 
+  backend = "rstan",
+  prior = priors.3,
+  save_pars = save_pars(all = TRUE),
+  sample_prior = "yes",
+  seed = 42,
+  chains = 4, cores = 4,
+  iter = 6000, warmup = 1000,
+  control = list(
+    adapt_delta = .95,
+    max_treedepth = 12
+    ),
+  file="mod/model_choice/m.3.VI.cor"
+  )
+
+m.4 <- brm(
+  data = df_growth, 
+  bf.mod.4.log, 
+  backend = "rstan",
+  prior = priors.4,
+  save_pars = save_pars(all = TRUE),
+  sample_prior = "yes",
+  seed = 42,
+  chains = 4, cores = 4,
+  iter = 6000, warmup = 1000,
+  control = list(
+    adapt_delta = .95,
+    max_treedepth = 12
+    ),
+  file="mod/model_choice/m.4.log"
+  )
+
+m.5 <- brm(
+  data = df_growth, 
+  bf.mod.5.log.VI, 
+  backend = "rstan",
+  prior = priors.5,
+  save_pars = save_pars(all = TRUE),
+  sample_prior = "yes",
+  seed = 42,
+  chains = 4, cores = 4,
+  iter = 6000, warmup = 1000,
+  control = list(
+    adapt_delta = .95,
+    max_treedepth = 12
+    ),
+  file="mod/model_choice/m.5.log.VI"
+  )
+
+m.6 <- brm(
+  data = df_growth, 
+  bf.mod.6.log.VI.cor, 
+  backend = "rstan",
+  prior = priors.6,
+  save_pars = save_pars(all = TRUE),
+  sample_prior = "yes",
+  seed = 42,
+  chains = 4, cores = 4,
+  iter = 6000, warmup = 1000,
+  control = list(
+    adapt_delta = .95,
+    max_treedepth = 12
+    ),
+  file="mod/model_choice/m.6.log.VI.cor"
+  )
+
+```
+
+```{r, warning=F, message=F}
+
+m.1 <- add_criterion(m.1, criterion=c("waic", "loo"))
+m.2 <- add_criterion(m.2, criterion=c("waic", "loo"))
+m.3 <- add_criterion(m.3, criterion=c("waic", "loo"))
+m.4 <- add_criterion(m.4, criterion=c("waic", "loo"))
+m.5 <- add_criterion(m.5, criterion=c("waic", "loo"))
+m.6 <- add_criterion(m.6, criterion=c("waic", "loo"))
+```
+
+```{r compmodwaic, warning=F, message=F}
+#| fig-cap: WAIC comparison plot of all tested models. 
+#| label: fig-waicplot
+#| fig-height: 4
+#| fig-width: 6
+
+w <- loo_compare(m.1, m.2, m.3, m.4, m.5, m.6, criterion = "waic")
+
+print(w, simplify = F)
+cbind(waic_diff = w[, 1] * -2,
+      se        = w[, 2] * 2)
+
+plot <- w[, 7:8] %>% 
+  data.frame() %>% 
+  rownames_to_column("model_name") %>% 
+  ggplot(
+    aes(
+      x = waic, 
+      y = model_name, 
+      xmin = waic - se_waic, 
+      xmax = waic + se_waic)
+    ) +
+  geom_pointrange(
+    color = pal_col[2], 
+    fill = pal_col[2], 
+    shape = 21, 
+    alpha=0.7
+    ) +
+  labs(
+    title = "My custom WAIC plot",
+    x = NULL, 
+    y = NULL
+    ) +
+  theme_bw()+
+  theme(axis.ticks.y = element_blank())
+
+
+plot
+
+```
+
+```{r compmodloo}
+#| fig-cap: LOO comparison plot of all tested models. 
+#| label: fig-looplot
+#| fig-height: 4
+#| fig-width: 6
+
+w <- loo_compare(m.1, m.2, m.3, m.4, m.5, m.6, criterion = "loo")
+
+
+print(w, simplify = F)
+cbind(waic_diff = w[, 1] * -2,
+      se        = w[, 2] * 2)
+
+plot <- w[, 7:8] %>% 
+  data.frame() %>% 
+  rownames_to_column("model_name") %>% 
+  ggplot(
+    aes(
+      x = looic, 
+      y = model_name,
+      xmin = looic - se_looic, 
+      xmax = looic + se_looic
+      )
+    ) +
+  geom_pointrange(
+    color = pal_col[2], 
+    fill = pal_col[2], 
+    shape = 21
+    ) +
+  labs(
+    title = "My custom LOO plot",
+    x = NULL, 
+    y = NULL
+    ) +
+  theme_bw()+
+  theme(axis.ticks.y = element_blank())
+
+plot
+```
+
+## Comparison with a frequentist approach
+
+### Frequentist LMMs using glmmTMB
+
+```{r freq}
+
+# Model with no effect between cohorts
+glmmTMB.null = glmmTMB(
+  L ~ t , 
+  df_growth
+  )
+# Model with the effect of the pesticide only
+glmmTMB.trt <-  glmmTMB(
+  L ~ exposure_f * t, 
+  df_growth
+  )
+# Model with only inter-individual variation
+glmmTMB.vi <-  glmmTMB(
+  L ~  t + (t|ID), 
+  df_growth
+  )
+# Model with the effect of the pesticide and inter-individual variation not depending on exposition
+glmmTMB.trt.vi <-  glmmTMB(
+  L ~  exposure_f * t + (t|ID), 
+  df_growth
+  )
+# Model with the effect of the pesticide and inter-individual variation depending on exposition
+glmmTMB.trt.vi.2 <-  glmmTMB(
+  L ~ exposure_f * t + (exposure_f * t || ID), 
+  df
+  )
+
+check_model(glmmTMB.null); check_model(glmmTMB.trt)
+check_model(glmmTMB.vi); check_model(glmmTMB.trt.vi)
+check_model(glmmTMB.trt.vi.2)
+
+modelplot(glmmTMB.null); modelplot(glmmTMB.trt) 
+modelplot(glmmTMB.vi); modelplot(glmmTMB.trt.vi)
+modelplot(glmmTMB.trt.vi.2)
+
+# AIC model comparison
+compare_performance(
+  glmmTMB.null, glmmTMB.trt, glmmTMB.vi, glmmTMB.trt.vi, glmmTMB.trt.vi.2,
+  rank = TRUE, 
+  verbose = FALSE
+  )
+
+plot(
+  compare_performance(
+    glmmTMB.null, glmmTMB.trt, glmmTMB.vi, glmmTMB.trt.vi, glmmTMB.trt.vi.2,
+    rank = TRUE, 
+    verbose = FALSE
+    )
+  )
+```
+
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+
+<b> Session Information </b>
+
+</button>
+
+:::: {#collapseOne .accordion-collapse .collapse}
+<div>
+
+```{r}
+sessionInfo()
+```
+
+</div>
+::::
+
+:::::

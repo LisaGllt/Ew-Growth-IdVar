@@ -1,0 +1,2206 @@
+```{r, include=F, warning=F, message=F}
+library(tidyverse); library(here); library(ggthemes)
+library(viridis); library(tidybayes); library(wesanderson)
+library(ggdist); library(patchwork); library(extrafont)
+library(parallel); library(deSolve); library(tmvtnorm)
+library(fdrtool); library(readxl); library(here); library(easystats)
+library(RColorBrewer); library(devtools); library(car); library(plotly)
+library(knitr); library(Hmisc); library(nlstools); library(lsmeans)
+library(ggpubr); library(gridExtra) ; library(grid);
+library(modelsummary);
+library(plan); library(brms); library(ggmcmc); library(latex2exp);
+library(reshape2); library(ggbreak); library(nord); library(ggtext); 
+library(kableExtra); library(DT); library(grid);
+library(rstan); library(cmdstanr)
+
+sizetitle <- 12
+
+Nord_frost <- nord(palette = "frost")
+Nord_polar <- nord(palette = "polarnight")
+
+col_blue <- "#5E81AC"
+col_red <- "#f42404"
+pal_col <- c(col_blue, col_red)
+
+pal_blue <- c("#5E81AC", "#7F9DC4", "#A0C1D9", "#DCE9F2")
+pal_red <- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
+```
+
+# Analysis of experimental data
+
+The model is now fitted on our experimental data.
+
+## Data used
+
+```{r datagrowth, warning=F, message=F}
+#| code-fold: show
+
+df_growth <- read_excel(here::here("data/Data_growth_EPX_DMX.xlsx"), sheet="Growth") # <1>
+
+dead <- subset(df_growth, t==14 & status == "D")$ID                                  # <2>
+
+df_growth <- df_growth |> 
+  subset(t<57 & (!ID %in% dead)) |>                                                  # <3>
+  mutate(
+    L            = w^(1/3),                                                          # <4>
+    exposition   = as.factor(0 + 1*(exposition == "Trt")),                           # <5>
+    ID           = as.factor(ID)
+    )
+
+df_growth_mean <- df_growth |>                                                       # <6>
+  aggregate(w ~ t + exposition, mean)                                                # <6>
+
+n_ctrl <- length(subset(df_growth, t==0 & exposition == 0)$ID)                       # <7>
+n_trt <- length(subset(df_growth, t==0 & exposition == 1)$ID)                        # <7>
+
+```
+
+1.  Raw data importation
+2.  Individuals that died before day 56
+3.  Dataset of the first 56 days without the dead individuals
+4.  Structural length calculation (mg$^{1/3}$/d)
+5.  Creation of a new exposition variable for the sake of short model parameters' names
+6.  Creation of a dataset with the mean growth per exposition group
+7.  Number of individuals in each group
+
+```{r, warning=F, message=F}
+#| fig-cap: Evolution of fresh body weight of non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points and thin lines, each line corresponding to one individual).
+#| label: fig-growthdataset2
+#| fig-width: 6
+#| fig-height: 4
+
+alpha_point <- 0.5
+alpha_line <- 0.3
+
+p_growth <- ggplot(
+  data=df_growth, 
+  aes(
+    x=t, 
+    y=w, 
+    color=exposition, 
+    group=ID
+    )
+  ) +
+  
+  geom_line(
+    lwd=0.8, 
+    alpha=alpha_line, 
+    color = "grey80"
+    ) +
+  geom_point(
+    alpha=alpha_point, 
+    size=2
+    ) +
+  facet_wrap(~exposition) +
+  
+  scale_color_manual(
+    values = pal_col, 
+    label  = c("Non exposed", "Exposed"), 
+    name   = ""
+    ) +
+  
+  labs(
+    x         = "Time (days)", 
+    y         = "Weight (mg)",
+    title     = "Growth monitoring",
+    subtitle  = "For the <span style = 'color:#5E81AC;'>non exposed</span> 
+       and <span style = 'color:#f42404;'>exposed</span> groups"
+    )+
+  
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  
+  theme_minimal(12)+
+  theme(
+    legend.position = "none",
+        
+    title=element_markdown(face="bold"),
+    plot.subtitle=element_markdown(face="plain"),
+        
+    axis.title=element_text(face="plain"),
+        
+    strip.background = element_blank(),
+    strip.text = element_blank()
+    )
+
+p_growth
+
+```
+
+Comparison of the initial state in both cohorts :
+
+```{r vartestt0}
+df_growth_t0 <- subset(df_growth, t==0)  # <1>
+
+# Equality of variances
+var.test(                                # <2>
+  subset(df_growth_t0, exposition==0)$w, # <2>
+  subset(df_growth_t0, exposition==1)$w  # <2>
+  )                                      # <2>
+```
+
+1.  Dataset for t=0.
+2.  Equality of weight variance test between the two groups.
+
+The datasets are not inconsistent with a ratio of variances equal to 1.
+
+```{r ttestt0}
+# Equality of means
+t.test(df_growth_t0$w~df_growth_t0$exposition, var.equal=T)
+```
+
+We can conclude there is no effect of the cohort on the initial weight of the individuals.
+
+## Model prior definition {#sec-modeldef}
+
+```{r moddef}
+#| code-fold: show
+
+# Model definition
+bf.mod.VI <- 
+  
+  bf(
+    L  ~ L0+a*t,                            # <1> 
+    L0 ~ 1 + (1||ID),                       # <2>
+    a  ~ 0 + exposition+(0+exposition||ID), # <3>
+    
+    center=T,                               # <4>
+    nl=T                                    # <5>
+  )                              
+
+```
+
+1.  Equation of L depending on t
+2.  Each individual can have its own L0 value but L0 does not depend on the exposition
+3.  Each individual can have its own a value and a depend on the exposition
+4.  Data are centered in the calculation process
+5.  Our parameters have non-linear definitions
+
+```{r modparamlist}
+List_parameters <- 
+  
+  c(
+    "b_L0_Intercept",       # L0_mu
+    "sd_ID__L0_Intercept",  # L0_sd
+    "b_a_exposition0",      # a_ctrl_mu
+    "b_a_exposition1",      # a_trt_mu
+    "sd_ID__a_exposition0", # a_ctrl_sd
+    "sd_ID__a_exposition1", # a_trt_sd
+    "sigma"                 # Residuals variance
+  )
+```
+
+The model parameters are named as follows by `brms` :
+
+-   $L0_{\mu}$ : `b_L0_Intercept`
+-   $L0_{\sigma}$ : `sd_ID__L0_Intercept`
+-   $a_{\text{ctrl},\mu}$ : `b_a_exposition0`
+-   $a_{\text{trt},\mu}$ : `b_a_exposition1`
+-   $a_{\text{ctrl},\sigma}$ : `sd_ID__a_exposition0`
+-   $a_{\text{trt},\sigma}$ : `sd_ID__a_exposition1`
+
+## Priors definition
+
+The priors were defined according to the results of @bart_2020a considering the studied non-exposed individuals. The same priors are given to the two cohorts. A growth rate individual variation of 20% was given as a prior for the two cohort.
+
+!!!!!!!!!!! JUSTIF CHOIX PRIORS !!!!!!!!!!!!!!!!!!!!!!!!!!
+
+```{r prior}
+#| code-fold: show
+
+# Priors definition
+priors <- 
+  prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) +          # <1>
+  prior(normal(2.25*0.2, 2.25*0.2), class = sd, nlpar = L0)+          # <2> 
+
+  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) + # <3>
+  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) + # <4>
+
+  prior(normal(0.075*0.2, 0.075*0.2), class=sd,                       # <5>
+        coef=exposition0, group=ID, nlpar = a)+                       # <5>
+  prior(normal(0.075*0.2, 0.075*0.2), class=sd,                       # <6>
+        coef=exposition1, group=ID, nlpar = a)+                       # <6>
+
+  prior(exponential(1), sigma)                                        # <7>
+
+```
+
+1.  Prior on $L0_{\mu}$
+2.  Prior on $L0_{\sigma}$
+3.  Prior on $a_{\text{ctrl},\mu}$
+4.  Prior on $a_{\text{trt},\mu}$
+5.  Prior on $a_{\text{ctrl},\sigma}$
+6.  Prior on $a_{\text{trt},\sigma}$
+7.  Prior on residuals
+
+```{r}
+#| fig-cap: Priors of our model.
+#| label: fig-priorplot
+#| fig-height: 12
+#| fig-width: 12
+
+col_dens <- Nord_polar[1]
+alpha_dens <- 0.5
+sizetitle <- 18
+
+priors$nlpar <- factor(priors$nlpar, levels = c("L0", "a")) 
+
+
+p1 <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "b") %>% 
+  ggplot(
+    aes(
+      xdist = .dist_obj, 
+      y = format(.dist_obj),
+      color = coef,
+      fill = coef
+      )
+    ) +
+  stat_dist_halfeye(
+    alpha = alpha_dens
+  ) +
+  facet_wrap(
+    ~nlpar+coef, 
+    scales = "free"
+    ) +
+  scale_color_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
+  scale_fill_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
+  ggtitle("Intercepts") +
+  labs(
+    x = "Value",
+    y = "Density"
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face="bold", size = sizetitle),
+    strip.text = element_text(face="plain", size = sizetitle-2),
+        )
+
+p2 <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "sd") %>% 
+  ggplot(
+    aes(
+      xdist = .dist_obj, 
+      y = format(.dist_obj),
+      color = coef,
+      fill = coef
+      )
+    ) +
+  stat_dist_halfeye(
+    alpha = alpha_dens
+  ) +
+  facet_wrap(
+    ~nlpar+coef, 
+    scales = "free"
+    ) +
+  scale_color_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
+  scale_fill_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
+  ggtitle("Inter-individual variances") +
+  labs(
+    x = "Value",
+    y = "Density"
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face="bold", size = sizetitle),
+    strip.text = element_text(face="plain", size = sizetitle-2),
+    )
+
+p3 <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "sigma") %>% 
+  ggplot(
+    aes(
+      xdist = .dist_obj, 
+      y = format(.dist_obj),
+      color = coef,
+      fill = coef
+      )
+    ) +
+  stat_dist_halfeye(
+    alpha = alpha_dens
+  ) +
+  facet_wrap(
+    ~nlpar, 
+    scales = "free"
+    ) +
+  scale_color_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
+  scale_fill_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
+  ggtitle("Residual variance") +
+  labs(
+    x = "Value",
+    y = "Density"
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face="bold", size = sizetitle),
+    strip.text = element_text(face="plain", size = sizetitle-2),
+    )
+
+p <- p1 + p2 + p3 + 
+  plot_layout(ncol = 1)&
+  theme(legend.position = "none")
+p
+```
+
+```{r savepriorsplot, include=F, message=F, warning=F}
+ggsave(
+  filename="ModVI_priors.png", 
+  plot=p, 
+  width=8, height = 10, 
+  path=here::here("fig/")
+  )
+
+ggsave(
+  filename="ModVI_priors.svg", 
+  plot=p, 
+  width=8, height = 10, 
+  path=here::here("fig/")
+  )
+```
+
+## Prior predictive check
+
+In bayesian modeling, we first perform a prior predictive check before fitting the model to our data. This allows us to check on the rationnality of the chosen priors.
+
+Results of the model with the sampling of priors :
+
+```{r, warning=F, message=F}
+
+m.1.VI.prior <- 
+  
+  brm(
+    data = df_growth,                   # <1>
+    bf.mod.VI,                          # <2>
+    backend = "cmdstanr",               # <3>
+    prior = priors,                     # <4>
+    sample_prior = "only",              # <5>
+    cores = 4,                          # <6>
+    seed = 42,                          # <7>
+    iter = 1000, warmup = 500,          # <8>
+    control = list(
+      adapt_delta = .95,                # <9>
+      max_treedepth = 12                # <9>
+      ), 
+    file=here::here("mod/m_brms_VI_prior")   # <10>
+  )
+
+print(m.1.VI.prior)
+
+```
+
+1.  Data used
+2.  Model to be used
+3.  Type of backend for calculations
+4.  Priors to be used
+5.  Work only done with priors and not the data
+6.  Cores for calculations
+7.  Seed for reproducibility
+8.  A total of 1000 interations are done with 500 that are part of the warmup phase
+9.  Control parameters on the iterations
+10. Path where the model results are saved
+
+We can then plot the predictions of this model and see if they represent at least the full range of our experimental data.
+
+```{r, echo = T, warning=F}
+#| fig-cap: Prior predictive check.
+#| label: fig-priorpredVI
+#| fig-height: 4
+#| fig-width: 8
+
+pred <- predicted_draws(m.1.VI.prior, newdata=df_growth) # <1> 
+
+y_max <- 480
+
+p_ctrl <- ggplot()+
+  
+  stat_lineribbon(
+    data = pred[pred$exposition == 0,], 
+    aes(x = t, y = .prediction^3, group = exposition),
+    .width=c(.99,.95,.8,.5),
+    color="black"
+    )+
+  geom_line(
+    data = df_growth[df_growth$exposition==0,],
+    aes(x = t, y = L^3, group=ID),
+    color = "black",
+    alpha = 0.4
+    )+
+  geom_point(
+    data = df_growth[df_growth$exposition==0,],
+    aes(x = t, y = L^3, group = ID),
+    color = "black",
+    alpha = 0.4
+    )+
+  
+  scale_fill_manual(values = rev(pal_blue))+
+  
+  labs(y="Weight (mg)", x="Time (days)")+
+  
+  ylim(0, y_max)+
+  
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  
+  theme_minimal()+
+  theme(legend.position = "none")
+
+
+p_trt <- ggplot()+
+  
+  stat_lineribbon(
+    data = pred[pred$exposition==1,],
+    aes(x = t, y=.prediction^3, group=exposition),
+    .width=c(.99,.95,.8,.5),
+    color="black"
+    )+
+  geom_point(
+    data = df_growth[df_growth$exposition==1,],
+    aes(x = t, y = L^3, group = ID),
+    color = "black",
+    alpha = 0.4
+    )+
+  geom_line(
+    data = df_growth[df_growth$exposition==1,],
+    aes(x = t, y = L^3, group = ID),
+    color = "black",
+    alpha = 0.4
+    )+
+  
+  scale_fill_manual(values = rev(pal_red))+
+  
+  labs(y="Weight (mg)", x="Time (days)")+
+  
+  ylim(0, y_max)+
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  
+  theme_minimal(14)+
+  theme(legend.position = "none")
+
+plot.prior_pred <- p_ctrl + p_trt + 
+  plot_layout(ncol = 2, guides = "collect") & 
+  theme(
+    legend.position = "right", 
+    title=element_text(face="bold"), 
+    axis.title.x = element_text(face="plain"),
+    axis.title.y = element_text(face="plain")
+    )
+
+plot.prior_pred
+```
+
+1.  Predictions from the model
+
+The @fig-priorpredVI shows the chosen priors are realistic.
+
+## Posterior predictive check
+
+### Model fit
+
+We can now fit the model to our experimental data.
+
+```{r, warning=F, message=F}
+#| code-fold: show
+
+m.1.VI.post <- 
+  
+  brm(
+    data = df_growth,                              # <1>
+    bf.mod.VI,                                     # <2>
+    backend = "cmdstanr",                          # <3>
+    prior = priors,                                # <4>
+    save_pars = save_pars(all = TRUE),             # <5>
+    sample_prior = "yes",                          # <6>
+    seed = 42,                                     # <7>
+    chains = 4, cores = 4,                         # <8>
+    iter = 6000, warmup = 1000,                    # <9>
+    control = list(adapt_delta = .95,              # <10>
+    max_treedepth = 12),                           # <10>
+    file=here::here("mod/m_brms_VI_post")   # <11>
+  )
+
+print(m.1.VI.post)
+
+```
+
+1.  Data used
+2.  Model to be used
+3.  Type of backend for calculations
+4.  Priors to be used
+5.  We want all parameters to be saved
+6.  Work done with priors and the data
+7.  Number of chains and cores for calculations
+8.  Seed for reproducibility
+9.  A total of 6000 interations are done with 1000 that are part of the warmup phase
+10. Control parameters on the iterations
+11. Path where the model results are saved
+
+### Parameter estimation results
+
+Chains recuperation and calculation of additional parameters :
+
+```{r chainspost, warning=F, message=F}
+                                             
+df_chains <- ggs(m.1.VI.post, burnin = T) |>                    # <1>
+  filter(Parameter %in% List_parameters) |>                     # <1>
+  mutate(                                                       # <1>
+    Chain=as.factor(Chain),                                     # <1>
+    value=value                                                 # <1>
+    )                                                           # <1>
+                                             
+df_chains_post <- df_chains |>                                  # <2>
+  filter(Iteration>1000)                                        # <2>
+
+df_chains_median <- df_chains_post |>                           # <3>
+  aggregate(value ~ Parameter, median) |>                       # <3>
+  rename(median = value)                                        # <3>
+
+Param_a_mu <- c(
+  "b_a_exposition0", 
+  "b_a_exposition1"
+  )
+Param_a_sd <- c(
+  "sd_ID__a_exposition0", 
+  "sd_ID__a_exposition1"
+  )
+Param_ctrl <- c(
+  "b_a_exposition0", 
+  "sd_ID__a_exposition0"
+  )
+Param_trt <- c(
+  "b_a_exposition1", 
+  "sd_ID__a_exposition1"
+  )
+Param_t0 <- c(
+  "b_L0_Intercept",
+  "sd_ID__L0_Intercept", 
+  "Delta_a_mu", 
+  "Delta_a_sd",
+  "sigma"
+  )
+
+df_chains_post_large <-                        # <4>
+  dcast(                                       # <4>
+    data = df_chains_post,                     # <4>
+    formula = Iteration + Chain ~ Parameter,   # <4>
+    value.var = 'value'                        # <4>
+  )                                            # <4>
+
+df_chains_post_large <- df_chains_post_large |>                 # <4>
+  mutate(                                                       # <4>
+    Delta_a_mu = b_a_exposition1-b_a_exposition0,               # <4>
+    Ratio_a_mu = b_a_exposition1/b_a_exposition0,               # <4>
+    Delta_a_sd = sd_ID__a_exposition1-sd_ID__a_exposition0,     # <4>
+    Ratio_a_sd = sd_ID__a_exposition1/sd_ID__a_exposition0,     # <4>
+    LnRR = log(b_a_exposition1/b_a_exposition0),                 # <4>
+    LnCVR = log((sd_ID__a_exposition1/b_a_exposition1)/(sd_ID__a_exposition0/b_a_exposition0))                    # <4>
+  )
+
+df_chains_post_long <- df_chains_post_large |>                  # <4>
+  melt(                                                         # <4>
+    id.vars=c("Iteration", "Chain"),                            # <4>
+    measure.vars=colnames(df_chains_post_large)[-c(1,2)],       # <4>
+    variable.name="Parameter",                                  # <4>
+    value.name="value"                                          # <4>
+  )                                                             # <4>
+
+
+df_chains_post_long <- df_chains_post_long |> 
+  mutate(
+    exposition = case_when(
+      Parameter %in% Param_ctrl ~ "Non exposed",
+      Parameter %in% Param_trt ~ "Exposed",
+      Parameter %in% Param_t0 ~ "General")
+    )
+
+```
+
+1.  Extraction of each chain iterations values for each parameters
+2.  Only iterations after the warmup phase
+3.  Adding medians from each distribution
+4.  Calculation and addition of 2 columns: $\Delta a_{\mu} = a_{\text{trt},\mu} - a_{\text{ctrl},\mu}$ & $\Delta a_{\sigma} = a_{\text{trt},\sigma} - a_{\text{ctrl},\sigma}$
+
+The results of the pesticides effect can be expressed with a response ratio (Ln(RR), @eq-LnRR) and a coefficient of variation ratio (Ln(CVi), @eq-LnCVi).
+
+$$
+\text{Ln}(\text{RR}) = \text{Ln}\left( \frac{a_{ctrl,\mu}}{a_{trt,\mu}} \right)
+$$ {#eq-LnRR}
+
+$$
+\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right) - \frac{1}{2(n_{trt}-1)}-\frac{1}{2(n_{ctrl}-1)}\\
+$$ {#eq-LnCVi}
+
+With :
+
+$$
+CV_{x}=\frac{a_{x,\sigma}}{a_{x,\mu}}
+$$
+
+Parameters estimation results :
+
+```{r, warning=F}
+#| fig-cap: Prior (light grey) and posterior distributions for each parameter.
+#| label: fig-priorpost
+#| fig-height: 12
+#| fig-width: 12
+
+alpha_dens <- 0.5
+alpha_dens_prior <- 0.2
+font_size <- 12
+col_dens <- Nord_polar[1]
+col_dens_ctrl <- Nord_frost[4]
+col_dens_trt <- col_red
+size_norm <- 0.7
+
+prior_L0_mu <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "b" & nlpar == "L0")
+prior_L0_sd <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "sd" & nlpar == "L0")
+
+prior_a_ctrl_mu <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "b" & nlpar == "a" & coef == "exposition0")
+prior_a_ctrl_sd <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "sd" & nlpar == "a" & coef == "exposition0")
+
+prior_a_trt_mu <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "b" & nlpar == "a" & coef == "exposition1")
+prior_a_trt_sd <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "sd" & nlpar == "a" & coef == "exposition1")
+
+prior_sigma <- priors %>% 
+  parse_dist() %>% 
+  filter(class == "sigma")
+
+plot_L0_mu <-
+  ggplot() +
+  stat_dist_halfeye(
+    data = prior_L0_mu,
+    aes(
+      xdist = .dist_obj
+      ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens_prior
+  ) +
+  stat_halfeye(
+    data = subset(df_chains_post_long,Parameter == "b_L0_Intercept"),
+    mapping = aes(
+      x=value,
+    ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens
+  ) +
+  labs(
+    x = "Value",
+    y = "Density",
+    title = bquote(bold("Mean initial structural length " (mg^{1/3})))
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face = "bold")
+        )
+
+plot_L0_sd <-
+  ggplot() +
+  stat_dist_halfeye(
+    data = prior_L0_sd,
+    aes(
+      xdist = .dist_obj
+      ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens_prior
+  ) +
+  stat_halfeye(
+    data = subset(df_chains_post_long,Parameter == "sd_ID__L0_Intercept"),
+    mapping = aes(
+      x=value,
+    ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens
+  ) +
+  labs(
+    x = "Value",
+    y = "Density",
+    title = bquote(bold("Individual variation of\ninitial structural length " (mg^{1/3})))
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face = "bold")
+        )
+
+plot_a_ctrl_mu <-
+  ggplot() +
+  stat_dist_halfeye(
+    data = prior_a_ctrl_mu,
+    aes(
+      xdist = .dist_obj
+      ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens_prior
+  ) +
+  stat_halfeye(
+    data = subset(df_chains_post_long,Parameter == "b_a_exposition0"),
+    mapping = aes(
+      x=value,
+    ),
+    fill = col_dens_ctrl,
+    color = col_dens_ctrl,
+    alpha = alpha_dens
+  ) +
+  labs(
+    x = "Value",
+    y = "Density",
+    title = bquote(bold("Mean growth rate " (mg^{1/3}/d))),
+    subtitle = "Non-exposed"
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face = "bold")
+        )
+
+plot_a_trt_mu <-
+  ggplot() +
+  stat_dist_halfeye(
+    data = prior_a_trt_mu,
+    aes(
+      xdist = .dist_obj
+      ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens_prior
+  ) +
+  stat_halfeye(
+    data = subset(df_chains_post_long,Parameter == "b_a_exposition1"),
+    mapping = aes(
+      x=value,
+    ),
+    fill = col_dens_trt,
+    color = col_dens_trt,
+    alpha = alpha_dens
+  ) +
+  labs(
+    x = "Value",
+    y = "Density",
+    title = bquote(bold("Mean growth rate " (mg^{1/3}/d))),
+    subtitle = "Exposed"
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face = "bold")
+        )
+
+plot_a_ctrl_sd <-
+  ggplot() +
+  stat_dist_halfeye(
+    data = prior_a_ctrl_sd,
+    aes(
+      xdist = .dist_obj
+      ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens_prior
+  ) +
+  stat_halfeye(
+    data = subset(df_chains_post_long,Parameter == "sd_ID__a_exposition0"),
+    mapping = aes(
+      x=value,
+    ),
+    fill = col_dens_ctrl,
+    color = col_dens_ctrl,
+    alpha = alpha_dens
+  ) +
+  labs(
+    x = "Value",
+    y = "Density",
+    title = bquote(bold("Inter-individual variation\nof growth rate " (mg^{1/3}/d))),
+    subtitle = "Non-exposed"
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face = "bold")
+        )
+
+plot_a_trt_sd <-
+  ggplot() +
+  stat_dist_halfeye(
+    data = prior_a_trt_sd,
+    aes(
+      xdist = .dist_obj
+      ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens_prior
+  ) +
+  stat_halfeye(
+    data = subset(df_chains_post_long,Parameter == "sd_ID__a_exposition1"),
+    mapping = aes(
+      x=value,
+    ),
+    fill = col_dens_trt,
+    color = col_dens_trt,
+    alpha = alpha_dens
+  ) +
+  labs(
+    x = "Value",
+    y = "Density",
+    title = bquote(bold("Inter-individual variation\nof growth rate " (mg^{1/3}/d))),
+    subtitle = "Exposed"
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face = "bold")
+        )
+
+plot_sigma <-
+  ggplot() +
+  stat_dist_halfeye(
+    data = prior_sigma,
+    aes(
+      xdist = .dist_obj
+      ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens_prior
+  ) +
+  stat_halfeye(
+    data = subset(df_chains_post_long,Parameter == "sigma"),
+    mapping = aes(
+      x=value,
+    ),
+    fill = col_dens,
+    color = col_dens,
+    alpha = alpha_dens
+  ) +
+  labs(
+    x = "Value",
+    y = "Density",
+    title = bquote(bold("Residual variance" (mg^{1/3})))
+    )+
+  theme_minimal()+
+  theme(
+    axis.text.y = element_text(angle = 90),
+    plot.title = element_text(face = "bold")
+        )
+
+
+p <- (plot_L0_mu+ plot_a_ctrl_mu + plot_a_trt_mu)/(plot_L0_sd + plot_a_ctrl_sd   + plot_a_trt_sd) / plot_sigma 
+p
+
+```
+
+The fit on data gives information on model parameters as the posterior distributions are much more restrictive on parameter values than our priors.
+
+```{r tableres}
+#| tbl-cap: Comparaison  of the different statistical values of the posterior distributions
+#| label: tbl-compvalposttheoVI
+
+df_res_VI <- summarise_draws(tidy_draws(m.1.VI.post))
+
+df_res_VI_show <- df_res_VI[1:7,]
+
+df_res_VI_show |> datatable(
+  options = list(
+    dom = 't',
+    columnDefs = list(
+      list(className = 'dt-left', targets = "_all")
+      )
+    ), 
+  class="hover"
+  ) |> 
+  formatRound(columns = 2:length(df_res_VI_show), digits = 4)
+
+```
+
+```{r}
+ratio_effet_mu <- abs(round((df_res_VI_show$median[3]-df_res_VI_show$median[2])/df_res_VI_show$median[2],2)*100)
+augmentation_effet_sd <- round(df_res_VI_show$median[6]/df_res_VI_show$median[5],2)
+
+per_ind_var_ctrl <- round(df_res_VI_show$median[5]/df_res_VI_show$median[2]*100, 2)
+per_ind_var_trt <- round(df_res_VI_show$median[6]/df_res_VI_show$median[3]*100, 2)
+```
+
+The model estimations show a **reduction of `r ratio_effet_mu` % in the mean growth rate** but a **multiplication by `r augmentation_effet_sd` of the inter-individual variation of the growth rate**.
+
+There are `r per_ind_var_ctrl` % of growth individual variation in the non-exposed group and `r per_ind_var_trt` % in the exposed group.
+
+```{r lnRRCVI}
+#| tbl-cap: Effect size results
+#| label: tbl-lnRRCVI
+
+# Calculation of the results for Ln(RR) and Ln(CVi)
+
+Median_LnRR <- median(subset(df_chains_post_long, Parameter=="LnRR")$value)
+Median_LnCVR <- median(subset(df_chains_post_long, Parameter=="LnCVR")$value)
+Median_LnRR_print <- round(Median_LnRR, 2)
+Median_LnCVR_print <- round(Median_LnCVR, 2)
+
+Median_Ratio_a_mu <- median(subset(df_chains_post_long, Parameter=="Ratio_a_mu")$value)
+Median_Ratio_a_sd <- median(subset(df_chains_post_long, Parameter=="Ratio_a_sd")$value)
+
+CI_Ratio_a_mu <- bayestestR::ci(subset(df_chains_post_long, Parameter=="Ratio_a_mu")$value, method = "ETI", ci = 0.90)
+CI_Ratio_a_mu_p <- paste("[", round(CI_Ratio_a_mu$CI_low,2), " ; ", round(CI_Ratio_a_mu$CI_high,2), "]", sep="")
+CI_Ratio_a_sd <- bayestestR::ci(subset(df_chains_post_long, Parameter=="Ratio_a_sd")$value, method = "ETI", ci = 0.90)
+CI_Ratio_a_sd_p <- paste("[", round(CI_Ratio_a_sd$CI_low,2), " ; ", round(CI_Ratio_a_sd$CI_high,2), "]", sep="")
+
+CI_LnRR <- bayestestR::ci(subset(df_chains_post_long, Parameter=="LnRR")$value, method = "ETI", ci = 0.90)
+CI_LnRR_p <- paste("[", round(CI_LnRR$CI_low,2), " ; ", round(CI_LnRR$CI_high,2), "]", sep="")
+
+CI_LnCVR <- bayestestR::ci(subset(df_chains_post_long, Parameter=="LnCVR")$value, ci = 0.90)
+CI_LnCVR_p <- paste("[", round(CI_LnCVR$CI_low,2), " ; ", round(CI_LnCVR$CI_high,2), "]", sep="")
+
+pd_LnRR <- p_direction(subset(df_chains_post_long, Parameter=="LnRR")$value)
+pd_LnCVR <- p_direction(subset(df_chains_post_long, Parameter=="LnCVR")$value)
+
+pd_Ratio_a_mu <- p_direction(subset(df_chains_post_long, Parameter=="Ratio_a_mu")$value)
+pd_Ratio_a_sd <- p_direction(subset(df_chains_post_long, Parameter=="Ratio_a_sd")$value)
+
+df_res_Ln <- data.frame(
+  Variable = c("LnRR", "LnCVR", "Ratio a_mu", "Ratio a_sd"),
+  Median = c(Median_LnRR, Median_LnCVR, Median_Ratio_a_mu, Median_Ratio_a_sd),
+  CI = c(CI_LnRR_p, CI_LnCVR_p, CI_Ratio_a_mu_p, CI_Ratio_a_sd_p),
+  pd = c(pd_LnRR$pd, pd_LnCVR$pd, pd_Ratio_a_mu$pd, pd_Ratio_a_sd$pd)
+) |> 
+  mutate(
+    Median = round(Median, 3)
+  )
+
+# Results expressed as LnRR and LnCVR
+df_res_Ln |> datatable(
+  options = list(
+    dom = 't',
+    autoWidth = TRUE,
+    columnDefs = list(
+      list(className = 'dt-left', targets = "_all")
+      )
+    ), 
+  class="hover"
+  ) 
+```
+
+### Chains
+
+We can check if the chains look good (@fig-chainsVI) and have a first look to the posterior distributions (@fig-postdistribVI).
+
+```{r chainspost, echo=T, message=F, warning=F}
+#| fig-cap: Parameters chains (without the first 1000 iterations of warmup).
+#| label: fig-chainsVI
+#| fig-height: 5
+#| fig-width: 8
+
+plot <-  
+  ggplot(
+    data = df_chains_post, 
+    aes(
+      x = Iteration, 
+      y = value, 
+      color = Chain, 
+      group = Chain
+      )
+  )+
+  geom_line(alpha=0.7)+
+  facet_wrap(~Parameter, scales = "free", ncol = 2)+
+  
+  scale_color_manual(values = nord(palette = "frost"))+
+  
+  theme_bw()+
+  theme(
+    legend.position = "right", 
+    title=element_text(size=12, face="plain"), 
+    axis.title.x = element_text(face="plain"),
+    strip.background = element_rect(fill="white")
+    )
+
+plot
+
+```
+
+```{r savechains, include=F, message=F, warning=F}
+
+ggsave(
+  filename="ModVI_post_chains.png", 
+  plot=plot, 
+  width=8, height = 5, 
+  path=here::here("fig/")
+  )
+
+ggsave(
+  filename="ModVI_post_chains.svg", 
+       plot=plot, 
+  width=8, height = 5, 
+  path=here::here("fig/")
+  )
+```
+
+We can also check on the parameters correlations (@fig-pairsVI).
+
+```{r, echo = T}
+#| fig-cap: Parameters correlations
+#| label: fig-pairsVI
+#| fig-height: 10
+#| fig-width: 10
+
+bayesplot::color_scheme_set("gray")
+p <- pairs(m.1.VI.post, regex=T)
+p
+```
+
+```{r savecorr, include=F, message=F, warning=F}
+
+ggsave(
+  filename="ModVI_post_corr.png", 
+  plot=p, 
+  width=10, height = 10, 
+  path=here::here("fig/")
+  )
+
+ggsave(
+  filename="ModVI_post_corr.svg", 
+       plot=p, 
+  width=10, height = 10, 
+  path=here::here("fig/")
+  )
+
+```
+
+### Comparison of observed vs predicted data
+
+```{r dfpred, warning=F, message=F}
+pred <- predicted_draws(m.1.VI.post, newdata=df_growth)
+post_i <- as.data.frame(posterior_summary(m.1.VI.post))
+
+ID <- subset(df_growth, t==0)$ID
+expo <- subset(df_growth, t==0)$exposition
+
+df_estimates <- 
+  data.frame(
+    ID                = ID,
+    exposition        = expo,
+    r_L0_i            = post_i$Estimate[8:(8+length(ID)-1)],
+    r_a_i_expo_0      = post_i$Estimate[(8+length(ID)):(8+length(ID)*2-1)],
+    r_a_i_expo_1      = post_i$Estimate[(8+length(ID)*2):(8+length(ID)*3-1)],
+    r_a_i_2.5_expo_0  = post_i$Q2.5[(8+length(ID)):(8+length(ID)*2-1)],
+    r_a_i_2.5_expo_1  = post_i$Q2.5[(8+length(ID)*2):(8+length(ID)*3-1)],
+    r_a_i_97.5_expo_0 = post_i$Q97.5[(8+length(ID)):(8+length(ID)*2-1)],
+    r_a_i_97.5_expo_1 = post_i$Q97.5[(8+length(ID)*2):(8+length(ID)*3-1)]
+    ) |> 
+  mutate(
+    L0_i = post_i$Estimate[1]+r_L0_i,
+    a_i = case_when(
+      exposition == 0 ~ post_i$Estimate[2]+r_a_i_expo_0,
+      exposition == 1 ~ post_i$Estimate[3]+r_a_i_expo_1
+      ),
+    a_i_2.5 = case_when(
+      exposition==0 ~ post_i$Q2.5[2]+r_a_i_expo_0,
+      exposition==1 ~ post_i$Q2.5[3]+r_a_i_expo_1
+      ),
+    a_i_97.5 = case_when(
+      exposition==0 ~ post_i$Q97.5[2]+r_a_i_expo_0,
+      exposition==1 ~ post_i$Q97.5[3]+r_a_i_expo_1
+      )
+    ) |> 
+  select(ID, exposition, L0_i, a_i, a_i_2.5, a_i_97.5)
+
+df_pred_mean <- pred |> 
+  aggregate(
+    .prediction ~ t + ID + exposition, 
+    FUN=mean
+    )
+
+df_pred_Q <- pred |> 
+  aggregate(
+    .prediction ~ t + ID + exposition, 
+    FUN='quantile', 
+    probs=c(2.5, 97.5)/100
+    )
+
+
+df_pred <- df_pred_mean |> 
+  cbind(df_pred_Q$.prediction[,1]) |> 
+  cbind(df_pred_Q$.prediction[,2]) |>
+  mutate(Expo=case_when(exposition==0 ~ "Non exposed",
+                        exposition==1 ~ "Exposed"))
+
+colnames(df_pred) <- c("t", "ID", "exposition", 
+                       "pred_L_mean", "pred_L_Q2.5", "pred_L_Q97.5", "Expo")
+```
+
+```{r predobs, warning=F, message=F}
+#| fig-cap: Results of the model fit on experimental data. Predicted values are represented with points with their respective credibility interval of 95%. Red points correspond to the predicted value for exposed individuals and blue points for the non exposed individuals. Dashed and dotted lines represent the 1.5-folds and 2-fold changes, respectively. The full line represents the identity line. 
+#| label: fig-predobsw
+#| fig-height: 13
+#| fig-width: 12
+
+df_growth_ordered <- df_growth |> arrange(t) |> arrange(ID)
+
+df_data_pred_obs <- df_pred |>
+  mutate(
+    w_obs = df_growth_ordered$w,
+    ratio_predobs = pred_L_mean^3 / w_obs
+    )
+
+fact_1 <- 1.5
+fact_2 <- 2
+
+seq_line <- seq(1.1, 600, 0.1)
+
+df_line <- data.frame(
+  x1  = seq_line,
+  y1  = seq_line*fact_1,
+  x_1 = seq_line,
+  y_1 = seq_line/fact_1,
+  x2  = seq_line,
+  y2  = seq_line*fact_2,
+  x_2 = seq_line,
+  y_2 = seq_line/fact_2
+  )
+
+plot_predobs_log <- ggplot()+ 
+  
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x1, y=y1), 
+    linetype="dashed"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x_1, y=y_1), 
+    linetype="dashed"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x2, y=y2), 
+    linetype="dotted"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x_2, y=y_2), 
+    linetype="dotted"
+    )+
+  geom_abline(intercept=0, slope=1)+
+  geom_pointrange(
+    data = df_data_pred_obs, 
+    aes(
+      x=w_obs,
+      y=pred_L_mean^3,
+      ymin=pred_L_Q2.5^3,
+      ymax=pred_L_Q97.5^3, 
+      color=Expo
+      ), 
+    alpha=0.5
+    )+
+  
+  scale_x_log10(limits=c(1.6, 700))+
+  scale_y_log10(limits=c(1.6, 700))+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  labs(
+    x="Observed weight (mg)", 
+    y="Predicted weight (mg)"
+    )+
+  
+  theme_minimal(24)+
+  theme(legend.position = "bottom")
+
+plot_predobs_log
+```
+
+```{r}
+#| tbl-cap: Percentage of points in the X-fold change area
+#| label: tbl-foldpred
+# Percentage of points in the X-fold change area
+f_fold <- function(fold){
+  res <- length(
+    subset(
+      df_data_pred_obs, 
+      ratio_predobs < fold & ratio_predobs > -fold
+      )$w_obs
+    )/length(subset(df_data_pred_obs, !is.na(w_obs))$t)
+  return(res)
+}
+
+df_fold <- data.frame(fold = c(1.1, 1.2, 1.25, 1.3, 1.5, 1.7, 2)) %>%
+  mutate(per = signif(mapply(f_fold, fold),2)*100)
+
+colnames(df_fold) <- c("Fold", "Percentage of predictions within")
+
+df_fold |> datatable(options = list(dom = 't'), class="hover")
+```
+
+::: panel-tabset
+## Non-exposed
+
+```{r, warning=F, message=F}
+#| fig-cap: Results of the model fit on experimental data. Predicted values are represented with points with their respective credibility interval of 95%. Red points correspond to the predicted value for exposed individuals and blue points for the non exposed individuals. Dashed and dotted lines represent the 1.5-folds and 2-fold changes, respectively. The full line represents the identity line. 
+#| label: fig-predobswindctrl
+#| fig-height: 25
+#| fig-width: 10
+
+## Non-exposed
+
+plot_predobs_log_ind_ctrl_save <- ggplot()+ 
+  
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x1, y=y1), 
+    linetype="dashed"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x_1, y=y_1), 
+    linetype="dashed"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x2, y=y2), 
+    linetype="dotted"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x_2, y=y_2), 
+    linetype="dotted"
+    )+
+  
+  geom_abline(intercept=0, slope=1)+
+  
+  geom_pointrange(
+    data = subset(df_data_pred_obs, exposition == 0), 
+    aes(
+      x=w_obs,
+      y=pred_L_mean^3,
+      ymin=pred_L_Q2.5^3,
+      ymax=pred_L_Q97.5^3, 
+      color=Expo
+      ), 
+    alpha=0.5
+    )+
+  
+  facet_wrap(~ID, ncol=4)+
+  
+  scale_x_log10(limits=c(1.6, 700))+
+  scale_y_log10(limits=c(1.6, 700))+
+  
+  scale_color_manual(values=pal_col, name="")+
+  scale_fill_manual(values=pal_col, name="")+
+  
+  labs(
+    x="Observed weight (mg)", 
+    y="Predicted weight (mg)"
+    )+
+  
+  theme_minimal(20)+
+  theme(
+    legend.position = "bottom",
+    axis.text=element_text(size=10)
+    )
+plot_predobs_log_ind_ctrl_save
+
+
+```
+
+## Exposed
+
+```{r, warning=F, message=F}
+#| fig-cap: Results of the model fit on experimental data. Predicted values are represented with points with their respective credibility interval of 95%. Red points correspond to the predicted value for exposed individuals and blue points for the non exposed individuals. Dashed and dotted lines represent the 1.5-folds and 2-fold changes, respectively. The full line represents the identity line. 
+#| label: fig-predobswindtrt
+#| fig-height: 25
+#| fig-width: 10
+
+## Exposed
+
+plot_predobs_log_ind_trt_save <- ggplot()+ 
+  
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x1, y=y1), 
+    linetype="dashed"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x_1, y=y_1), 
+    linetype="dashed"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x2, y=y2), 
+    linetype="dotted"
+    )+
+  geom_line(
+    data=df_line, 
+    mapping=aes(x=x_2, y=y_2), 
+    linetype="dotted"
+    )+
+  
+  geom_abline(intercept=0, slope=1)+
+  
+  geom_pointrange(
+    data = subset(df_data_pred_obs, exposition == 1), 
+    aes(
+      x=w_obs,
+      y=pred_L_mean^3,
+      ymin=pred_L_Q2.5^3,
+      ymax=pred_L_Q97.5^3, 
+      color=Expo
+      ), 
+    alpha=0.5
+    )+
+  
+  facet_wrap(~ID, ncol=4)+
+  
+  scale_x_log10(limits=c(1.6, 700))+
+  scale_y_log10(limits=c(1.6, 700))+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  labs(
+    x="Observed weight (mg)", 
+    y="Predicted weight (mg)"
+    )+
+  
+  theme_minimal(20)+
+  theme(
+    legend.position = "bottom",
+    axis.text=element_text(size=10)
+    )
+plot_predobs_log_ind_trt_save
+```
+:::
+
+```{r, include=F, message=F, warning=F}
+ggsave(
+  filename="ModVI_predobs_weights.png", 
+  plot=plot_predobs_log, 
+  width=12, height = 13, 
+  path=here::here("fig/")
+  )
+
+ggsave(
+  filename="ModVI_predobs_weights_ind_ctrl.png", 
+  plot=plot_predobs_log_ind_ctrl_save, 
+  width=10, height = 14, 
+  path=here::here("fig/"), 
+  limitsize = FALSE
+  )
+ggsave(
+  filename="ModVI_predobs_weights_ind_trt.png", 
+  plot=plot_predobs_log_ind_trt_save, 
+  width=10, height = 14, 
+  path=here::here("fig/"), 
+  limitsize = FALSE
+  )
+
+ggsave(
+  filename="ModVI_predobs_weights.svg", 
+  plot=plot_predobs_log, 
+  width=12, height = 10,
+  path=here::here("fig/")
+  )
+ggsave(
+  filename="ModVI_predobs_weights_ind_ctrl.svg", 
+  plot=plot_predobs_log_ind_ctrl_save, 
+  width=10, height = 14, 
+  path=here::here("fig/"), 
+  limitsize = FALSE
+  )
+ggsave(
+  filename="ModVI_predobs_weights_ind_trt.svg", 
+  plot=plot_predobs_log_ind_trt_save, 
+  width=10, height = 14, 
+  path=here::here("fig/"), 
+  limitsize = FALSE
+  )
+```
+
+### Model predictions
+
+We now check the predictions of the model at the population level (@fig-postpredVI) and the individual level (@fig-postpredVIindctrl & @fig-postpredVIindtrt) :
+
+```{r predmean, echo = T, warning=F}
+#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points and thin lines, each line corresponding to one individual). Colored ribbons correspond to the different credibility intervals for the mean growth for each cohort. The thicker black lines represent the predicted mean body weight.
+#| label: fig-postpredVI
+#| fig-height: 4
+#| fig-width: 8
+
+y_max <- 480
+
+p_ctrl <- ggplot()+
+  
+  stat_lineribbon(
+    data = pred[pred$exposition == 0,],
+    aes(x=t, y=.prediction^3, group=exposition),
+    .width=c(.99,.95,.8,.5),
+    color="black"
+    )+
+  geom_line(
+    data = df_growth[df_growth$exposition == 0,], 
+    aes(x = t, y = L^3, group = ID), 
+    color = "#141c44", 
+    alpha = 0.4
+    )+
+  geom_point(
+    data = df_growth[df_growth$exposition == 0,], 
+    aes(x = t, y = L^3, group = ID), color = "#141c44", alpha = 0.4
+    )+
+  
+  ylim(0, y_max)+
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  
+  scale_fill_manual(values = rev(pal_blue))+
+  
+  labs(y="Weight (mg)", x="Time (days)")+
+  
+  theme_minimal()+
+  theme(legend.position = "none")
+
+p_trt <- ggplot()+
+  stat_lineribbon(
+    data = pred[pred$exposition == 1,], 
+    aes(x=t, y = .prediction^3, group = exposition),
+    .width = c(.99,.95,.8,.5),
+    color = "black"
+    )+
+  geom_point(
+    data = df_growth[df_growth$exposition == 1,], 
+    aes(x = t, y = L^3, group = ID), 
+    color = "#380000", 
+    alpha = 0.4
+    )+
+  geom_line(
+    data = df_growth[df_growth$exposition == 1,], 
+    aes(x = t, y = L^3, group = ID), 
+    color = "#380000", 
+    alpha = 0.4
+    )+
+  
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  ylim(0, y_max)+
+  
+  
+  scale_fill_manual(values = rev(pal_red))+
+  
+  labs(y = "Weight (mg)", x = "Time (days)")+
+  
+  theme_minimal()+
+  theme(legend.position = "none")
+
+plot.estimates.grp <- p_ctrl + p_trt + 
+  plot_layout(ncol=2, guides="collect") & 
+  theme(
+    legend.position = "right", 
+    title=element_text(face="bold"), 
+    axis.title.x = element_text(face="plain"),
+    axis.title.y = element_text(face="plain")
+    )
+
+plot.estimates.grp
+```
+
+```{r savepredmeanpop, include=F, message=F, warning=F}
+
+ggsave(
+  filename="ModVI_post_pred.png", 
+  plot=plot.estimates.grp, 
+  width=8, height = 4.5, 
+  path=here::here("fig/")
+  )
+
+ggsave(
+  filename="ModVI_post_pred.svg", 
+       plot=plot.estimates.grp, 
+  width=8, height = 4.5, 
+  path=here::here("fig/")
+  )
+```
+
+::: panel-tabset
+## Non-exposed
+
+```{r predid, echo = T, warning=F}
+#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
+#| label: fig-postpredVIindctrl
+#| fig-height: 8
+#| fig-width: 9
+
+p_ctrl <- ggplot()+
+  stat_lineribbon(
+    data = pred[pred$exposition==0,], 
+    aes(x = t, y=.prediction^3, color=exposition, group=ID),
+    .width=c(.99,.95,.8,.5),
+    color="black"
+    )+
+  geom_line(
+    data=df_growth[df_growth$exposition==0,], 
+    aes(x=t, y=L^3, group=ID), 
+    color="#141c44", 
+    alpha=0.25
+    )+
+  geom_point(
+    data=df_growth[df_growth$exposition==0,],
+    aes(x=t, y=L^3, group=ID), 
+    color="#141c44", 
+    alpha=0.3, 
+    size=2.5
+    )+
+  facet_wrap(~ID, ncol=5)+
+  
+  scale_fill_manual(values = rev(pal_blue))+
+  
+  labs(y="Weight (mg)", x="Time (days)")+
+  ylim(0, y_max)+
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  
+  theme_bw()+
+  theme(
+    legend.position = "right", 
+    title=element_text(size=12, face="plain"), 
+    axis.title.x = element_text(face="plain"),
+    strip.background = element_rect(fill="white")
+    )
+p_ctrl
+```
+
+## Exposed
+
+```{r, warning=F, message=F}
+#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
+#| label: fig-postpredVIindtrt
+#| fig-height: 8
+#| fig-width: 9
+
+p_trt <- ggplot()+
+  stat_lineribbon(
+    data = pred[pred$exposition==1,],
+    aes(x = t, y=.prediction^3, color=exposition, group=ID),
+    .width=c(.99,.95,.8,.5),
+    color="black"
+    )+
+  geom_point(
+    data=df_growth[df_growth$exposition==1,], 
+    aes(x=t, y=L^3, group=ID), 
+    color="#380000", 
+    alpha=0.3, 
+    size=2.5
+    )+
+  geom_line(
+    data=df_growth[df_growth$exposition==1,], 
+    aes(x=t, y=L^3, group=ID), 
+    color="#380000", 
+    alpha=0.25
+    )+
+  facet_wrap(~ID, ncol=5, nrow=6)+
+  
+  scale_fill_manual(values = rev(pal_red))+
+  
+  labs(y="Weight (mg)", x="Time (days)")+
+  ylim(0, y_max)+
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  
+  theme_bw()+
+  theme(
+    legend.position = "right", 
+    title=element_text(size=12, face="plain"), 
+    axis.title.x = element_text(face="plain"),
+    strip.background = element_rect(fill="white")
+    )
+p_trt
+```
+:::
+
+```{r, include=F, message=F, warning=F}
+ggsave(
+  filename="ModVI_post_pred_ind_trt.png", 
+  plot=p_trt, 
+  width=12, height = 6.4, 
+  path=here::here("fig/")
+  )
+ggsave(
+  filename="ModVI_post_pred_ind_ctrl.png", 
+  plot=p_ctrl, 
+  width=12, height = 7.68, 
+  path=here::here("fig/")
+  )
+
+ggsave(
+  filename="ModVI_post_pred_ind_trt.svg", 
+  plot=p_trt, 
+  width=12, height = 6.4, 
+  path=here::here("fig/")
+  )
+ggsave(
+  filename="ModVI_post_pred_ind_ctrl.svg", 
+  plot=p_ctrl, 
+  width=12, height = 7.68, 
+  path=here::here("fig/")
+  )
+```
+
+## Individual parameters
+
+```{r, warning=F, message=F}
+#| fig-cap: Distribution of the individual parameters values. 
+#| label: fig-postestimatesind
+#| fig-height: 6
+#| fig-width: 10
+
+plot_L0_i <- ggplot(data=df_estimates, aes(x=L0_i))+
+  
+  stat_dotsinterval(subguide = 'integer')+
+  geom_dotplot(
+    alpha=0.5, 
+    dotsize =0.5,
+    width = 0.7,
+    binwidth = 0.05
+    )+
+  ylim(ymin=0, ymax=0.20)+
+  
+  labs(
+    x = bquote("Estimated initial volumetric structural length " (mg^{1/3})), 
+    y="", 
+    title="L0_i")+
+  
+  theme_ggdist()
+
+plot_a_i <- ggplot(
+  data=df_estimates, 
+  aes(x=a_i, color=exposition, fill=exposition)
+  )+
+  
+  stat_dotsinterval(subguide = 'integer')+
+  geom_dotplot(
+    alpha=0.5, 
+    dotsize =0.7,
+    width = 0.7,
+    binwidth = 0.005
+    )+
+  
+  facet_wrap(~exposition, ncol=1)+
+  
+  ylim(ymin=0, ymax=0.05)+
+  
+  labs(
+    x = bquote("Estimated growth rate " (mg^{1/3}/d)), 
+    y="", 
+    title="a_i"
+    )+
+  
+  scale_color_manual(values=pal_col)+
+  scale_fill_manual(values=pal_col)+
+  
+  theme_ggdist()+
+  theme(
+    legend.position = "bottom",
+    strip.background = element_rect(fill="white"),
+    strip.text=element_blank()
+    )
+
+grid.arrange(
+  plot_L0_i, 
+  plot_a_i, 
+  layout_matrix = cbind(c(1, NA),c(2, 2)))
+```
+
+```{r, warning=F, message=F}
+# Normality tests for the distribution of parameters
+shapiro.test(df_estimates$L0_i)
+shapiro.test(subset(df_estimates, exposition==0)$a_i)
+shapiro.test(subset(df_estimates, exposition==1)$a_i)
+```
+
+```{r diag, warning=F, message=F}
+#| fig-cap: Normality test for parameters' distributions. 
+#| label: fig-qqplotailoi
+#| fig-height: 4
+#| fig-width: 8
+
+col_diag <- Nord_polar[4]
+
+plot_QQ_L0 <- ggplot(mapping=aes(sample=df_estimates$L0_i))+
+  stat_qq(alpha=0.3,color=col_diag)+
+  stat_qq_line(color=col_diag)+
+  labs(x="Normal quantiles", y="Residuals", 
+       title = bquote(bold("Initial structural length")))+
+  theme_bw()
+
+plot_QQ_a_ctrl <- ggplot(
+  mapping=aes(
+    sample=subset(df_estimates, exposition==0)$a_i
+    )
+  )+
+  stat_qq(
+    alpha=0.3,
+    color=col_blue
+    )+
+  stat_qq_line(color=col_blue)+
+  labs(
+    x="Normal quantiles", 
+    y="Residuals", 
+    title=bquote(bold("Growth rate " (mg^{1/3}/d))),
+    subtitle = "Non-exposed"
+       )+
+  theme_bw()
+
+plot_QQ_a_trt <- ggplot(
+  mapping=aes(
+    sample=subset(df_estimates, exposition==1)$a_i
+    )
+  )+
+  stat_qq(
+    alpha=0.3, 
+    color=col_red
+    )+
+  stat_qq_line(color=col_red)+
+  labs(
+    x="Normal quantiles", 
+    y="Residuals", 
+    title=bquote(bold("Growth rate " (mg^{1/3}/d))),
+    subtitle = "Exposed"
+    )+
+  theme_bw()
+
+plot <- plot_QQ_L0 + plot_QQ_a_ctrl + plot_QQ_a_trt + plot_layout(ncol=3)
+plot
+
+```
+
+```{r, include = F}
+t.test(subset(df_estimates, exposition ==0)$a_i, subset(df_estimates, exposition ==1)$a_i)
+```
+
+## Results summary
+
+```{r predtraj, warning=F, message=F}
+#| code-fold: show
+
+# Simulation of predicted trajectories
+
+# Times with weight measurements
+t_values <- seq(0, 56, 0.1)
+
+# Calculation of each earthworm weight at each time point
+df_data_pred <- df_estimates |> 
+  expand_grid(t = t_values) |>   
+  mutate(
+    L = L0_i + a_i * t
+    )
+df_data_pred <- df_data_pred |> 
+  mutate(
+    w = L^3,
+    exposition = case_when(
+      as.numeric(ID)<=30 ~ "Non-exposed",
+      as.numeric(ID)>30 ~ "Exposed")
+  )
+
+df_data_pred$exposition <- factor(
+  df_data_pred$exposition, 
+  levels = c("Non-exposed", "Exposed")
+  )
+```
+
+```{r plotgrowthpred, warning=F, message=F}
+
+line_width <- 1.2
+y_max <- 550
+x_max <- 57
+font_size <- 16
+
+plot_growth_pred <- ggplot()+
+  ylim(ymin=0, ymax=y_max)+
+  xlim(xmin=0, xmax=x_max)+
+  geom_line(
+    data=df_data_pred, 
+    aes(
+      x=t, 
+      y=w, 
+      group=ID, 
+      color=exposition
+      ), 
+    alpha=1
+    )+
+  scale_color_manual(values=pal_col)+
+  scale_fill_manual(values=pal_col)+
+  facet_wrap(~exposition)+
+  scale_x_continuous(
+    limits = c(0, 56),        
+    breaks = seq(0, 56, by = 28),        
+    minor_breaks = seq(0, 56, by = 14)
+  ) +
+  labs(
+    x="Time (days)", 
+    y="Weight (mg)",
+    title = "A"
+    )+ 
+  theme_minimal(font_size+4)+
+  theme(
+    legend.position = "top", 
+    legend.title=element_blank(), 
+    plot.title=element_text(size=sizetitle*1.5, face="bold"), 
+    axis.title.x = element_text(face="plain", size=font_size+2), 
+    axis.title.y = element_text(face="plain", size=font_size+2),
+    strip.background = element_blank(),
+    strip.text = element_blank(),
+    plot.margin = margin(b = 40,
+                         t=10,
+                         l=10,
+                         r=10)
+    )
+```
+
+```{r plotressum, warning=F, message=F}
+
+col_delta <- Nord_polar[4]
+font_size <- 16
+alpha_dens <- 0.6
+alpha_expo <- 0.4
+
+plot_res_mu <- ggplot(
+  data=subset(df_chains_post_long,Parameter %in% Param_a_mu), 
+  aes(
+    #x=Parameter, 
+    y=value,
+    color=exposition, 
+    fill=exposition
+    )
+  )+
+  labs(
+    y=bquote("Mean growth rate " (mg^{1/3}/d)),
+    title = "B"
+    )+
+  stat_halfeye(
+    adjust=0.5,
+    alpha=alpha_expo
+    )+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  theme_classic(font_size)+
+  theme(
+    plot.title=element_text(size=sizetitle*1.5, face="bold"), 
+    axis.line.x=element_blank(),
+    axis.title.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.x=element_blank(),
+    legend.position="none",
+    plot.margin = margin(
+      b = 20,
+      t=20,
+      l=20,
+      r=20
+      )
+    )
+
+plot_res_sd <- ggplot(
+  data=subset(df_chains_post_long,Parameter %in% Param_a_sd), 
+  aes(
+    #x=Parameter, 
+    y=value, 
+    color=exposition, 
+    fill=exposition
+    )
+  )+
+  stat_halfeye(
+    adjust=0.5,
+    alpha=alpha_expo
+    )+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  labs(y=bquote(
+    "Inter-idividual variation of growth rate " (mg^{1/3}/d)
+    ),
+    title = "C"
+    )+
+  
+  theme_classic(font_size)+
+  theme(
+    plot.title=element_text(size=sizetitle*1.5, face="bold"), 
+    axis.line.x=element_blank(),
+    axis.title.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.x=element_blank(),
+    legend.position="none",
+    plot.margin = margin(
+      b = 20,
+      t=20,
+      l=20,
+      r=20
+      )
+    )
+
+plot_res_mu_delta <- ggplot(
+  data=subset(df_chains_post_long,Parameter=="Delta_a_mu"), 
+  aes(
+    #x=Parameter, 
+    y=value
+    ), 
+  color=col_delta, 
+  fill=col_delta
+  )+
+  labs(y="Effect size")+
+  stat_halfeye(
+    adjust=0.5, 
+    alpha=alpha_expo
+    )+
+  geom_abline(
+    intercept=0, 
+    slope=0, 
+    color=col_delta, 
+    linetype="dashed"
+    )+
+  ylim(-0.025, 0.025)+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  theme_classic(font_size-2)+
+  theme(
+    axis.line.x=element_blank(),
+    axis.title.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.x=element_blank(),
+    legend.position="none"
+    )
+
+plot_res_sd_delta <- ggplot(
+  data=subset(df_chains_post_long, Parameter=="Delta_a_sd"), 
+  aes(
+    #x=Parameter, 
+    y=value
+    ), 
+  color=col_delta, 
+  fill=col_delta
+  )+
+  labs(y="Effect size")+
+  stat_halfeye(
+    adjust=0.5,
+    alpha=alpha_expo
+    )+
+  geom_abline(
+    intercept=0, 
+    slope=0, 
+    color=col_delta, 
+    linetype="dashed"
+    )+
+  ylim(-0.025, 0.025)+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  theme_classic(font_size-2)+
+  theme(
+    axis.line.x=element_blank(),
+    axis.title.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.x=element_blank(),
+    legend.position="none"
+    )
+
+plot_res_mu_LnRR <- 
+  ggplot(
+    data=subset(df_chains_post_long,Parameter=="LnRR"), 
+    aes(
+      #x=Parameter, 
+      y=value
+      ), 
+    color=col_delta, 
+    fill=col_delta
+    )+
+  
+  stat_halfeye(
+    adjust=0.5,
+    alpha=alpha_expo
+    )+
+  geom_abline(
+    intercept = 0, 
+    slope = 0, 
+    color = col_delta, 
+    linetype = "dashed"
+    )+
+  annotate(
+    geom = "text", 
+    x = 0.5, 
+    y = 0.18, 
+    label = paste("Median\n =", Median_LnRR_print),
+    size = 4.2
+    )+
+  
+  ylim(-0.25, 0.25)+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  labs(y="Effect size \n(Ln RR)")+
+  
+  theme_classic(font_size-3)+
+  theme(
+    axis.line.x=element_blank(),
+    axis.title.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.x=element_blank(),        
+    legend.position="none"
+    )
+
+plot_res_sd_LnCVR <- 
+  ggplot(
+    data=subset(df_chains_post_long, Parameter=="LnCVR"), 
+    aes(
+      #x=Parameter, 
+      y=value
+      ), 
+    color=col_delta,
+    fill=col_delta
+    )+
+  
+  stat_halfeye(
+    adjust=0.5,
+    alpha=alpha_expo
+    )+
+  geom_abline(
+    intercept=0, 
+    slope=0, 
+    color=col_delta,
+    linetype="dashed"
+    )+
+  annotate(
+    geom = "text", 
+    x = 0.5, 
+    y = -1.4, 
+    label = paste("Median\n =", Median_LnCVR_print),
+    size = 4.2
+    )+
+  ylim(-2, 2)+
+  
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+  
+  labs(y="Effect size \n(Ln CVi)")+
+    
+  theme_classic(font_size-3)+
+  theme(
+    axis.line.x=element_blank(),
+    axis.title.x=element_blank(),
+    axis.ticks.x=element_blank(),
+    axis.text.x=element_blank(),
+    legend.position="none"
+    )
+
+plot <- plot_res_mu + plot_res_sd + 
+  plot_res_mu_delta + plot_res_sd_delta + 
+  plot_res_mu_LnRR + plot_res_sd_LnCVR +
+  plot_layout(ncol=2, guides="collect")
+
+```
+
+```{r plotressum, warning=F, message=F}
+#| fig-cap: Results summary. A) Estimated growth trajectories of non-exposed and exposed individuals (blue = non exposed, red = exposed). B) Comparison of the posterior distribution of the mean growth rate between the two cohorts and the corresponding effect size as the logarithm of the response ratio (Ln RR).  C) Comparison of the posterior distribution of the individual variation of growth rate between the two cohorts and the corresponding effect size as the logarithm of the coefficient of variation ratio (Ln CVi).
+#| label: fig-ressum
+#| fig-height: 12
+#| fig-width: 12
+
+# Results figure
+plot <- grid.arrange(
+  plot_growth_pred, 
+  plot_res_mu, plot_res_sd,
+  plot_res_mu_LnRR, plot_res_sd_LnCVR,
+  ncol=6,
+    layout_matrix = cbind(
+    c(1, 1, 1, 2, 2, 2), 
+    c(1, 1, 1, 2, 2, 2),
+    c(1, 1, 1, 2, 2, 2), 
+    c(1, 1, 1, 2, 2, 2), 
+    c(1, 1, 1, 2, 2, 2),
+    c(1, 1, 1, 4, NA, NA),
+    c(1, 1, 1, 4, NA, NA),
+    c(1, 1, 1, 3, 3, 3), 
+    c(1, 1, 1, 3, 3, 3), 
+    c(1, 1, 1, 3, 3, 3), 
+    c(1, 1, 1, 3, 3, 3),
+    c(1, 1, 1, 3, 3, 3),
+    c(1, 1, 1, 5, NA, NA),
+    c(1, 1, 1, 5, NA, NA)
+    )
+  )
+
+grid::grid.draw(plot)
+```
+
+```{r saveres, include=F}
+ggsave(
+  filename="Test_summary_res.png", 
+  plot=plot, 
+  width=12, height = 12, 
+  path=here::here("fig/")
+  )
+ggsave(
+  filename="Test_summary_res.svg", 
+  plot=plot, 
+  width=12, height = 12, 
+  path=here::here("fig/")
+  )
+```
+
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+
+<b> Session Information </b>
+
+</button>
+
+:::: {#collapseOne .accordion-collapse .collapse}
+<div>
+
+```{r}
+sessionInfo()
+```
+
+</div>
+::::

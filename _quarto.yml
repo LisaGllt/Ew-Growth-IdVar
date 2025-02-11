@@ -1,0 +1,50 @@
+project:
+  type: book
+
+book:
+  title: "Reavealing Hidden Sensitivity - Inter-Individual Growth Variation in Earthworms Exposed to a Fungicide"
+  subtitle: "Git repository"
+  author:
+    - name: "Lisa Gollot"
+      orcid: ""
+      affiliations:
+        - name: "Université Paris-Saclay, INRAE, AgroParisTech, UMR EcoSys,
+91120 Palaiseau, France"
+        - name: "Experimental Toxicology and Modeling Unit, INERIS, Verneuil en Halatte 65550, France"
+  date: "6/25/2024"
+  chapters:
+    - index.qmd
+    - quarto/A_Context_of_the_study.qmd
+    - quarto/B_Growth_experiment.qmd
+    - quarto/C_Model_def_sim_data.qmd
+    - quarto/D_Growth_modeling.qmd
+    #- quarto/Growth_Bart.qmd
+    - quarto/E_Less_replicates.qmd
+    # - quarto/F_SuppInfo.qmd
+    - quarto/references.qmd
+
+bibliography: references/references.bib # ne pas exporter toute la bibliothèse juste la collection PhD
+csl: references/apa.csl
+
+execute:
+  cache: true
+  cache.path: 'cache/'
+
+format:
+  html:
+    code-fold: true
+    code-tools: true
+    code-block-bg: true
+    highlight-style: lightnord.theme
+    code-block-border-left: "#E5E9F0"
+    code-overflow: wrap
+    code-annotations: select
+    theme:
+      - cosmo
+      - html_css.scss
+
+
+editor: 
+    markdown:
+      canonical: true
+
