@@ -3,8 +3,6 @@
 .RData
 .RDataTmp*
 .Ruserdata
-**/.DS_Store
-i
 *.rdb
 /.quarto/
 **/.DS_Store
