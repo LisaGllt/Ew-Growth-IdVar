@@ -25,7 +25,7 @@ sizetitle <- 12
 
 Its life cycle at 15°C is presented @fig-AcaliLC.
 
-![*Aporrectodea caliginosa* life cycle. Figure taken from @bart_2018](../fig/Acali_lifecycle.png){#fig-AcaliLC}
+![*Aporrectodea caliginosa* life cycle. Figure taken from @bart_2018](../photos/Acali_lifecycle.png){#fig-AcaliLC}
 
 ### Eartworm cultivation {#sec-ewcultivation}
 
@@ -608,7 +608,7 @@ p_surv <- ggplot(
     )
   ) +
   
-  geom_step(linewidth = 1.2) +  # Utilise geom_step pour représenter les étapes de la courbe
+  geom_step(linewidth = 1.2) +
   
   scale_color_manual(values=c(col_blue, col_red), labels = c("Non-exposed", "Exposed"))+
   scale_fill_manual(name = "Exposition", values=c(col_blue, col_red))+
@@ -645,8 +645,8 @@ p_surv <- ggplot(
     axis.title.x = element_text(face="plain"), 
     axis.title.y = element_text(face="plain"),
     
-    panel.grid.major.y = element_line(color = "gray70", size = 0.3),  # Lignes principales plus visibles
-    panel.grid.minor.y = element_line(color = "gray90", size = 0.2),  # Lignes secondaires plus subtiles
+    panel.grid.major.y = element_line(color = "gray70", size = 0.3),
+    panel.grid.minor.y = element_line(color = "gray90", size = 0.2), 
     )
 
 p_surv
