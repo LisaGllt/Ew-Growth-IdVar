@@ -31,7 +31,7 @@ Its life cycle at 15°C is presented @fig-AcaliLC.
 
 Individuals used were bred in the laboratory from individuals initially collected from an agricultural field in Estrée-Mons, France (49°52' N, 3°01’ E) in 2019.
 
-Individuals are bred at 18°C in 1 L vessels in groups of five individuals (@fig-ewculti) using a loamy soil texture called Closeaux soil (based on the texture definition of the Food and Agriculture Organization of the United Nations (FAO)), sampled from a permanent grassland in Versailles (48°48′ N, 2°5′ E) where no pesticides have been applied for more than 25 years. Pesticides found in the soil are summarized in @fig-closeauxPPP. The soil was collected from the top 0-20 cm, air-dried and crushed to pass a 2 mm mesh. Soil culture is kept with a soil water-holding capacity (WHC) of 60-70% and individuals are fed with horse dung frost and defrosted twice before being milled (\> 1mm) as presented in @lowe_2005.
+Individuals are bred at 18°C in 1 L vessels in groups of five individuals (@fig-ewculti) using a loamy soil texture called Closeaux soil (based on the texture definition of the Food and Agriculture Organization of the United Nations (FAO)) (@tbl-clx), sampled from a permanent grassland in Versailles (48°48′ N, 2°5′ E) where no pesticides have been applied for more than 25 years. Pesticides found in the soil are summarized in @fig-closeauxPPP. The soil was collected from the top 0-20 cm, air-dried and crushed to pass a 2 mm mesh. Soil culture is kept with a soil water-holding capacity (WHC) of 60-70% and individuals are fed with horse dung frost and defrosted twice before being milled (\> 1mm) as presented in @lowe_2005.
 
 ![Earthworm culture at the EcoSys laboratory in Palaiseau.](../photos/ew_cultivation.jpeg){#fig-ewculti width="50%"}
 
@@ -236,6 +236,24 @@ grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5,
 
 1.  Division of the pesticides in groups of similar concentration levels.
 
+| Characteristics                 | Value |
+|:--------------------------------|:------|
+| Clay (\< 2 µm, g/kg)            | 226.0 |
+| Fine silt (2-20 µm, g/kg)       | 174.1 |
+| Coarse silt (20-50 µm, g/kg)    | 298.9 |
+| Fine sand (50-200 µm, g/kg)     | 239.1 |
+| Coarse sand (200-2000 µm, g/kg) | 47.9  |
+| CaCO3 total (g/kg)              | 23.3  |
+| Organic matter (g/kg)           | 32.6  |
+| P2O5 (g/kg)                     | 0.1   |
+| Organic carbon (g/kg)           | 18.9  |
+| Total nitrogen (N) (g/kg)       | 1.5   |
+| C/N                             | 12.7  |
+| pH                              | 7.5   |
+| Total Cu (mg/kg)                | 25.2  |
+
+: Closeaux soil characteristics {#tbl-clx .hover}
+
 To get synchronized cohorts of hatchlings, cocoons were collected in the breeding culture by wet sieving the soil through a 1-mm mesh size [@bart_2018], and incubated at 18°C in Petri dishes on wet filter papers [@holmstrup_1991] (@fig-cocoons). Everyday, new hatchlings were collected and stored in soil at 4°C, to slow their development until the start of the experiment.
 
 ![Newly hatched juvenile ready to be put in a small cosm of soil.](../photos/cocoons_handling.jpeg){#fig-cocoons width="30%"}
@@ -246,9 +264,20 @@ To get synchronized cohorts of hatchlings, cocoons were collected in the breedin
 
 The growth experiment was performed based on an adaptation of the protocol of @bart_2020a. We monitored the growth of 60 earthworms, each randomly allocated to exposed or unexposed conditions (30 individuals per treatment) in individual vessels, during a total of 56 days. Earthworms were individually weighted every 14 days (with their gut content).
 
-The experiment was performed using the LUFA 2.4 soil, a standardized soil from Speyer. This soil was chosen for it is a loamy soil close to agricultural soils, with a pH of 7.5 and an organic carbon percentage of 1.83% (main soil characteristics are available in Table SI). It was maintained at 70% WHC by adding water from the surface. The soil was renewed after 28 days to keep earthworms in fresh soil and therefore in ideal conditions for growth. For the exposed cohort, it meant the pesticides concentrations were renewed after 28 days. We fed individuals every 14 days with 3 g of horse dung mixed to the soil, corresponding to ad libitum conditions. Similarly to our rearing protocol, individuals were kept in a thermoregulated enclosure at 18°C in complete darkness. Earthworms were individually placed in small High Density PolyEthylene vessels (5 cm x 5∅ cm) with 50 g of soil (dry weight).
+The experiment was performed using the LUFA 2.4 soil, a standardized soil from Speyer. This soil was chosen for it is a loamy soil close to agricultural soils, with a pH of 7.5 and an organic carbon percentage of 1.83% (@tbl-lufa). It was maintained at 70% WHC by adding water from the surface. The soil was renewed after 28 days to keep earthworms in fresh soil and therefore in ideal conditions for growth. For the exposed cohort, it meant the pesticides concentrations were renewed after 28 days. We fed individuals every 14 days with 3 g of horse dung mixed to the soil, corresponding to ad libitum conditions. Similarly to our rearing protocol, individuals were kept in a thermoregulated enclosure at 18°C in complete darkness. Earthworms were individually placed in small High Density PolyEthylene vessels (5 cm x 5∅ cm) with 50 g of soil (dry weight).
 
-!!!!!!!!!!!!!! TABLEAU CARAC LUFA !!!!!!!!!!!!!!!!!!!!!!!
+| **Physicochemical characteristics** |   | **Particle size (mm) distribution according to german DIN (%)** |   | **Particle size (mm) distribution according to german USDA (%)** |   |
+|:---|:--:|:--:|:--:|:--:|:--:|
+| **Organic carbon (% C)** | 1.83 ± 0.17 | \< 0.002 | 23.5 ± 1.0 | \< 0.002 | 23.7 ± 1.4 |
+| **Nitrogen (% N)** | 0.23 ± 0.02 | 0.002 - 0.006 | 7.5 ± 0.7 | 0.002 - 0.05 | 42.2 ± 1.4 |
+| **pH value (0.01 M CaCl2)** | 7.5 ± 0.1 | 0.006 - 0.02 | 14.4 ± 1.2 | 0.05 - 2 | 33.1 ± 1.7 |
+| **Cation exchange capacity (meq/100 g)** | 17.4 ± 0.8 | 0.02 - 0.063 | 25.9 ± 1.7 | **Soil type** | loam |
+| **Water holding capacity (g/100 g)** | 47.1 ± 1.9 | 0.063 - 0.2 | 21.5 ± 1.3 |  |  |
+| **Weight per volume (g/1000 mL)** | 1182 ± 38 | 0.2 - 0.63 | 5.9 ± 1.9 |  |  |
+|  |  | 0.63 - 2.0 | 1.3 ± 0.4 |  |  |
+|  |  | **Soil type** | sandy loam (sL) |  |  |
+
+: LUFA 2.4 soil characteristics {#tbl-lufa .hover}
 
 In the pesticide treatment, we used a mixture of two molecules, , epoxiconazole (EPX) and dimoxystrobin (DMX), which are the main active substances of several pesticides, including the now banned, but largely used in the past, Swing® Gold (BASF Agro SAS, dimoxystrobin 133 g.L-1, epoxiconazole 50 g.L-1), a broad spectrum fungicide for cereal crops. Epoxiconazole is still frequently found in agricultural soils in France because of its persistance [@pelosi_2021]. Pesticide exposure in the exposed cohort was done by adding a diluted solution of DMX and EPX equivalent to 3 RD of Swing® Gold, a dose shown to have sublethal effects on A. caliginosa growth [@bart_2020a]. Swing® Gold recommended dose (RD) is 1.5 L.ha-1. Considering that active substances of pesticides are mainly found in the first ten centimeters of soil [@chabauty_2016; @mcdonald_2013], and that the LUFA 2.4 soil has a density of 1.18, we calculated that the corresponding concentrations of the two molecules should be 165.0 µg of DMX per kg of dry soil and 190.3 µg of EPX per kg of dry soil. The dry soil was spiked with aqueous solutions of the mixture for contamination and to adjust its water holding capacity (WHC) to 70%.
 
@@ -332,12 +361,11 @@ df_growth <- read_excel(                                     # <1>
 
 df_growth$ID <- as.factor(df_growth$ID)
 
-df_growth_raw <- df_growth
-
 df_growth_mean <- df_growth |>                               # <2>
   aggregate(w~t+exposition, mean)                            # <2>
 
 df_growth_t0 <- df_growth |> subset(t==0)                    # <3>
+
 ```
 
 1.  Raw data importation and calculation of structural lengths
@@ -406,6 +434,7 @@ p <- ggplot(
     axis.title.y = element_text(size=sizetitle,face="plain")
     )
 p
+
 ```
 
 We can test the normality of the weight distribution in each cohort :
@@ -450,14 +479,11 @@ We can conclude there is no effect of the cohort on the initial weight of the in
 #| classes: plain
 
 # We go back from the raw data to do a general summary
-df_growth_ctrl <- subset(df_growth_raw,exposition=="Ctrl")
-df_growth_trt <- subset(df_growth_raw,exposition=="Trt")
+df_growth_ctrl <- subset(df_growth,exposition=="Ctrl")
+df_growth_trt <- subset(df_growth,exposition=="Trt")
 
-df_growth_raw_mean <- df_growth_raw |> 
-  aggregate(w~t+exposition, mean)
-
-df_growth_ctrl_mean <- subset(df_growth_raw_mean,exposition=="Ctrl")
-df_growth_trt_mean <- subset(df_growth_raw_mean,exposition=="Trt")
+df_growth_ctrl_mean <- subset(df_growth_mean,exposition=="Ctrl")
+df_growth_trt_mean <- subset(df_growth_mean,exposition=="Trt")
 
 N_Sample <- c(
   n_distinct(df_growth_ctrl[df_growth_ctrl$t==0,]$ID),
@@ -506,7 +532,7 @@ C95_a <- c(
 
 
 df_summary <- data.frame(
-  Cohort = c("Non exposed", "exposed"),
+  Cohort = c("Non exposed", "Exposed"),
   N_sample=N_Sample,
   N_dead=N_dead_D56,
   w_init=paste(
@@ -539,11 +565,11 @@ colnames(df_summary) <- c(
   )
 
 df_summary <- as.data.frame(t(df_summary)) 
-
 names(df_summary) <- as.character(df_summary[1,])
 df_summary <- df_summary[-1,]
 
-df_summary |> datatable(options = list(dom = 't'), class="hover") 
+df_summary |> datatable(options = list(dom = 't'), class="hover")%>%
+  formatStyle(columns = colnames(df_summary), textAlign = "left") 
 
 ```
 
@@ -554,13 +580,13 @@ df_summary |> datatable(options = list(dom = 't'), class="hover")
 #| fig-height: 4
 
 # Survival curves
-df_growth_raw <- df_growth_raw |>          # <1>
+df_growth <- df_growth |>          # <1>
   mutate(dead = case_when(                 # <1>
     status == "D" ~ 1,                     # <1>
     status %in% c("J", "S", "A") ~ 0)      # <1>
     )                                      # <1>
 
-df_surv <- df_growth_raw |>                # <2>
+df_surv <- df_growth |>                # <2>
   arrange(t) |>                            # <2>
   group_by(t,exposition) |>                # <2>
   summarise(                               # <2>
@@ -638,204 +664,6 @@ ggsave(
   )
 ```
 
-```{r, echo=F, warning=F, fig.height=8, fig.width=7, message=F}
-#| fig-cap: Evolution of fresh body weight of non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points and thin lines, each line corresponding to one individual). The thicker lines represent the mean body weight per cohort.
-#| label: fig-growthres
-
-line_width <- 1.2
-y_max <- 1000
-x_max <- 100
-df_growth$ID <- as.factor(df_growth$ID)
-df_growth_ctrl <- subset(df_growth, exposition=="Ctrl")
-df_growth_trt <- subset(df_growth, exposition=="Trt")
-
-plot_growth_ctrl <- ggplot(
-  data=df_growth_ctrl, 
-  aes(
-    x=t, 
-    y=w, 
-    group=ID
-    )
-  )+
-  
-  geom_line(color=col_blue, alpha=0.5)+
-  geom_point(color=col_blue, alpha=0.5)+
-  geom_line(
-    data=subset(df_growth_mean, exposition=="Ctrl"),
-    aes(
-      x=t, 
-      y=w, 
-      group=NA
-      ), 
-    color=col_blue, 
-    linewidth=line_width
-    )+
-  
-  ylim(ymin=0, ymax=y_max)+
-  xlim(xmin=0, xmax=x_max)+
-  
-  labs(x="Time (days)", y="Weight (mg)")+ 
-  
-  theme_minimal(10)+
-  theme(
-    legend.position = "right", 
-    legend.title=element_blank(), 
-    
-    title=element_text(size=sizetitle, face="bold"), 
-    
-    axis.title.x = element_text(face="plain"), 
-    axis.title.y = element_text(face="plain")
-    )
-
-plot_growth_trt <- ggplot(
-  data=df_growth_trt, 
-  aes(
-    x=t, 
-    y=w, 
-    group=ID
-    )
-  )+
-  
-  geom_line(color=col_red, alpha=0.5)+
-  geom_point(color=col_red, alpha=0.5)+
-  geom_line(
-    data=subset(df_growth_mean, exposition=="Trt"), 
-    aes(
-      x=t, 
-      y=w, 
-      group=NA
-      ), 
-    color=col_red, 
-    linewidth=line_width
-    )+
-  
-  ylim(ymin=0, ymax=y_max)+
-  xlim(xmin=0, xmax=x_max)+
-  
-  labs(x="Time (days)", y="Weight (mg)")+ 
-  
-  theme_minimal(10)+
-  theme(
-    legend.position = "right", 
-    legend.title=element_blank(), 
-    
-    title=element_text(size=sizetitle, face="bold"), 
-    
-    axis.title.x = element_text(face="plain"), 
-    axis.title.y = element_text(face="plain")
-    )
-
-plot_growth <- ggplot()+
-
-  geom_line_interactive(
-    data=df_growth, 
-    aes(
-      x=t, y=w, group=as.factor(ID), 
-      color=exposition,
-      tooltip = exposition, 
-      data_id = exposition
-      ), 
-    alpha=0.5
-    )+
-  
-  geom_point_interactive(
-    data=df_growth, 
-    aes(
-      x=t, y=w, 
-      group=ID, 
-      color=exposition, fill=exposition,
-      tooltip = exposition, 
-      data_id = exposition
-        ), 
-    alpha=0.5
-    )+
-
-  geom_line_interactive(
-    data=df_growth_mean, 
-    aes(
-      x=t, y=w, 
-      group=exposition, 
-      color=exposition,
-      tooltip = exposition, 
-      data_id = exposition
-        ), 
-    linewidth=line_width
-    )+
-  
-  ylim(ymin=0, ymax=y_max)+
-  xlim(xmin=0, xmax=x_max)+
-  
-  scale_color_manual(values=c(col_blue, col_red))+
-  scale_fill_manual(values=c(col_blue, col_red))+
-  
-  labs(x="Time (days)", y="Weight (mg)")+
-  
-  theme_minimal(10)+
-  theme(
-    legend.position = "right", 
-    legend.title=element_blank(), 
-    
-    title=element_text(size=sizetitle, face="bold"), 
-    
-    axis.title.x = element_text(face="plain"), 
-    axis.title.y = element_text(face="plain")
-    )
-
-plot_growth_tot <- plot_growth_ctrl + plot_growth_trt + plot_growth +
-  plot_layout(guides="collect", ncol=2) +
-  plot_annotation(title = "Growth monitoring of the <span style = 'color:#5E81AC;'>non exposed</span> and <span style = 'color:#f42404;'>exposed</span> groups") & 
-  theme(
-    legend.position = "none", 
-    title=element_markdown(face="bold", size=10), 
-    axis.title.x = element_text(face="plain")
-    )
-
-tooltip_css <- "
-  border-radius: 12px;
-  color: #333;
-  background-color: white;
-  padding: 10px;
-  font-size: 14px;
-  transition: all 0.5s ease-out;
-"
-
-hover_css <- "
-  filter: brightness(75%);
-  cursor: pointer;
-  transition: all 0.5s ease-out;
-  filter: brightness(1.15);
-"
-
-interactive_plot <- girafe(ggobj=plot_growth_tot) |> 
-  girafe_options(opts_sizing(rescale = FALSE))
-
-# Add interactivity
-interactive_plot <- interactive_plot |> 
-  girafe_options(
-    opts_hover(css = hover_css),
-    opts_tooltip(css = tooltip_css),
-    opts_hover_inv(css = "opacity:0.3; transition: all 0.2s ease-out;")
-  )
-
-interactive_plot
-
-```
-
-For both cohorts, the change in cosm size (day 56) seems to correspond with an additional stress to the organisms (see @fig-growthres). As all experiment parameters could only be controlled from day 1 to day 56, only the data recorded during this period are used for the analysis done in this study. Individuals that died before 14 days of experiment were also removed for the analysis.
-
-Our working dataset is shown @fig-growthdataset.
-
-```{r, include=T, warning=F, message=F}
-# ID of dead individuals before 14 days of experiment
-dead <- subset(df_growth, t==14 & status == "D")$ID # <1>
-
-df_growth_56 <- df_growth |> subset(t<57)
-df_growth_56_alive <- df_growth_56 |> subset(!ID %in% dead) # <2>
-```
-
-1.  ID of dead individuals before 56 days of experiment
-2.  Dataset of the first 56 days without those individuals
-
 ```{r, echo=T, warning=F, message=F}
 #| fig-cap: Evolution of fresh body weight of non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points and thin lines, each line corresponding to one individual).
 #| label: fig-growthdataset
@@ -846,7 +674,7 @@ alpha_point <- 0.5
 alpha_line <- 0.3
 
 plot <- ggplot(
-  data=df_growth_56_alive, 
+  data=df_growth, 
   aes(
     x=t, 
     y=w, 
@@ -877,6 +705,7 @@ plot <- ggplot(
     breaks = seq(0, 56, by = 28),        
     minor_breaks = seq(0, 56, by = 14)
   ) +
+  ylim(0, max(df_growth$w, na.rm=T))+
   
   theme_minimal(12) +
   theme(
@@ -897,7 +726,7 @@ plot
 ```{r, include=F}
 
 plot_save <- ggplot(
-  data=df_growth_56_alive, 
+  data=df_growth, 
   aes(
     x=t, 
     y=w, 
@@ -963,20 +792,23 @@ ggsave(
 # Comparison of the final mean weight in the two groups
 
 var.test(                                                   # <1>
-  subset(df_growth_56_alive, exposition=="Ctrl" & t==56)$w, # <1>
-  subset(df_growth_56_alive, exposition=="Trt"& t==56)$w    # <1>
+  subset(df_growth, exposition=="Ctrl" & t==56)$w,          # <1>
+  subset(df_growth, exposition=="Trt"& t==56)$w             # <1>
   )                                                         # <1>
 
-t.test(                                                 # <2>
-  df_growth_56_alive$w ~ df_growth_56_alive$exposition, # <2>
-  var.equal=F                                           # <2>
-  )                                                     # <2>
+Test <- t.test(                                                     # <2>
+  df_growth$w ~ df_growth$exposition,                               # <2>
+  var.equal=F                                                       # <2>
+  )                                                                 # <2>
+
+Test
+Test_p_val <- round(Test$p.value,2)
 ```
 
 1.  Test of the variance homogeneity hypothesis.
 2.  Welsh two sample t-test
 
-The final mean weights do not differ significatively between the two cohorts (Welsh Two Sample t-test, p-value = 0.85).
+The final mean weights do not differ significatively between the two cohorts (Welsh Two Sample t-test, p-value = `r Test_p_val`).
 
 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
 

@@ -18,9 +18,8 @@ book:
     - quarto/B_Growth_experiment.qmd
     - quarto/C_Model_def_sim_data.qmd
     - quarto/D_Growth_modeling.qmd
-    #- quarto/Growth_Bart.qmd
     - quarto/E_Less_replicates.qmd
-    # - quarto/F_SuppInfo.qmd
+    - quarto/F_SuppInfo.qmd
     - quarto/references.qmd
 
 bibliography: references/references.bib # ne pas exporter toute la bibliothèse juste la collection PhD

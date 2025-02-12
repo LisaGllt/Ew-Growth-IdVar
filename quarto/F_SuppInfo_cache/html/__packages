@@ -60,3 +60,8 @@ glmmTMB
 priorsense
 StanHeaders
 rstan
+mvtnorm
+Matrix
+sandwich
+gmm
+tmvtnorm
