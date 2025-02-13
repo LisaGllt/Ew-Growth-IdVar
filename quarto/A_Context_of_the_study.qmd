@@ -6,6 +6,8 @@ f_load_libraries_colors()
 
 # Context of the study {#sec-A}
 
+test
+
 Environmental risk assessments (ERAs) of chemicals rely on standardized ecotoxicological tests that largely overlook inter-individual variability [@jager_2013b], an essential contributor to ecological resilience and evolutionary success [@desroches_2018; @hendry_2020; @debecker_2019]. Contaminants can disrupt individual differences by altering life-history traits, leading to amplified fitness disparities, favored phenotypes, and a reduced genetic diversity, ultimately affecting population dynamics and its ability to adapt to additional stressors. There is growing consensus that inter-individual variation should be a critical endpoint in ecotoxicological studies, particularly for evaluating long-term impacts on population resilience and community structure [@oziolor_2020]. However, the extent to which pollutants influence inter-individual variability, and how this variability translates into population-level consequences, remains poorly understood.
 
 Behavioral ecotoxicology studies [@polverino_2021; @royaute_2015] suggest two competing scenarios [@killen_2013]: contaminants either constrain individual variation through environmental pressures or amplify it by triggering diverse responses. To address this complexity, researchers now employ sophisticated statistical approaches such as hierarchical models [@feller_2015], enabling better understanding of population responses to pollutants.

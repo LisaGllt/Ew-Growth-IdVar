@@ -420,18 +420,20 @@ plot
 
 ## Checking priors sensitivity {#sec-Fpriorsens}
 
+The following table show the standard deviation of the prior distribution, the standard deviation of the likelihood distribution and a diagnosis on whether there is a conflict between the prior and data.
+
 ```{r}
 #| tbl-cap: Priors sensitivity
 
-tbl_powerscale_sens <- powerscale_sensitivity(
-  m.trt.vi,
-  variable = c(
-    "b_a_exposition0",
-    "b_a_exposition1",
-    "sd_ID__a_exposition0",
-    "sd_ID__a_exposition1"
-    )
-  )
+tbl_powerscale_sens <- powerscale_sensitivity( # <1>
+  m.trt.vi,                                    # <1>
+  variable = c(                                # <1>
+    "b_a_exposition0",                         # <1>
+    "b_a_exposition1",                         # <1>
+    "sd_ID__a_exposition0",                    # <1>
+    "sd_ID__a_exposition1"                     # <1>
+    )                                          # <1>
+  )                                            # <1>
 
 
 tbl_powerscale_sens |> 
@@ -441,6 +443,10 @@ tbl_powerscale_sens |>
     rownames=FALSE
     )
 ```
+
+1.  This function evaluates the sensitivity of a prior distribution using power-scaling, a method that modifies the prior distribution by raising it to a power $\gamma$. The goal is to assess how robust posterior inferences are to different prior strengths.
+
+There seems to be a conflict on the prior and the data for the growth rate individual variation in the exposed group however, the next plots confirm the sensitivity of the model to the priors is very low.
 
 ::: panel-tabset
 ## Plot dens
@@ -470,8 +476,10 @@ tbl_powerscale_sens |>
 #   path=here::here("fig/")
 #   )
 
-knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_2.png"))
+knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_2.png")) # <1>
 ```
+
+1.  Plots the density of the prior and power-scaled priors for different values of $\gamma$. This helps visualize how power scaling changes the shape of the prior.
 
 ## plot ecdf
 
@@ -500,8 +508,10 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_2.png"))
 #   path=here::here("fig/")
 #   )
 
-knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_1.png"))
+knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_1.png")) # <1>
 ```
+
+1.  Plots the empirical cumulative distribution function (ECDF) of the prior and power-scaled priors, making it easier to compare the distributions.
 
 ## Plot quantities
 
@@ -515,12 +525,13 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_1.png"))
 # p_quant <- powerscale_plot_quantities(
 #   m.trt.vi,
 #   variable = c(
-#     "b_a_exposition0", 
+#     "b_a_exposition0",
 #     "b_a_exposition1",
-#     "sd_ID__a_exposition0", 
+#     "sd_ID__a_exposition0",
 #     "sd_ID__a_exposition1"
 #     )
-#   )
+#   )+
+#   theme_minimal()
 # 
 # ggsave(
 #   filename="Plot_priors_sensitivity_3.png",
@@ -529,9 +540,11 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_1.png"))
 #   path=here::here("fig/")
 #   )
 
-knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_3.png"))
+knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_3.png")) # <1>
 
 ```
+
+1.  Plots posterior summary statistics (e.g., mean, median, credible intervals) as a function of $\gamma$. This helps assess how sensitive posterior estimates are to the prior.
 :::
 
 ## Comparison with a frequentist approach
