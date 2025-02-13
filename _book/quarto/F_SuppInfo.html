@@ -898,24 +898,25 @@ Figure&nbsp;7.2: LOO comparison plot of all tested models.
 <span id="annotated-cell-25-7"><a href="#annotated-cell-25-7" aria-hidden="true" tabindex="-1"></a><span class="co">#     "b_a_exposition1",</span></span>
 <span id="annotated-cell-25-8"><a href="#annotated-cell-25-8" aria-hidden="true" tabindex="-1"></a><span class="co">#     "sd_ID__a_exposition0",</span></span>
 <span id="annotated-cell-25-9"><a href="#annotated-cell-25-9" aria-hidden="true" tabindex="-1"></a><span class="co">#     "sd_ID__a_exposition1"</span></span>
-<span id="annotated-cell-25-10"><a href="#annotated-cell-25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
-<span id="annotated-cell-25-11"><a href="#annotated-cell-25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   )+</span></span>
-<span id="annotated-cell-25-12"><a href="#annotated-cell-25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_minimal()</span></span>
-<span id="annotated-cell-25-13"><a href="#annotated-cell-25-13" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="annotated-cell-25-14"><a href="#annotated-cell-25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(</span></span>
-<span id="annotated-cell-25-15"><a href="#annotated-cell-25-15" aria-hidden="true" tabindex="-1"></a><span class="co">#   filename="Plot_priors_sensitivity_3.png",</span></span>
-<span id="annotated-cell-25-16"><a href="#annotated-cell-25-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   plot=p_quant,</span></span>
-<span id="annotated-cell-25-17"><a href="#annotated-cell-25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   width=10, height = 6,</span></span>
-<span id="annotated-cell-25-18"><a href="#annotated-cell-25-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   path=here::here("fig/")</span></span>
-<span id="annotated-cell-25-19"><a href="#annotated-cell-25-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
-<span id="annotated-cell-25-20"><a href="#annotated-cell-25-20" aria-hidden="true" tabindex="-1"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1">1</button><span id="annotated-cell-25-21" class="code-annotation-target"><a href="#annotated-cell-25-21" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fig/Plot_priors_sensitivity_3.png"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="annotated-cell-25-10"><a href="#annotated-cell-25-10" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="annotated-cell-25-11"><a href="#annotated-cell-25-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   mcse = TRUE</span></span>
+<span id="annotated-cell-25-12"><a href="#annotated-cell-25-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   )+</span></span>
+<span id="annotated-cell-25-13"><a href="#annotated-cell-25-13" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_minimal()</span></span>
+<span id="annotated-cell-25-14"><a href="#annotated-cell-25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="annotated-cell-25-15"><a href="#annotated-cell-25-15" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(</span></span>
+<span id="annotated-cell-25-16"><a href="#annotated-cell-25-16" aria-hidden="true" tabindex="-1"></a><span class="co">#   filename="Plot_priors_sensitivity_3.png",</span></span>
+<span id="annotated-cell-25-17"><a href="#annotated-cell-25-17" aria-hidden="true" tabindex="-1"></a><span class="co">#   plot=p_quant,</span></span>
+<span id="annotated-cell-25-18"><a href="#annotated-cell-25-18" aria-hidden="true" tabindex="-1"></a><span class="co">#   width=10, height = 6,</span></span>
+<span id="annotated-cell-25-19"><a href="#annotated-cell-25-19" aria-hidden="true" tabindex="-1"></a><span class="co">#   path=here::here("fig/")</span></span>
+<span id="annotated-cell-25-20"><a href="#annotated-cell-25-20" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="annotated-cell-25-21"><a href="#annotated-cell-25-21" aria-hidden="true" tabindex="-1"></a></span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-25" data-target-annotation="1">1</button><span id="annotated-cell-25-22" class="code-annotation-target"><a href="#annotated-cell-25-22" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fig/Plot_priors_sensitivity_3.png"</span>))</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-annotation">
 <dl class="code-annotation-container-hidden code-annotation-container-grid">
 <dt data-target-cell="annotated-cell-25" data-target-annotation="1">1</dt>
 <dd>
-<span data-code-cell="annotated-cell-25" data-code-lines="21" data-code-annotation="1">Plots posterior summary statistics (e.g., mean, median, credible intervals) as a function of <span class="math inline">\(\gamma\)</span>. This helps assess how sensitive posterior estimates are to the prior.</span>
+<span data-code-cell="annotated-cell-25" data-code-lines="22" data-code-annotation="1">Plots posterior summary statistics (e.g., mean, median, credible intervals) as a function of <span class="math inline">\(\gamma\)</span>. This helps assess how sensitive posterior estimates are to the prior.</span>
 </dd>
 </dl>
 </div>
@@ -4817,336 +4818,337 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb56-543"><a href="#cb56-543" aria-hidden="true" tabindex="-1"></a><span class="co">#     "b_a_exposition1",</span></span>
 <span id="cb56-544"><a href="#cb56-544" aria-hidden="true" tabindex="-1"></a><span class="co">#     "sd_ID__a_exposition0",</span></span>
 <span id="cb56-545"><a href="#cb56-545" aria-hidden="true" tabindex="-1"></a><span class="co">#     "sd_ID__a_exposition1"</span></span>
-<span id="cb56-546"><a href="#cb56-546" aria-hidden="true" tabindex="-1"></a><span class="co">#     )</span></span>
-<span id="cb56-547"><a href="#cb56-547" aria-hidden="true" tabindex="-1"></a><span class="co">#   )+</span></span>
-<span id="cb56-548"><a href="#cb56-548" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_minimal()</span></span>
-<span id="cb56-549"><a href="#cb56-549" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb56-550"><a href="#cb56-550" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(</span></span>
-<span id="cb56-551"><a href="#cb56-551" aria-hidden="true" tabindex="-1"></a><span class="co">#   filename="Plot_priors_sensitivity_3.png",</span></span>
-<span id="cb56-552"><a href="#cb56-552" aria-hidden="true" tabindex="-1"></a><span class="co">#   plot=p_quant,</span></span>
-<span id="cb56-553"><a href="#cb56-553" aria-hidden="true" tabindex="-1"></a><span class="co">#   width=10, height = 6,</span></span>
-<span id="cb56-554"><a href="#cb56-554" aria-hidden="true" tabindex="-1"></a><span class="co">#   path=here::here("fig/")</span></span>
-<span id="cb56-555"><a href="#cb56-555" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
-<span id="cb56-556"><a href="#cb56-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-557"><a href="#cb56-557" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fig/Plot_priors_sensitivity_3.png"</span>)) <span class="co"># &lt;1&gt;</span></span>
-<span id="cb56-558"><a href="#cb56-558" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-559"><a href="#cb56-559" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-560"><a href="#cb56-560" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-561"><a href="#cb56-561" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Plots posterior summary statistics (e.g., mean, median, credible intervals) as a function of $\gamma$. This helps assess how sensitive posterior estimates are to the prior.</span>
-<span id="cb56-562"><a href="#cb56-562" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb56-563"><a href="#cb56-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-564"><a href="#cb56-564" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparison with a frequentist approach</span></span>
-<span id="cb56-565"><a href="#cb56-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-566"><a href="#cb56-566" aria-hidden="true" tabindex="-1"></a><span class="fu">### Frequentist LMMs using glmmTMB</span></span>
-<span id="cb56-567"><a href="#cb56-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-568"><a href="#cb56-568" aria-hidden="true" tabindex="-1"></a><span class="in">```{r freq}</span></span>
-<span id="cb56-569"><a href="#cb56-569" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-570"><a href="#cb56-570" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with no effect between cohorts</span></span>
-<span id="cb56-571"><a href="#cb56-571" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.null = glmmTMB(</span></span>
-<span id="cb56-572"><a href="#cb56-572" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~ t , </span></span>
-<span id="cb56-573"><a href="#cb56-573" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
-<span id="cb56-574"><a href="#cb56-574" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb56-575"><a href="#cb56-575" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with the effect of the pesticide only</span></span>
-<span id="cb56-576"><a href="#cb56-576" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.trt &lt;-  glmmTMB(</span></span>
-<span id="cb56-577"><a href="#cb56-577" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~ exposition * t, </span></span>
-<span id="cb56-578"><a href="#cb56-578" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
-<span id="cb56-579"><a href="#cb56-579" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb56-580"><a href="#cb56-580" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with only inter-individual variation</span></span>
-<span id="cb56-581"><a href="#cb56-581" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.vi &lt;-  glmmTMB(</span></span>
-<span id="cb56-582"><a href="#cb56-582" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~  t + (t|ID), </span></span>
-<span id="cb56-583"><a href="#cb56-583" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
-<span id="cb56-584"><a href="#cb56-584" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb56-585"><a href="#cb56-585" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with the effect of the pesticide and inter-individual variation not depending on exposition</span></span>
-<span id="cb56-586"><a href="#cb56-586" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.trt.vi &lt;-  glmmTMB(</span></span>
-<span id="cb56-587"><a href="#cb56-587" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~  exposition * t + (t|ID), </span></span>
-<span id="cb56-588"><a href="#cb56-588" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
-<span id="cb56-589"><a href="#cb56-589" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb56-590"><a href="#cb56-590" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with the effect of the pesticide and inter-individual variation depending on exposition</span></span>
-<span id="cb56-591"><a href="#cb56-591" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.trt.vi.2 &lt;-  glmmTMB(</span></span>
-<span id="cb56-592"><a href="#cb56-592" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~ exposition * t + (exposition * t || ID), </span></span>
-<span id="cb56-593"><a href="#cb56-593" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
-<span id="cb56-594"><a href="#cb56-594" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb56-595"><a href="#cb56-595" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-596"><a href="#cb56-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-597"><a href="#cb56-597" aria-hidden="true" tabindex="-1"></a>:::::::: panel-tabset</span>
-<span id="cb56-598"><a href="#cb56-598" aria-hidden="true" tabindex="-1"></a><span class="fu">## Null model</span></span>
-<span id="cb56-599"><a href="#cb56-599" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-600"><a href="#cb56-600" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb56-601"><a href="#cb56-601" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
-<span id="cb56-602"><a href="#cb56-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-605"><a href="#cb56-605" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-606"><a href="#cb56-606" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
-<span id="cb56-607"><a href="#cb56-607" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-608"><a href="#cb56-608" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.null)</span>
-<span id="cb56-609"><a href="#cb56-609" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-610"><a href="#cb56-610" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-611"><a href="#cb56-611" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-612"><a href="#cb56-612" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
-<span id="cb56-613"><a href="#cb56-613" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-616"><a href="#cb56-616" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-617"><a href="#cb56-617" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
-<span id="cb56-618"><a href="#cb56-618" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb56-619"><a href="#cb56-619" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
-<span id="cb56-620"><a href="#cb56-620" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-621"><a href="#cb56-621" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.null)</span>
-<span id="cb56-622"><a href="#cb56-622" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-623"><a href="#cb56-623" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-624"><a href="#cb56-624" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
-<span id="cb56-625"><a href="#cb56-625" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-628"><a href="#cb56-628" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-629"><a href="#cb56-629" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
-<span id="cb56-630"><a href="#cb56-630" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-631"><a href="#cb56-631" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-632"><a href="#cb56-632" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-633"><a href="#cb56-633" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.null, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
-<span id="cb56-634"><a href="#cb56-634" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-635"><a href="#cb56-635" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb56-636"><a href="#cb56-636" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-637"><a href="#cb56-637" aria-hidden="true" tabindex="-1"></a><span class="fu">## Effect of pesticides only</span></span>
-<span id="cb56-638"><a href="#cb56-638" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-639"><a href="#cb56-639" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb56-640"><a href="#cb56-640" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
-<span id="cb56-641"><a href="#cb56-641" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-644"><a href="#cb56-644" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-645"><a href="#cb56-645" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
-<span id="cb56-646"><a href="#cb56-646" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-647"><a href="#cb56-647" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.trt)</span>
-<span id="cb56-648"><a href="#cb56-648" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-649"><a href="#cb56-649" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-650"><a href="#cb56-650" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-651"><a href="#cb56-651" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
-<span id="cb56-652"><a href="#cb56-652" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-655"><a href="#cb56-655" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-656"><a href="#cb56-656" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
-<span id="cb56-657"><a href="#cb56-657" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb56-658"><a href="#cb56-658" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
-<span id="cb56-659"><a href="#cb56-659" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-660"><a href="#cb56-660" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.trt)</span>
-<span id="cb56-661"><a href="#cb56-661" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-662"><a href="#cb56-662" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-663"><a href="#cb56-663" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
-<span id="cb56-664"><a href="#cb56-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-667"><a href="#cb56-667" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-668"><a href="#cb56-668" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
-<span id="cb56-669"><a href="#cb56-669" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-670"><a href="#cb56-670" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-671"><a href="#cb56-671" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-672"><a href="#cb56-672" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.trt, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
-<span id="cb56-673"><a href="#cb56-673" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-674"><a href="#cb56-674" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb56-675"><a href="#cb56-675" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-676"><a href="#cb56-676" aria-hidden="true" tabindex="-1"></a><span class="fu">## Individual variation only</span></span>
-<span id="cb56-677"><a href="#cb56-677" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-678"><a href="#cb56-678" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb56-679"><a href="#cb56-679" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
-<span id="cb56-680"><a href="#cb56-680" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-683"><a href="#cb56-683" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-684"><a href="#cb56-684" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
-<span id="cb56-685"><a href="#cb56-685" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-686"><a href="#cb56-686" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.vi)</span>
-<span id="cb56-687"><a href="#cb56-687" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-688"><a href="#cb56-688" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-689"><a href="#cb56-689" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-690"><a href="#cb56-690" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
-<span id="cb56-691"><a href="#cb56-691" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-694"><a href="#cb56-694" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-695"><a href="#cb56-695" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
-<span id="cb56-696"><a href="#cb56-696" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb56-697"><a href="#cb56-697" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
-<span id="cb56-698"><a href="#cb56-698" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-699"><a href="#cb56-699" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.vi)</span>
-<span id="cb56-700"><a href="#cb56-700" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-701"><a href="#cb56-701" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-702"><a href="#cb56-702" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
-<span id="cb56-703"><a href="#cb56-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-706"><a href="#cb56-706" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-707"><a href="#cb56-707" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
-<span id="cb56-708"><a href="#cb56-708" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-709"><a href="#cb56-709" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-710"><a href="#cb56-710" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-711"><a href="#cb56-711" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.vi, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
-<span id="cb56-712"><a href="#cb56-712" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-713"><a href="#cb56-713" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb56-714"><a href="#cb56-714" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-715"><a href="#cb56-715" aria-hidden="true" tabindex="-1"></a><span class="fu">## Effect of pesticides and individual variation (not depending on exposition)</span></span>
-<span id="cb56-716"><a href="#cb56-716" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-717"><a href="#cb56-717" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb56-718"><a href="#cb56-718" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
-<span id="cb56-719"><a href="#cb56-719" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-722"><a href="#cb56-722" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-723"><a href="#cb56-723" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
-<span id="cb56-724"><a href="#cb56-724" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-725"><a href="#cb56-725" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.trt.vi)</span>
-<span id="cb56-726"><a href="#cb56-726" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-727"><a href="#cb56-727" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-728"><a href="#cb56-728" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-729"><a href="#cb56-729" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
-<span id="cb56-730"><a href="#cb56-730" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-733"><a href="#cb56-733" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-734"><a href="#cb56-734" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
-<span id="cb56-735"><a href="#cb56-735" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb56-736"><a href="#cb56-736" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
-<span id="cb56-737"><a href="#cb56-737" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-738"><a href="#cb56-738" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.trt.vi)</span>
-<span id="cb56-739"><a href="#cb56-739" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-740"><a href="#cb56-740" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-741"><a href="#cb56-741" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
-<span id="cb56-742"><a href="#cb56-742" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-745"><a href="#cb56-745" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-746"><a href="#cb56-746" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
-<span id="cb56-747"><a href="#cb56-747" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-748"><a href="#cb56-748" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-749"><a href="#cb56-749" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-750"><a href="#cb56-750" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.trt.vi, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
-<span id="cb56-751"><a href="#cb56-751" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-752"><a href="#cb56-752" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb56-753"><a href="#cb56-753" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-754"><a href="#cb56-754" aria-hidden="true" tabindex="-1"></a><span class="fu">## Effect of pesticides and individual variation (depending on exposition)</span></span>
-<span id="cb56-755"><a href="#cb56-755" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-756"><a href="#cb56-756" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb56-757"><a href="#cb56-757" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
-<span id="cb56-758"><a href="#cb56-758" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-761"><a href="#cb56-761" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-762"><a href="#cb56-762" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
-<span id="cb56-763"><a href="#cb56-763" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-764"><a href="#cb56-764" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.trt.vi<span class="fl">.2</span>)</span>
-<span id="cb56-765"><a href="#cb56-765" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-766"><a href="#cb56-766" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-767"><a href="#cb56-767" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-768"><a href="#cb56-768" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
-<span id="cb56-769"><a href="#cb56-769" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-772"><a href="#cb56-772" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-773"><a href="#cb56-773" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
-<span id="cb56-774"><a href="#cb56-774" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
-<span id="cb56-775"><a href="#cb56-775" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
-<span id="cb56-776"><a href="#cb56-776" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-777"><a href="#cb56-777" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.trt.vi<span class="fl">.2</span>)</span>
-<span id="cb56-778"><a href="#cb56-778" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-779"><a href="#cb56-779" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-780"><a href="#cb56-780" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
-<span id="cb56-781"><a href="#cb56-781" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-784"><a href="#cb56-784" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-785"><a href="#cb56-785" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
-<span id="cb56-786"><a href="#cb56-786" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-787"><a href="#cb56-787" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-788"><a href="#cb56-788" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-789"><a href="#cb56-789" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.trt.vi<span class="fl">.2</span>, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
-<span id="cb56-790"><a href="#cb56-790" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-791"><a href="#cb56-791" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb56-792"><a href="#cb56-792" aria-hidden="true" tabindex="-1"></a>::::::::</span>
-<span id="cb56-793"><a href="#cb56-793" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-794"><a href="#cb56-794" aria-hidden="true" tabindex="-1"></a><span class="in">```{r AICfreq}</span></span>
-<span id="cb56-795"><a href="#cb56-795" aria-hidden="true" tabindex="-1"></a><span class="in"># AIC model comparison</span></span>
-<span id="cb56-796"><a href="#cb56-796" aria-hidden="true" tabindex="-1"></a><span class="in">compare_performance(</span></span>
-<span id="cb56-797"><a href="#cb56-797" aria-hidden="true" tabindex="-1"></a><span class="in">  glmmTMB.null, glmmTMB.trt, glmmTMB.vi, glmmTMB.trt.vi, glmmTMB.trt.vi.2,</span></span>
-<span id="cb56-798"><a href="#cb56-798" aria-hidden="true" tabindex="-1"></a><span class="in">  rank = TRUE, </span></span>
-<span id="cb56-799"><a href="#cb56-799" aria-hidden="true" tabindex="-1"></a><span class="in">  verbose = FALSE</span></span>
-<span id="cb56-800"><a href="#cb56-800" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb56-801"><a href="#cb56-801" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-802"><a href="#cb56-802" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-805"><a href="#cb56-805" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-806"><a href="#cb56-806" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the frequentist models</span></span>
-<span id="cb56-807"><a href="#cb56-807" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-808"><a href="#cb56-808" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-809"><a href="#cb56-809" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-810"><a href="#cb56-810" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
-<span id="cb56-811"><a href="#cb56-811" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compare_performance</span>(</span>
-<span id="cb56-812"><a href="#cb56-812" aria-hidden="true" tabindex="-1"></a>    glmmTMB.null, </span>
-<span id="cb56-813"><a href="#cb56-813" aria-hidden="true" tabindex="-1"></a>    glmmTMB.trt, </span>
-<span id="cb56-814"><a href="#cb56-814" aria-hidden="true" tabindex="-1"></a>    glmmTMB.vi, </span>
-<span id="cb56-815"><a href="#cb56-815" aria-hidden="true" tabindex="-1"></a>    glmmTMB.trt.vi, </span>
-<span id="cb56-816"><a href="#cb56-816" aria-hidden="true" tabindex="-1"></a>    glmmTMB.trt.vi<span class="fl">.2</span>,</span>
-<span id="cb56-817"><a href="#cb56-817" aria-hidden="true" tabindex="-1"></a>    <span class="at">rank =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb56-818"><a href="#cb56-818" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
-<span id="cb56-819"><a href="#cb56-819" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb56-820"><a href="#cb56-820" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb56-821"><a href="#cb56-821" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-822"><a href="#cb56-822" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-823"><a href="#cb56-823" aria-hidden="true" tabindex="-1"></a><span class="fu">### Frequentist vs. Bayesian coefficients comparison</span></span>
-<span id="cb56-824"><a href="#cb56-824" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-827"><a href="#cb56-827" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-828"><a href="#cb56-828" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
-<span id="cb56-829"><a href="#cb56-829" aria-hidden="true" tabindex="-1"></a>  <span class="st">"null.f"</span> <span class="ot">=</span> glmmTMB.null,</span>
-<span id="cb56-830"><a href="#cb56-830" aria-hidden="true" tabindex="-1"></a>  <span class="st">"null.b"</span> <span class="ot">=</span> m.null,</span>
-<span id="cb56-831"><a href="#cb56-831" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.f"</span> <span class="ot">=</span> glmmTMB.trt,</span>
-<span id="cb56-832"><a href="#cb56-832" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.b"</span> <span class="ot">=</span> m.trt,</span>
-<span id="cb56-833"><a href="#cb56-833" aria-hidden="true" tabindex="-1"></a>  <span class="st">"vi.f"</span> <span class="ot">=</span> glmmTMB.vi,</span>
-<span id="cb56-834"><a href="#cb56-834" aria-hidden="true" tabindex="-1"></a>  <span class="st">"vi.b"</span> <span class="ot">=</span> m.vi,</span>
-<span id="cb56-835"><a href="#cb56-835" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.vi.f"</span> <span class="ot">=</span> glmmTMB.trt.vi<span class="fl">.2</span>,</span>
-<span id="cb56-836"><a href="#cb56-836" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.vi.b"</span> <span class="ot">=</span> m.trt.vi</span>
-<span id="cb56-837"><a href="#cb56-837" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb56-838"><a href="#cb56-838" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-839"><a href="#cb56-839" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-840"><a href="#cb56-840" aria-hidden="true" tabindex="-1"></a><span class="in">```{r , warning=F, message=F}</span></span>
-<span id="cb56-841"><a href="#cb56-841" aria-hidden="true" tabindex="-1"></a><span class="in">#| tbl-cap: Comparison of the frequentist vs. Bayesian model coefficients</span></span>
-<span id="cb56-842"><a href="#cb56-842" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-843"><a href="#cb56-843" aria-hidden="true" tabindex="-1"></a><span class="in"># tb_freqbaycomp &lt;- modelsummary(models, statistic = 'conf.int')</span></span>
-<span id="cb56-844"><a href="#cb56-844" aria-hidden="true" tabindex="-1"></a><span class="in"># save(tb_freqbaycomp, file = here::here("mod/model_choice/Table_coef_freq_vs_bayes.rds"))</span></span>
-<span id="cb56-845"><a href="#cb56-845" aria-hidden="true" tabindex="-1"></a><span class="in">load(here::here("mod/model_choice/Table_coef_freq_vs_bayes.rds"))</span></span>
-<span id="cb56-846"><a href="#cb56-846" aria-hidden="true" tabindex="-1"></a><span class="in">tb_freqbaycomp</span></span>
-<span id="cb56-847"><a href="#cb56-847" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-848"><a href="#cb56-848" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-849"><a href="#cb56-849" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
-<span id="cb56-850"><a href="#cb56-850" aria-hidden="true" tabindex="-1"></a><span class="fu">## Null models</span></span>
-<span id="cb56-851"><a href="#cb56-851" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-854"><a href="#cb56-854" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-855"><a href="#cb56-855" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the null models</span></span>
-<span id="cb56-856"><a href="#cb56-856" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-857"><a href="#cb56-857" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-858"><a href="#cb56-858" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-859"><a href="#cb56-859" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])<span class="sc">+</span></span>
-<span id="cb56-860"><a href="#cb56-860" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
-<span id="cb56-861"><a href="#cb56-861" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-862"><a href="#cb56-862" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-863"><a href="#cb56-863" aria-hidden="true" tabindex="-1"></a><span class="fu">## Models with pesticides effect</span></span>
-<span id="cb56-864"><a href="#cb56-864" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-867"><a href="#cb56-867" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-868"><a href="#cb56-868" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the models with pesticides effect</span></span>
-<span id="cb56-869"><a href="#cb56-869" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-870"><a href="#cb56-870" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-871"><a href="#cb56-871" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-872"><a href="#cb56-872" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])<span class="sc">+</span></span>
-<span id="cb56-873"><a href="#cb56-873" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
-<span id="cb56-874"><a href="#cb56-874" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-875"><a href="#cb56-875" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-876"><a href="#cb56-876" aria-hidden="true" tabindex="-1"></a><span class="fu">## Models with individual variation</span></span>
-<span id="cb56-877"><a href="#cb56-877" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-880"><a href="#cb56-880" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-881"><a href="#cb56-881" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the models with individual variation</span></span>
-<span id="cb56-882"><a href="#cb56-882" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-883"><a href="#cb56-883" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-884"><a href="#cb56-884" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-885"><a href="#cb56-885" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>])<span class="sc">+</span></span>
-<span id="cb56-886"><a href="#cb56-886" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
-<span id="cb56-887"><a href="#cb56-887" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-888"><a href="#cb56-888" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-889"><a href="#cb56-889" aria-hidden="true" tabindex="-1"></a><span class="fu">## Models with pesticides effect and individual variation</span></span>
-<span id="cb56-890"><a href="#cb56-890" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-893"><a href="#cb56-893" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-894"><a href="#cb56-894" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the models with pesticides effect and individual variation</span></span>
-<span id="cb56-895"><a href="#cb56-895" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
-<span id="cb56-896"><a href="#cb56-896" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb56-897"><a href="#cb56-897" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-898"><a href="#cb56-898" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">7</span><span class="sc">:</span><span class="dv">8</span>])<span class="sc">+</span></span>
-<span id="cb56-899"><a href="#cb56-899" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
-<span id="cb56-900"><a href="#cb56-900" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-901"><a href="#cb56-901" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb56-902"><a href="#cb56-902" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-903"><a href="#cb56-903" aria-hidden="true" tabindex="-1"></a>&lt;button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"&gt;</span>
-<span id="cb56-904"><a href="#cb56-904" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-905"><a href="#cb56-905" aria-hidden="true" tabindex="-1"></a>&lt;b&gt; Session Information &lt;/b&gt;</span>
-<span id="cb56-906"><a href="#cb56-906" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-907"><a href="#cb56-907" aria-hidden="true" tabindex="-1"></a>&lt;/button&gt;</span>
-<span id="cb56-908"><a href="#cb56-908" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-909"><a href="#cb56-909" aria-hidden="true" tabindex="-1"></a>:::: {#collapseOne .accordion-collapse .collapse}</span>
-<span id="cb56-910"><a href="#cb56-910" aria-hidden="true" tabindex="-1"></a>&lt;div&gt;</span>
-<span id="cb56-911"><a href="#cb56-911" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-914"><a href="#cb56-914" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb56-915"><a href="#cb56-915" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
-<span id="cb56-916"><a href="#cb56-916" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb56-917"><a href="#cb56-917" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb56-918"><a href="#cb56-918" aria-hidden="true" tabindex="-1"></a>&lt;/div&gt;</span>
-<span id="cb56-919"><a href="#cb56-919" aria-hidden="true" tabindex="-1"></a>::::</span>
+<span id="cb56-546"><a href="#cb56-546" aria-hidden="true" tabindex="-1"></a><span class="co">#     ),</span></span>
+<span id="cb56-547"><a href="#cb56-547" aria-hidden="true" tabindex="-1"></a><span class="co">#   mcse = TRUE</span></span>
+<span id="cb56-548"><a href="#cb56-548" aria-hidden="true" tabindex="-1"></a><span class="co">#   )+</span></span>
+<span id="cb56-549"><a href="#cb56-549" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_minimal()</span></span>
+<span id="cb56-550"><a href="#cb56-550" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
+<span id="cb56-551"><a href="#cb56-551" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(</span></span>
+<span id="cb56-552"><a href="#cb56-552" aria-hidden="true" tabindex="-1"></a><span class="co">#   filename="Plot_priors_sensitivity_3.png",</span></span>
+<span id="cb56-553"><a href="#cb56-553" aria-hidden="true" tabindex="-1"></a><span class="co">#   plot=p_quant,</span></span>
+<span id="cb56-554"><a href="#cb56-554" aria-hidden="true" tabindex="-1"></a><span class="co">#   width=10, height = 6,</span></span>
+<span id="cb56-555"><a href="#cb56-555" aria-hidden="true" tabindex="-1"></a><span class="co">#   path=here::here("fig/")</span></span>
+<span id="cb56-556"><a href="#cb56-556" aria-hidden="true" tabindex="-1"></a><span class="co">#   )</span></span>
+<span id="cb56-557"><a href="#cb56-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-558"><a href="#cb56-558" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"fig/Plot_priors_sensitivity_3.png"</span>)) <span class="co"># &lt;1&gt;</span></span>
+<span id="cb56-559"><a href="#cb56-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-560"><a href="#cb56-560" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-561"><a href="#cb56-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-562"><a href="#cb56-562" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>Plots posterior summary statistics (e.g., mean, median, credible intervals) as a function of $\gamma$. This helps assess how sensitive posterior estimates are to the prior.</span>
+<span id="cb56-563"><a href="#cb56-563" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb56-564"><a href="#cb56-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-565"><a href="#cb56-565" aria-hidden="true" tabindex="-1"></a><span class="fu">## Comparison with a frequentist approach</span></span>
+<span id="cb56-566"><a href="#cb56-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-567"><a href="#cb56-567" aria-hidden="true" tabindex="-1"></a><span class="fu">### Frequentist LMMs using glmmTMB</span></span>
+<span id="cb56-568"><a href="#cb56-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-569"><a href="#cb56-569" aria-hidden="true" tabindex="-1"></a><span class="in">```{r freq}</span></span>
+<span id="cb56-570"><a href="#cb56-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-571"><a href="#cb56-571" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with no effect between cohorts</span></span>
+<span id="cb56-572"><a href="#cb56-572" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.null = glmmTMB(</span></span>
+<span id="cb56-573"><a href="#cb56-573" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~ t , </span></span>
+<span id="cb56-574"><a href="#cb56-574" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
+<span id="cb56-575"><a href="#cb56-575" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb56-576"><a href="#cb56-576" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with the effect of the pesticide only</span></span>
+<span id="cb56-577"><a href="#cb56-577" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.trt &lt;-  glmmTMB(</span></span>
+<span id="cb56-578"><a href="#cb56-578" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~ exposition * t, </span></span>
+<span id="cb56-579"><a href="#cb56-579" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
+<span id="cb56-580"><a href="#cb56-580" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb56-581"><a href="#cb56-581" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with only inter-individual variation</span></span>
+<span id="cb56-582"><a href="#cb56-582" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.vi &lt;-  glmmTMB(</span></span>
+<span id="cb56-583"><a href="#cb56-583" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~  t + (t|ID), </span></span>
+<span id="cb56-584"><a href="#cb56-584" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
+<span id="cb56-585"><a href="#cb56-585" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb56-586"><a href="#cb56-586" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with the effect of the pesticide and inter-individual variation not depending on exposition</span></span>
+<span id="cb56-587"><a href="#cb56-587" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.trt.vi &lt;-  glmmTMB(</span></span>
+<span id="cb56-588"><a href="#cb56-588" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~  exposition * t + (t|ID), </span></span>
+<span id="cb56-589"><a href="#cb56-589" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
+<span id="cb56-590"><a href="#cb56-590" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb56-591"><a href="#cb56-591" aria-hidden="true" tabindex="-1"></a><span class="in"># Model with the effect of the pesticide and inter-individual variation depending on exposition</span></span>
+<span id="cb56-592"><a href="#cb56-592" aria-hidden="true" tabindex="-1"></a><span class="in">glmmTMB.trt.vi.2 &lt;-  glmmTMB(</span></span>
+<span id="cb56-593"><a href="#cb56-593" aria-hidden="true" tabindex="-1"></a><span class="in">  L ~ exposition * t + (exposition * t || ID), </span></span>
+<span id="cb56-594"><a href="#cb56-594" aria-hidden="true" tabindex="-1"></a><span class="in">  df_growth</span></span>
+<span id="cb56-595"><a href="#cb56-595" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb56-596"><a href="#cb56-596" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-597"><a href="#cb56-597" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-598"><a href="#cb56-598" aria-hidden="true" tabindex="-1"></a>:::::::: panel-tabset</span>
+<span id="cb56-599"><a href="#cb56-599" aria-hidden="true" tabindex="-1"></a><span class="fu">## Null model</span></span>
+<span id="cb56-600"><a href="#cb56-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-601"><a href="#cb56-601" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb56-602"><a href="#cb56-602" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
+<span id="cb56-603"><a href="#cb56-603" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-606"><a href="#cb56-606" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-607"><a href="#cb56-607" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
+<span id="cb56-608"><a href="#cb56-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-609"><a href="#cb56-609" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.null)</span>
+<span id="cb56-610"><a href="#cb56-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-611"><a href="#cb56-611" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-612"><a href="#cb56-612" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-613"><a href="#cb56-613" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
+<span id="cb56-614"><a href="#cb56-614" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-617"><a href="#cb56-617" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-618"><a href="#cb56-618" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
+<span id="cb56-619"><a href="#cb56-619" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb56-620"><a href="#cb56-620" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
+<span id="cb56-621"><a href="#cb56-621" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-622"><a href="#cb56-622" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.null)</span>
+<span id="cb56-623"><a href="#cb56-623" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-624"><a href="#cb56-624" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-625"><a href="#cb56-625" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
+<span id="cb56-626"><a href="#cb56-626" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-629"><a href="#cb56-629" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-630"><a href="#cb56-630" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
+<span id="cb56-631"><a href="#cb56-631" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-632"><a href="#cb56-632" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-633"><a href="#cb56-633" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-634"><a href="#cb56-634" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.null, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
+<span id="cb56-635"><a href="#cb56-635" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-636"><a href="#cb56-636" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb56-637"><a href="#cb56-637" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-638"><a href="#cb56-638" aria-hidden="true" tabindex="-1"></a><span class="fu">## Effect of pesticides only</span></span>
+<span id="cb56-639"><a href="#cb56-639" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-640"><a href="#cb56-640" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb56-641"><a href="#cb56-641" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
+<span id="cb56-642"><a href="#cb56-642" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-645"><a href="#cb56-645" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-646"><a href="#cb56-646" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
+<span id="cb56-647"><a href="#cb56-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-648"><a href="#cb56-648" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.trt)</span>
+<span id="cb56-649"><a href="#cb56-649" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-650"><a href="#cb56-650" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-651"><a href="#cb56-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-652"><a href="#cb56-652" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
+<span id="cb56-653"><a href="#cb56-653" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-656"><a href="#cb56-656" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-657"><a href="#cb56-657" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
+<span id="cb56-658"><a href="#cb56-658" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb56-659"><a href="#cb56-659" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
+<span id="cb56-660"><a href="#cb56-660" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-661"><a href="#cb56-661" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.trt)</span>
+<span id="cb56-662"><a href="#cb56-662" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-663"><a href="#cb56-663" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-664"><a href="#cb56-664" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
+<span id="cb56-665"><a href="#cb56-665" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-668"><a href="#cb56-668" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-669"><a href="#cb56-669" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
+<span id="cb56-670"><a href="#cb56-670" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-671"><a href="#cb56-671" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-672"><a href="#cb56-672" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-673"><a href="#cb56-673" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.trt, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
+<span id="cb56-674"><a href="#cb56-674" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-675"><a href="#cb56-675" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb56-676"><a href="#cb56-676" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-677"><a href="#cb56-677" aria-hidden="true" tabindex="-1"></a><span class="fu">## Individual variation only</span></span>
+<span id="cb56-678"><a href="#cb56-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-679"><a href="#cb56-679" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb56-680"><a href="#cb56-680" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
+<span id="cb56-681"><a href="#cb56-681" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-684"><a href="#cb56-684" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-685"><a href="#cb56-685" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
+<span id="cb56-686"><a href="#cb56-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-687"><a href="#cb56-687" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.vi)</span>
+<span id="cb56-688"><a href="#cb56-688" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-689"><a href="#cb56-689" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-690"><a href="#cb56-690" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-691"><a href="#cb56-691" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
+<span id="cb56-692"><a href="#cb56-692" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-695"><a href="#cb56-695" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-696"><a href="#cb56-696" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
+<span id="cb56-697"><a href="#cb56-697" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb56-698"><a href="#cb56-698" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
+<span id="cb56-699"><a href="#cb56-699" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-700"><a href="#cb56-700" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.vi)</span>
+<span id="cb56-701"><a href="#cb56-701" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-702"><a href="#cb56-702" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-703"><a href="#cb56-703" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
+<span id="cb56-704"><a href="#cb56-704" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-707"><a href="#cb56-707" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-708"><a href="#cb56-708" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
+<span id="cb56-709"><a href="#cb56-709" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-710"><a href="#cb56-710" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-711"><a href="#cb56-711" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-712"><a href="#cb56-712" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.vi, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
+<span id="cb56-713"><a href="#cb56-713" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-714"><a href="#cb56-714" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb56-715"><a href="#cb56-715" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-716"><a href="#cb56-716" aria-hidden="true" tabindex="-1"></a><span class="fu">## Effect of pesticides and individual variation (not depending on exposition)</span></span>
+<span id="cb56-717"><a href="#cb56-717" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-718"><a href="#cb56-718" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb56-719"><a href="#cb56-719" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
+<span id="cb56-720"><a href="#cb56-720" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-723"><a href="#cb56-723" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-724"><a href="#cb56-724" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
+<span id="cb56-725"><a href="#cb56-725" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-726"><a href="#cb56-726" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.trt.vi)</span>
+<span id="cb56-727"><a href="#cb56-727" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-728"><a href="#cb56-728" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-729"><a href="#cb56-729" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-730"><a href="#cb56-730" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
+<span id="cb56-731"><a href="#cb56-731" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-734"><a href="#cb56-734" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-735"><a href="#cb56-735" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
+<span id="cb56-736"><a href="#cb56-736" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb56-737"><a href="#cb56-737" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
+<span id="cb56-738"><a href="#cb56-738" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-739"><a href="#cb56-739" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.trt.vi)</span>
+<span id="cb56-740"><a href="#cb56-740" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-741"><a href="#cb56-741" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-742"><a href="#cb56-742" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
+<span id="cb56-743"><a href="#cb56-743" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-746"><a href="#cb56-746" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-747"><a href="#cb56-747" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
+<span id="cb56-748"><a href="#cb56-748" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-749"><a href="#cb56-749" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-750"><a href="#cb56-750" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-751"><a href="#cb56-751" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.trt.vi, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
+<span id="cb56-752"><a href="#cb56-752" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-753"><a href="#cb56-753" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb56-754"><a href="#cb56-754" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-755"><a href="#cb56-755" aria-hidden="true" tabindex="-1"></a><span class="fu">## Effect of pesticides and individual variation (depending on exposition)</span></span>
+<span id="cb56-756"><a href="#cb56-756" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-757"><a href="#cb56-757" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb56-758"><a href="#cb56-758" aria-hidden="true" tabindex="-1"></a><span class="fu">### Model summary</span></span>
+<span id="cb56-759"><a href="#cb56-759" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-762"><a href="#cb56-762" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-763"><a href="#cb56-763" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Model summary</span></span>
+<span id="cb56-764"><a href="#cb56-764" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-765"><a href="#cb56-765" aria-hidden="true" tabindex="-1"></a><span class="fu">modelsummary</span>(glmmTMB.trt.vi<span class="fl">.2</span>)</span>
+<span id="cb56-766"><a href="#cb56-766" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-767"><a href="#cb56-767" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-768"><a href="#cb56-768" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-769"><a href="#cb56-769" aria-hidden="true" tabindex="-1"></a><span class="fu">### Assumption check</span></span>
+<span id="cb56-770"><a href="#cb56-770" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-773"><a href="#cb56-773" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-774"><a href="#cb56-774" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Check assumptions</span></span>
+<span id="cb56-775"><a href="#cb56-775" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 10</span></span>
+<span id="cb56-776"><a href="#cb56-776" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 10</span></span>
+<span id="cb56-777"><a href="#cb56-777" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-778"><a href="#cb56-778" aria-hidden="true" tabindex="-1"></a><span class="fu">check_model</span>(glmmTMB.trt.vi<span class="fl">.2</span>)</span>
+<span id="cb56-779"><a href="#cb56-779" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-780"><a href="#cb56-780" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-781"><a href="#cb56-781" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimates plot</span></span>
+<span id="cb56-782"><a href="#cb56-782" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-785"><a href="#cb56-785" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-786"><a href="#cb56-786" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Estimates of the model</span></span>
+<span id="cb56-787"><a href="#cb56-787" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-788"><a href="#cb56-788" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-789"><a href="#cb56-789" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-790"><a href="#cb56-790" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(glmmTMB.trt.vi<span class="fl">.2</span>, <span class="at">color =</span> pal_col[<span class="dv">1</span>])</span>
+<span id="cb56-791"><a href="#cb56-791" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-792"><a href="#cb56-792" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb56-793"><a href="#cb56-793" aria-hidden="true" tabindex="-1"></a>::::::::</span>
+<span id="cb56-794"><a href="#cb56-794" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-795"><a href="#cb56-795" aria-hidden="true" tabindex="-1"></a><span class="in">```{r AICfreq}</span></span>
+<span id="cb56-796"><a href="#cb56-796" aria-hidden="true" tabindex="-1"></a><span class="in"># AIC model comparison</span></span>
+<span id="cb56-797"><a href="#cb56-797" aria-hidden="true" tabindex="-1"></a><span class="in">compare_performance(</span></span>
+<span id="cb56-798"><a href="#cb56-798" aria-hidden="true" tabindex="-1"></a><span class="in">  glmmTMB.null, glmmTMB.trt, glmmTMB.vi, glmmTMB.trt.vi, glmmTMB.trt.vi.2,</span></span>
+<span id="cb56-799"><a href="#cb56-799" aria-hidden="true" tabindex="-1"></a><span class="in">  rank = TRUE, </span></span>
+<span id="cb56-800"><a href="#cb56-800" aria-hidden="true" tabindex="-1"></a><span class="in">  verbose = FALSE</span></span>
+<span id="cb56-801"><a href="#cb56-801" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb56-802"><a href="#cb56-802" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-803"><a href="#cb56-803" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-806"><a href="#cb56-806" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-807"><a href="#cb56-807" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the frequentist models</span></span>
+<span id="cb56-808"><a href="#cb56-808" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-809"><a href="#cb56-809" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-810"><a href="#cb56-810" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-811"><a href="#cb56-811" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(</span>
+<span id="cb56-812"><a href="#cb56-812" aria-hidden="true" tabindex="-1"></a>  <span class="fu">compare_performance</span>(</span>
+<span id="cb56-813"><a href="#cb56-813" aria-hidden="true" tabindex="-1"></a>    glmmTMB.null, </span>
+<span id="cb56-814"><a href="#cb56-814" aria-hidden="true" tabindex="-1"></a>    glmmTMB.trt, </span>
+<span id="cb56-815"><a href="#cb56-815" aria-hidden="true" tabindex="-1"></a>    glmmTMB.vi, </span>
+<span id="cb56-816"><a href="#cb56-816" aria-hidden="true" tabindex="-1"></a>    glmmTMB.trt.vi, </span>
+<span id="cb56-817"><a href="#cb56-817" aria-hidden="true" tabindex="-1"></a>    glmmTMB.trt.vi<span class="fl">.2</span>,</span>
+<span id="cb56-818"><a href="#cb56-818" aria-hidden="true" tabindex="-1"></a>    <span class="at">rank =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb56-819"><a href="#cb56-819" aria-hidden="true" tabindex="-1"></a>    <span class="at">verbose =</span> <span class="cn">FALSE</span></span>
+<span id="cb56-820"><a href="#cb56-820" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb56-821"><a href="#cb56-821" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb56-822"><a href="#cb56-822" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-823"><a href="#cb56-823" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-824"><a href="#cb56-824" aria-hidden="true" tabindex="-1"></a><span class="fu">### Frequentist vs. Bayesian coefficients comparison</span></span>
+<span id="cb56-825"><a href="#cb56-825" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-828"><a href="#cb56-828" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-829"><a href="#cb56-829" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb56-830"><a href="#cb56-830" aria-hidden="true" tabindex="-1"></a>  <span class="st">"null.f"</span> <span class="ot">=</span> glmmTMB.null,</span>
+<span id="cb56-831"><a href="#cb56-831" aria-hidden="true" tabindex="-1"></a>  <span class="st">"null.b"</span> <span class="ot">=</span> m.null,</span>
+<span id="cb56-832"><a href="#cb56-832" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.f"</span> <span class="ot">=</span> glmmTMB.trt,</span>
+<span id="cb56-833"><a href="#cb56-833" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.b"</span> <span class="ot">=</span> m.trt,</span>
+<span id="cb56-834"><a href="#cb56-834" aria-hidden="true" tabindex="-1"></a>  <span class="st">"vi.f"</span> <span class="ot">=</span> glmmTMB.vi,</span>
+<span id="cb56-835"><a href="#cb56-835" aria-hidden="true" tabindex="-1"></a>  <span class="st">"vi.b"</span> <span class="ot">=</span> m.vi,</span>
+<span id="cb56-836"><a href="#cb56-836" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.vi.f"</span> <span class="ot">=</span> glmmTMB.trt.vi<span class="fl">.2</span>,</span>
+<span id="cb56-837"><a href="#cb56-837" aria-hidden="true" tabindex="-1"></a>  <span class="st">"trt.vi.b"</span> <span class="ot">=</span> m.trt.vi</span>
+<span id="cb56-838"><a href="#cb56-838" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb56-839"><a href="#cb56-839" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-840"><a href="#cb56-840" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-841"><a href="#cb56-841" aria-hidden="true" tabindex="-1"></a><span class="in">```{r , warning=F, message=F}</span></span>
+<span id="cb56-842"><a href="#cb56-842" aria-hidden="true" tabindex="-1"></a><span class="in">#| tbl-cap: Comparison of the frequentist vs. Bayesian model coefficients</span></span>
+<span id="cb56-843"><a href="#cb56-843" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-844"><a href="#cb56-844" aria-hidden="true" tabindex="-1"></a><span class="in"># tb_freqbaycomp &lt;- modelsummary(models, statistic = 'conf.int')</span></span>
+<span id="cb56-845"><a href="#cb56-845" aria-hidden="true" tabindex="-1"></a><span class="in"># save(tb_freqbaycomp, file = here::here("mod/model_choice/Table_coef_freq_vs_bayes.rds"))</span></span>
+<span id="cb56-846"><a href="#cb56-846" aria-hidden="true" tabindex="-1"></a><span class="in">load(here::here("mod/model_choice/Table_coef_freq_vs_bayes.rds"))</span></span>
+<span id="cb56-847"><a href="#cb56-847" aria-hidden="true" tabindex="-1"></a><span class="in">tb_freqbaycomp</span></span>
+<span id="cb56-848"><a href="#cb56-848" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-849"><a href="#cb56-849" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-850"><a href="#cb56-850" aria-hidden="true" tabindex="-1"></a>::: panel-tabset</span>
+<span id="cb56-851"><a href="#cb56-851" aria-hidden="true" tabindex="-1"></a><span class="fu">## Null models</span></span>
+<span id="cb56-852"><a href="#cb56-852" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-855"><a href="#cb56-855" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-856"><a href="#cb56-856" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the null models</span></span>
+<span id="cb56-857"><a href="#cb56-857" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-858"><a href="#cb56-858" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-859"><a href="#cb56-859" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-860"><a href="#cb56-860" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])<span class="sc">+</span></span>
+<span id="cb56-861"><a href="#cb56-861" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
+<span id="cb56-862"><a href="#cb56-862" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-863"><a href="#cb56-863" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-864"><a href="#cb56-864" aria-hidden="true" tabindex="-1"></a><span class="fu">## Models with pesticides effect</span></span>
+<span id="cb56-865"><a href="#cb56-865" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-868"><a href="#cb56-868" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-869"><a href="#cb56-869" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the models with pesticides effect</span></span>
+<span id="cb56-870"><a href="#cb56-870" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-871"><a href="#cb56-871" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-872"><a href="#cb56-872" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-873"><a href="#cb56-873" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])<span class="sc">+</span></span>
+<span id="cb56-874"><a href="#cb56-874" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
+<span id="cb56-875"><a href="#cb56-875" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-876"><a href="#cb56-876" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-877"><a href="#cb56-877" aria-hidden="true" tabindex="-1"></a><span class="fu">## Models with individual variation</span></span>
+<span id="cb56-878"><a href="#cb56-878" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-881"><a href="#cb56-881" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-882"><a href="#cb56-882" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the models with individual variation</span></span>
+<span id="cb56-883"><a href="#cb56-883" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-884"><a href="#cb56-884" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-885"><a href="#cb56-885" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-886"><a href="#cb56-886" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">5</span><span class="sc">:</span><span class="dv">6</span>])<span class="sc">+</span></span>
+<span id="cb56-887"><a href="#cb56-887" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
+<span id="cb56-888"><a href="#cb56-888" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-889"><a href="#cb56-889" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-890"><a href="#cb56-890" aria-hidden="true" tabindex="-1"></a><span class="fu">## Models with pesticides effect and individual variation</span></span>
+<span id="cb56-891"><a href="#cb56-891" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-894"><a href="#cb56-894" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-895"><a href="#cb56-895" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Comparison of the models with pesticides effect and individual variation</span></span>
+<span id="cb56-896"><a href="#cb56-896" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 4</span></span>
+<span id="cb56-897"><a href="#cb56-897" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb56-898"><a href="#cb56-898" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-899"><a href="#cb56-899" aria-hidden="true" tabindex="-1"></a><span class="fu">modelplot</span>(models[<span class="dv">7</span><span class="sc">:</span><span class="dv">8</span>])<span class="sc">+</span></span>
+<span id="cb56-900"><a href="#cb56-900" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> pal_col)</span>
+<span id="cb56-901"><a href="#cb56-901" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-902"><a href="#cb56-902" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb56-903"><a href="#cb56-903" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-904"><a href="#cb56-904" aria-hidden="true" tabindex="-1"></a>&lt;button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"&gt;</span>
+<span id="cb56-905"><a href="#cb56-905" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-906"><a href="#cb56-906" aria-hidden="true" tabindex="-1"></a>&lt;b&gt; Session Information &lt;/b&gt;</span>
+<span id="cb56-907"><a href="#cb56-907" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-908"><a href="#cb56-908" aria-hidden="true" tabindex="-1"></a>&lt;/button&gt;</span>
+<span id="cb56-909"><a href="#cb56-909" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-910"><a href="#cb56-910" aria-hidden="true" tabindex="-1"></a>:::: {#collapseOne .accordion-collapse .collapse}</span>
+<span id="cb56-911"><a href="#cb56-911" aria-hidden="true" tabindex="-1"></a>&lt;div&gt;</span>
+<span id="cb56-912"><a href="#cb56-912" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-915"><a href="#cb56-915" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb56-916"><a href="#cb56-916" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb56-917"><a href="#cb56-917" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb56-918"><a href="#cb56-918" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-919"><a href="#cb56-919" aria-hidden="true" tabindex="-1"></a>&lt;/div&gt;</span>
+<span id="cb56-920"><a href="#cb56-920" aria-hidden="true" tabindex="-1"></a>::::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

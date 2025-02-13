@@ -529,7 +529,8 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_1.png")) # <1>
 #     "b_a_exposition1",
 #     "sd_ID__a_exposition0",
 #     "sd_ID__a_exposition1"
-#     )
+#     ),
+#   mcse = TRUE
 #   )+
 #   theme_minimal()
 # 

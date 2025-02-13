@@ -659,6 +659,7 @@ print(m.sim.post)
 Chains recuperation and calculation of additional parameters :
 
 ```{r chains}
+
 df_chains <- ggs(m.sim.post, burnin = T) |>                     # <1>
   filter(Parameter %in% List_parameters) |>                     # <1>
   mutate(                                                       # <1>
@@ -728,6 +729,13 @@ df_chains_post_long <- df_chains_post_long |>
       Parameter %in% Param_trt ~ "Exposed",
       Parameter %in% Param_t0 ~ "General")
     )
+
+df_priors <- prior_draws(m.sim.post)
+
+prof <- densityplot(profile(fit_reml, "Days"), bw = "SJ", kernel = "gaussian")
+lik <- tibble(b_Days = seq(prof$x.limits[[1]][1], prof$x.limits[[1]][2], length.out = 201),
+              density = prof$call$data$density,
+              dist = "likelihood")
 
 ```
 

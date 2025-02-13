@@ -399,7 +399,7 @@ Chains recuperation and calculation of additional parameters :
 
 ```{r chainspost, warning=F, message=F}
                                              
-df_chains <- ggs(m.post, burnin = T) |>                    # <1>
+df_chains <- ggs(m.post, burnin = T) |>                         # <1>
   filter(Parameter %in% List_parameters) |>                     # <1>
   mutate(                                                       # <1>
     Chain=as.factor(Chain),                                     # <1>
@@ -478,6 +478,34 @@ df_chains_post_long <- df_chains_post_long |>
 3.  Adding medians from each distribution
 4.  Calculation and addition of 2 columns: $\Delta a_{\mu} = a_{\text{trt},\mu} - a_{\text{ctrl},\mu}$ & $\Delta a_{\sigma} = a_{\text{trt},\sigma} - a_{\text{ctrl},\sigma}$
 
+Recuperation of likelihood data :
+
+```{r}
+df_likelihood <- posterior_samples(m.sim.post)  
+
+likelihood_L0_mu <- df_likelihood %>%
+  select(b_L0_Intercept)
+
+likelihood_L0_sd <- df_likelihood %>%
+  select(sd_ID__L0_Intercept)
+
+likelihood_a_ctrl_mu <- df_likelihood %>%
+  select(b_a_exposition0)
+
+likelihood_a_trt_mu <- df_likelihood %>%
+  select(b_a_exposition1)
+
+likelihood_a_ctrl_sd <- df_likelihood %>%
+  select(sd_ID__a_exposition0)
+
+likelihood_a_trt_sd <- df_likelihood %>%
+  select(sd_ID__a_exposition1)
+
+likelihood_sigma <- df_likelihood %>%
+  select(sigma)
+
+```
+
 The results of the pesticides effect can be expressed with a response ratio (Ln(RR), @eq-LnRR) and a coefficient of variation ratio (Ln(CVi), @eq-LnCVi).
 
 $$
@@ -504,8 +532,10 @@ Parameters estimation results :
 
 alpha_dens <- 0.5
 alpha_dens_prior <- 0.2
+alpha_like <- 0.5
 font_size <- 12
 col_dens <- Nord_polar[1]
+col_like <- Nord_frost[2]
 col_dens_ctrl <- Nord_frost[4]
 col_dens_trt <- col_red
 size_norm <- 0.7
@@ -555,6 +585,13 @@ plot_L0_mu <-
     color = col_dens,
     alpha = alpha_dens
   ) +
+  stat_halfeye(
+    data = likelihood_L0_mu,
+    aes(x = b_L0_Intercept),
+    fill = col_like, 
+    color = col_like,
+    alpha = alpha_like
+  )+
   labs(
     x = "Value",
     y = "Density",
@@ -586,6 +623,13 @@ plot_L0_sd <-
     color = col_dens,
     alpha = alpha_dens
   ) +
+  stat_halfeye(
+    data = likelihood_L0_sd,
+    aes(x = sd_ID__L0_Intercept),
+    fill = col_like,  
+    color = col_like,
+    alpha = alpha_like
+  )+
   labs(
     x = "Value",
     y = "Density",
@@ -617,6 +661,13 @@ plot_a_ctrl_mu <-
     color = col_dens_ctrl,
     alpha = alpha_dens
   ) +
+  stat_halfeye(
+    data = likelihood_a_ctrl_mu,
+    aes(x = b_a_exposition0),
+    fill = col_like,  
+    color = col_like,
+    alpha = alpha_like
+  )+
   labs(
     x = "Value",
     y = "Density",
@@ -649,6 +700,13 @@ plot_a_trt_mu <-
     color = col_dens_trt,
     alpha = alpha_dens
   ) +
+  stat_halfeye(
+    data = likelihood_a_trt_mu,
+    aes(x = b_a_exposition1),
+    fill = col_like,  
+    color = col_like,
+    alpha = alpha_like
+  )+
   labs(
     x = "Value",
     y = "Density",
@@ -681,6 +739,13 @@ plot_a_ctrl_sd <-
     color = col_dens_ctrl,
     alpha = alpha_dens
   ) +
+  stat_halfeye(
+    data = likelihood_a_ctrl_sd,
+    aes(x = sd_ID__a_exposition0),
+    fill = col_like,  
+    color = col_like,
+    alpha = alpha_like
+  )+
   labs(
     x = "Value",
     y = "Density",
@@ -713,6 +778,13 @@ plot_a_trt_sd <-
     color = col_dens_trt,
     alpha = alpha_dens
   ) +
+  stat_halfeye(
+    data = likelihood_a_trt_sd,
+    aes(x = sd_ID__a_exposition1),
+    fill = col_like,  
+    color = col_like,
+    alpha = alpha_like
+  )+
   labs(
     x = "Value",
     y = "Density",
@@ -745,6 +817,13 @@ plot_sigma <-
     color = col_dens,
     alpha = alpha_dens
   ) +
+  stat_halfeye(
+    data = likelihood_sigma,
+    aes(x = sigma),
+    fill = col_like,  
+    color = col_like,
+    alpha = alpha_like
+  )+
   labs(
     x = "Value",
     y = "Density",
