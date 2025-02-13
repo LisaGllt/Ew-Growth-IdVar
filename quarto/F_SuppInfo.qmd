@@ -6,7 +6,7 @@ f_load_libraries_colors()
 
 # Supplementary information
 
-```{r, warning=F, message=F}
+```{r data, warning=F, message=F}
 
 df_growth <- read_excel(here::here("data/Data_growth_EPX_DMX.xlsx"), sheet="Growth") # <1>
 
@@ -41,14 +41,14 @@ We tested 2 different types of linearisation of growth :
 1.  The original model with $L=W^{1/3}$
 2.  A model where $L=\text{Ln}(W)$
 
-```{r}
+```{r dataLn}
 #| code-fold: show
 
 df_growth_Ln <- df_growth |> 
   mutate(L=log(w))
 ```
 
-```{r}
+```{r modedef}
 #| code-fold: show
 
 bf.mod.VI <-
@@ -102,7 +102,7 @@ priors <-
 6.  Prior on $a_{\text{trt},\sigma}$
 7.  Prior on residuals
 
-```{r}
+```{r modrun}
 #| code-fold: show
 
 m.post <- 
@@ -141,6 +141,11 @@ m.Ln.post <-
 ```
 
 ```{r, message=F, warning=F}
+#| fig-cap: Pp check
+#| label: fig-ppcheckcomp
+#| fig-height: 4
+#| fig-width: 8
+
 p1 <- pp_check(m.post, ndraws = 100) +
   scale_color_manual(values = c(Nord_polar[1], Nord_frost[3]))
 p2 <- pp_check(m.Ln.post, ndraws = 100)+
@@ -322,7 +327,7 @@ m.trt.vi.cor <- brm(
 
 ```
 
-```{r, warning=F, message=F}
+```{r addcriterion, warning=F, message=F}
 
 m.null <- add_criterion(m.null, criterion=c("waic", "loo"))
 m.vi <- add_criterion(m.vi, criterion=c("waic", "loo"))
@@ -422,7 +427,7 @@ plot
 
 The following table show the standard deviation of the prior distribution, the standard deviation of the likelihood distribution and a diagnosis on whether there is a conflict between the prior and data.
 
-```{r}
+```{r priorsens1}
 #| tbl-cap: Priors sensitivity
 
 tbl_powerscale_sens <- powerscale_sensitivity( # <1>
@@ -451,7 +456,7 @@ There seems to be a conflict on the prior and the data for the growth rate indiv
 ::: panel-tabset
 ## Plot dens
 
-```{r}
+```{r priorsens2}
 #| fig-cap: Priors sensitivity.
 #| fig-height: 6
 #| fig-width: 10
@@ -483,7 +488,7 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_2.png")) # <1>
 
 ## plot ecdf
 
-```{r}
+```{r priorsens3}
 #| fig-cap: Priors sensitivity.
 #| fig-height: 6
 #| fig-width: 10
@@ -515,7 +520,7 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_1.png")) # <1>
 
 ## Plot quantities
 
-```{r}
+```{r priorsens4}
 #| fig-cap: Priors sensitivity.
 #| fig-height: 6
 #| fig-width: 10
@@ -587,7 +592,7 @@ glmmTMB.trt.vi.2 <-  glmmTMB(
 ::: panel-tabset
 ### Model summary
 
-```{r}
+```{r modsum1, message=F, warning=F}
 #| tbl-cap: Model summary
 
 modelsummary(glmmTMB.null)
@@ -596,7 +601,7 @@ modelsummary(glmmTMB.null)
 
 ### Assumption check
 
-```{r}
+```{r assump1, message=F, warning=F}
 #| fig-cap: Check assumptions
 #| fig-width: 10
 #| fig-height: 10
@@ -606,7 +611,7 @@ check_model(glmmTMB.null)
 
 ### Estimates plot
 
-```{r}
+```{r est1, message=F, warning=F}
 #| fig-cap: Estimates of the model
 #| fig-width: 6
 #| fig-height: 4
@@ -620,7 +625,7 @@ modelplot(glmmTMB.null, color = pal_col[1])
 ::: panel-tabset
 ### Model summary
 
-```{r}
+```{r modsum2, message=F, warning=F}
 #| tbl-cap: Model summary
 
 modelsummary(glmmTMB.trt)
@@ -629,7 +634,7 @@ modelsummary(glmmTMB.trt)
 
 ### Assumption check
 
-```{r}
+```{r assump2, message=F, warning=F}
 #| fig-cap: Check assumptions
 #| fig-width: 10
 #| fig-height: 10
@@ -639,7 +644,7 @@ check_model(glmmTMB.trt)
 
 ### Estimates plot
 
-```{r}
+```{r est2, message=F, warning=F}
 #| fig-cap: Estimates of the model
 #| fig-width: 6
 #| fig-height: 4
@@ -653,7 +658,7 @@ modelplot(glmmTMB.trt, color = pal_col[1])
 ::: panel-tabset
 ### Model summary
 
-```{r}
+```{r modsum3, message=F, warning=F}
 #| tbl-cap: Model summary
 
 modelsummary(glmmTMB.vi)
@@ -662,7 +667,7 @@ modelsummary(glmmTMB.vi)
 
 ### Assumption check
 
-```{r}
+```{r assump3, message=F, warning=F}
 #| fig-cap: Check assumptions
 #| fig-width: 10
 #| fig-height: 10
@@ -672,7 +677,7 @@ check_model(glmmTMB.vi)
 
 ### Estimates plot
 
-```{r}
+```{r est3, message=F, warning=F}
 #| fig-cap: Estimates of the model
 #| fig-width: 6
 #| fig-height: 4
@@ -686,7 +691,7 @@ modelplot(glmmTMB.vi, color = pal_col[1])
 ::: panel-tabset
 ### Model summary
 
-```{r}
+```{r modsum5, message=F, warning=F}
 #| tbl-cap: Model summary
 
 modelsummary(glmmTMB.trt.vi)
@@ -695,7 +700,7 @@ modelsummary(glmmTMB.trt.vi)
 
 ### Assumption check
 
-```{r}
+```{r assump5, message=F, warning=F}
 #| fig-cap: Check assumptions
 #| fig-width: 10
 #| fig-height: 10
@@ -705,7 +710,7 @@ check_model(glmmTMB.trt.vi)
 
 ### Estimates plot
 
-```{r}
+```{r est5, message=F, warning=F}
 #| fig-cap: Estimates of the model
 #| fig-width: 6
 #| fig-height: 4
@@ -719,7 +724,7 @@ modelplot(glmmTMB.trt.vi, color = pal_col[1])
 ::: panel-tabset
 ### Model summary
 
-```{r}
+```{r modsum6, message=F, warning=F}
 #| tbl-cap: Model summary
 
 modelsummary(glmmTMB.trt.vi.2)
@@ -728,7 +733,7 @@ modelsummary(glmmTMB.trt.vi.2)
 
 ### Assumption check
 
-```{r}
+```{r assump6, message=F, warning=F}
 #| fig-cap: Check assumptions
 #| fig-width: 10
 #| fig-height: 10
@@ -738,7 +743,7 @@ check_model(glmmTMB.trt.vi.2)
 
 ### Estimates plot
 
-```{r}
+```{r est6, message=F, warning=F}
 #| fig-cap: Estimates of the model
 #| fig-width: 6
 #| fig-height: 4
@@ -748,7 +753,7 @@ modelplot(glmmTMB.trt.vi.2, color = pal_col[1])
 :::
 ::::::::
 
-```{r AICfreq}
+```{r AICfreq, message=F, warning=F}
 # AIC model comparison
 compare_performance(
   glmmTMB.null, glmmTMB.trt, glmmTMB.vi, glmmTMB.trt.vi, glmmTMB.trt.vi.2,
@@ -757,7 +762,7 @@ compare_performance(
   )
 ```
 
-```{r}
+```{r, message=F, warning=F}
 #| fig-cap: Comparison of the frequentist models
 #| fig-width: 6
 #| fig-height: 4
@@ -777,7 +782,7 @@ plot(
 
 ### Frequentist vs. Bayesian coefficients comparison
 
-```{r}
+```{r modlist}
 models <- list(
   "null.f" = glmmTMB.null,
   "null.b" = m.null,
@@ -790,7 +795,7 @@ models <- list(
   )
 ```
 
-```{r , warning=F, message=F}
+```{r compbf, warning=F, message=F}
 #| tbl-cap: Comparison of the frequentist vs. Bayesian model coefficients
 
 # tb_freqbaycomp <- modelsummary(models, statistic = 'conf.int')
@@ -802,7 +807,7 @@ tb_freqbaycomp
 ::: panel-tabset
 ## Null models
 
-```{r}
+```{r compnull, message=F, warning=F}
 #| fig-cap: Comparison of the null models
 #| fig-height: 4
 #| fig-width: 6
@@ -813,7 +818,7 @@ modelplot(models[1:2])+
 
 ## Models with pesticides effect
 
-```{r}
+```{r comptrt, message=F, warning=F}
 #| fig-cap: Comparison of the models with pesticides effect
 #| fig-height: 4
 #| fig-width: 6
@@ -824,7 +829,7 @@ modelplot(models[3:4])+
 
 ## Models with individual variation
 
-```{r}
+```{r compvi, message=F, warning=F}
 #| fig-cap: Comparison of the models with individual variation
 #| fig-height: 4
 #| fig-width: 6
@@ -835,7 +840,7 @@ modelplot(models[5:6])+
 
 ## Models with pesticides effect and individual variation
 
-```{r}
+```{r comptrtvi, message=F, warning=F}
 #| fig-cap: Comparison of the models with pesticides effect and individual variation
 #| fig-height: 4
 #| fig-width: 6
