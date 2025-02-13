@@ -1,30 +1,7 @@
-```{r, include=F, warning=F, message=F}
-library(tidyverse); library(here); library(ggthemes)
-library(viridis); library(tidybayes); library(wesanderson)
-library(ggdist); library(patchwork); library(extrafont)
-library(parallel); library(deSolve); library(tmvtnorm)
-library(fdrtool); library(readxl); library(here); library(easystats)
-library(RColorBrewer); library(devtools); library(car); library(plotly)
-library(knitr); library(Hmisc); library(nlstools); library(lsmeans)
-library(ggpubr); library(gridExtra) ;
-library(modelsummary);
-library(plan); library(brms); library(ggmcmc); library(latex2exp);
-library(reshape2); library(ggbreak); library(nord); library(ggtext); 
-library(kableExtra); library(DT);library(truncnorm);
-library(cmdstanr); library(rstan)
-library(cowplot)
-
-sizetitle <- 12
-
-Nord_frost <- nord(palette = "frost")
-Nord_polar <- nord(palette = "polarnight")
-
-col_blue <- "#5E81AC"
-col_red <- "#f42404"
-pal_col <- c(col_blue, col_red)
-
-pal_blue <- c("#5E81AC", "#7F9DC4", "#A0C1D9", "#DCE9F2")
-pal_red <- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
+```{r libraries, include=F, warning=F, message=F}
+library(here)
+source(file = here::here("functions/functions.R"))
+f_load_libraries_colors()
 ```
 
 # A model for earthworm growth and its individual variation
@@ -37,30 +14,33 @@ We used an individual reaction norm approach [@dingemanse_2013] to compare growt
 
 Here, we assume that both cohorts can have a different growth rate $\alpha$ (mg$^{1/3}$/d). We suppose the structural volumetric length at the start of the experiment ($L0$) does not depend on the treatment as individuals came from the same pool of individuals.
 
+To take individual variations for both parameters, we assume that each parameter can be considered as a random variable described by a normal distribution whose mean is the population-level value of the parameter and the standard deviation is the individual variation of the parameter. Each individual can then have a parameter value that is taken from this normal distribution.
+
 This gives us @eq-growth.
 
 $$
-L_{c,i}=L0_i+a_{c,i}\times t
+\begin{aligned}
+L_{c,i} &\sim \mathcal{N}(L_{\mu,c,i}, \sigma_L)\\
+L_{\mu,c,i}(t)&=L0_i+a_{c,i}\times t \\
+\text{With}\\
+L0_{i} &\sim \mathcal{N}(L0_{\mu}, L0_{\sigma})\\
+a_{c,i} &\sim \mathcal{N}(a_{c,\mu}, a_{c,\sigma})
+\end{aligned}
 $$ {#eq-growth}
 
 With :
 
 -   $i$ : the individual under a certain exposure $(i \in [\![1,60]\!]),$
 -   $c$ : the exposition concentration (0 or 3 RD),
+-   $L_{c,i}(t)$ : the cubic root of the wet body weight of individual i exposed to the concentration $c$ at a given time $t$ (mg$^{1/3}$),
+-   $L_{\mu,c,i}(t)$ : the expected cubic root of the wet body weight of individual $i$ exposed to the concentration $c$ at time $t$,
+-   $\sigma_L$ : standard deviation of residuals on $L_{c,i}$, representing the variability not captured by the growth model,
 -   $L0_i$ : the cubic root of the wet body weight at t=0 (mg$^{1/3}$),
--   $L_{c,i}$ : the cubic root of the wet body weight (mg$^{1/3}$),
--   $a_{c,i}$ : the growth rate (mg$^{1/3}$/d) of the individual $i$ at the concentration $c$.
-
-To take individual variations for both parameters, we assume that each parameter can be considered as a random variable described by a normal distribution whose mean is the population-level value of the parameter and the standard deviation is the individual variation of the parameter. Each individual can then have a parameter value that is taken from this normal distribution.
-
-Our hyper-parameters can then be expressed as @eq-growthIV.
-
-$$
-\begin{aligned}
-L0 &\sim \mathcal{N}(L0_{\mu}, L0_{\sigma})\\
-a_c &\sim \mathcal{N}(a_{c,\mu}, a_{c,\sigma})
-\end{aligned}
-$$ {#eq-growthIV}
+-   $a_{c,i}$ : the growth rate (mg$^{1/3}$/d) of the individual $i$ exposed to the concentration $c$,
+-   $L0_{\mu}$ : mean of the normal distribution for the initial wet body weight ($L0_i$),
+-   $L0_{\sigma}$ : standard deviation of the normal distribution for the initial wet body weight ($L0_i$),
+-   $a_{c,\mu}$ : mean of the normal distribution for the growth rate ($a_{c,i}$),
+-   $a_{c,\sigma}$ : standard deviation of the normal distribution for the growth rate ($a_{c,i}$).
 
 Our model is implemented with the `brms` package which means this mathematical formulation translate to the following formula in the `brms` language :
 
@@ -78,25 +58,43 @@ A first step is to look at the parameter recovery with a fit on simulated data.
 
 ### Data simulation
 
-We simulate data based on the results obtained in @bart_2020a, with a decrease of 10% of the mean growth rate in the exposed group and with 10% of individual variation in both group :
+According to @bart_2020a, earthworm initial size is 2.25 mg$^{1/3}$ ($L0$) and grow at xxx mg$^{1/3}$/day ($a$). Next, we simulate data according to a variation attenuation scenario. To do so, we assume that the average growth rate in earthworms exposed to 3 RD of Swing Gold decreases by 10 % compared to a control cohort, as shown in @bart_2020a. We set the individual variability in the control group to 10% around the average growth rate which is coherent with Bart's data. We set the change in among-individiual variance to 50 %, which would correspond to a moderate effect size of pesticide exposure on growth rate variation.
+
+This gives us the following simulation parameters :
 
 -   $L0_{\mu}$ = 2.25 mg$^{1/3}$
 -   $a_{ctrl,\mu}$ = 0.075 mg$^{1/3}$/d
 -   $a_{trt,\mu}$ = 0.0675 mg$^{1/3}$/d
 -   $a_{ctrl,\sigma}$ = 0.0075 mg$^{1/3}$/d
--   $a_{trt,\sigma}$ = 0.00675 mg$^{1/3}$/d
+-   $a_{trt,\sigma}$ = 0.008775 mg$^{1/3}$/d
+
+In parallele, the simulated pesticides effect can be expressed with a response ratio (Ln(RR), @eq-LnRR) and a coefficient of variation ratio (Ln(CVi), @eq-LnCVi).
+
+$$
+\text{Ln}(\text{RR}) = \text{Ln}\left( \frac{a_{ctrl,\mu}}{a_{trt,\mu}} \right)
+$$ {#eq-LnRR}
+
+$$
+\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right) - \frac{1}{2(n_{trt}-1)}-\frac{1}{2(n_{ctrl}-1)}\\
+$$ {#eq-LnCVi}
+
+With :
+
+$$
+CV_{x}=\frac{a_{x,\sigma}}{a_{x,\mu}}
+$$
 
 ```{r datasim1}
 #| code-fold: show
 
 nb_ind_sim <- 30                                              # <1>
 
-set.seed(121212)
+set.seed(24241212)
 
 a_ctrl_mu_mu <- 0.075
 a_ctrl_mu_sd <- a_ctrl_mu_mu*0.1
-a_trt_mu_mu <- 0.065
-a_trt_mu_sd <- a_trt_mu_mu*0.1
+a_trt_mu_mu <- 0.0675
+a_trt_mu_sd <- a_ctrl_mu_mu*0.1*(1+0.5)
 L0_mu <- 2.25
 L0_sd <- 0.45
 
@@ -130,12 +128,17 @@ df_pop_sim <- data.frame(                                      # <5>
   )                                                            # <5>
 
 # Real pop values 
-sim_a_ctrl_mu <- with(subset(df_pop_sim, exposition == 0), mean(a_i)) # <6>
-sim_a_ctrl_sd <- with(subset(df_pop_sim, exposition == 0), sd(a_i))   # <6>
-sim_a_trt_mu <- with(subset(df_pop_sim, exposition == 1), mean(a_i))  # <6>
-sim_a_trt_sd <- with(subset(df_pop_sim, exposition == 1), sd(a_i))    # <6>
+sim_a_ctrl_mu <- with(subset(df_pop_sim, exposition == 0), mean(a_i))    # <6>
+sim_a_ctrl_sd <- with(subset(df_pop_sim, exposition == 0), sd(a_i))      # <6>
+sim_a_trt_mu <- with(subset(df_pop_sim, exposition == 1), mean(a_i))     # <6>
+sim_a_trt_sd <- with(subset(df_pop_sim, exposition == 1), sd(a_i))       # <6>
 sim_L0_mu <- with(df_pop_sim, mean(L0_i))                                # <6>
 sim_L0_sd <- with(df_pop_sim, sd(L0_i))                                  # <6>
+
+sim_LnRR <- log(sim_a_trt_mu/sim_a_ctrl_mu)                                 # <7>
+sim_LnCVi <- log((sim_a_trt_sd/sim_a_trt_mu)/(sim_a_ctrl_sd/sim_a_ctrl_mu)) # <7>
+
+tmp <- sim_a_trt_sd/sim_a_ctrl_sd
 ```
 
 1.  Number of individuals in each populations.
@@ -144,25 +147,25 @@ sim_L0_sd <- with(df_pop_sim, sd(L0_i))                                  # <6>
 4.  Simulation of the initial structural length.
 5.  Dataframe with all individuals from both populations. (0 = Non exposed, 1 = Exposed)
 6.  Calculation of the real parameters values in the simulated population.
+7.  Calculation of Ln(RR) and Ln(CVi).
 
 ```{r datasim2}
 #| code-fold: show
 
 # Times with weight measurements
 t_values <- seq(0, 56, 14)
-# Approximate error of weight measurements 
-sd <- 0.5 # mg
+# Approximate error on L
+sd <- 0.1
 
 # Calculation of each earthworm weight at each time point
 df_sim <- df_pop_sim |> 
   expand_grid(t = t_values) |>   
   mutate(
-    Lhat = L0_i + a_i * t,
-    what = Lhat^3,
+    Lhat = L0_i + a_i * t
   ) |>   
   mutate(
-    w = rtruncnorm(n = n(), mean = what, sd = sd, a = 0),
-    L = w^(1/3)
+    L = rtruncnorm(n = n(), mean = Lhat, sd = sd, a = 0),
+    w = L^3
   ) |>
   mutate(
     exposition = as.factor(exposition),
@@ -171,7 +174,7 @@ df_sim <- df_pop_sim |>
 
 ```
 
-```{r, warning=F, message=F}
+```{r simdataplot, warning=F, message=F}
 #| fig-cap: Growth of simulated individuals
 #| label: fig-growthdatasim
 #| fig-width: 6
@@ -180,14 +183,7 @@ df_sim <- df_pop_sim |>
 alpha_point <- 0.5
 alpha_line <- 0.3
 
-L0_t = 2.156810
-a_t = 0.06790346
-x <- seq(0,56,1)
-y <- (L0_t + a_t*x)^3
-
-p_growth <- ggplot(
-  
-  ) +
+p_growth <- ggplot() +
   
   geom_line(
     data=df_sim, 
@@ -259,7 +255,7 @@ p_growth
 #| code-fold: show
 
 # Model definition
-bf.mod.VI <- 
+bf.mod <- 
   
   bf(
     L  ~ L0+a*t,                            # <1> 
@@ -300,7 +296,7 @@ The model parameters are named as follows by `brms` :
 -   $a_{\text{ctrl},\sigma}$ : `sd_ID__a_exposition0`
 -   $a_{\text{trt},\sigma}$ : `sd_ID__a_exposition1`
 
-### Priors definitions
+### Priors definitions {#sec-Cpriorsdef}
 
 The priors cannot be defined according to the results of @bart_2020a. Therefore we base the prior to our general knowledge about *A. caliginosa* :
 
@@ -311,18 +307,20 @@ The priors cannot be defined according to the results of @bart_2020a. Therefore 
 The same priors are given to the two cohorts. A growth rate individual variation of 20% was given as a prior for the two cohort.
 
 ```{r priorsdef}
-# Priors definition (CV = 20%)
+#| code-fold: show
+
+# Priors definition
 priors <-
-  prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +           # <1>
-  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+               # <2>
+  prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +                       # <1>
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+                           # <2>
 
-  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +  # <3>
-  prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) + # <4>
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # <3>
+  prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
 
-  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                           # <5>
-        coef=exposition0, group=ID, nlpar = a)+                            # <5>
-  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                           # <6>
-        coef=exposition1, group=ID, nlpar = a)+                            # <6>
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <5>
+        coef=exposition0, group=ID, nlpar = a)+                                        # <5>
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <6>
+        coef=exposition1, group=ID, nlpar = a)+                                        # <6>
 
   prior(exponential(1), sigma, nlpar = "")                                             # <7>
 
@@ -336,7 +334,7 @@ priors <-
 6.  Prior on $a_{\text{trt},\sigma}$
 7.  Prior on residuals
 
-```{r}
+```{r priorsplot}
 #| fig-cap: Priors of our model.
 #| label: fig-priorplot
 #| fig-height: 12
@@ -456,6 +454,22 @@ p
 
 ```
 
+```{r savepriorsplot, include=F, message=F, warning=F}
+ggsave(
+  filename="ModVI_priors.png", 
+  plot=p, 
+  width=8, height = 10, 
+  path=here::here("fig/")
+  )
+
+ggsave(
+  filename="ModVI_priors.svg", 
+  plot=p, 
+  width=8, height = 10, 
+  path=here::here("fig/")
+  )
+```
+
 ### Prior predictive check
 
 In bayesian modeling, we first perform a prior predictive check before fitting the model to our data. This allows us to check on the rationnality of the chosen priors.
@@ -465,11 +479,11 @@ Results of the model with the sampling of priors :
 ```{r priorcheck, warning=F, message=F}
 #| code-fold: show
 
-m.1.VI.prior <- 
+m.sim.prior <- 
   
   brm(
     data = df_sim,                               # <1>
-    bf.mod.VI,                                   # <2>
+    bf.mod,                                   # <2>
     backend = "cmdstanr",                        # <3>
     prior = priors,                              # <4>
     sample_prior = "only",                       # <5>
@@ -480,11 +494,10 @@ m.1.VI.prior <-
       adapt_delta = .95,                         # <9>
       max_treedepth = 12                         # <9>
       ), 
-    file=here::here("mod/m_brms_VI_prior_sim")   # <10>
+    file=here::here("mod/m_brms_prior_sim")   # <10>
   )
 
-print(m.1.VI.prior)
-
+print(m.sim.prior)
 ```
 
 1.  Data used
@@ -500,13 +513,13 @@ print(m.1.VI.prior)
 
 We can then plot the predictions of this model and see if they represent at least the full range of our experimental data.
 
-```{r, echo = T, warning=F}
-#| fig-cap: Prior predictive check.
+```{r priorpredcheck, warning=F}
+#| fig-cap: Prior predictive check.Fresh body weight of simulated non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed every 28 days (red points and thin lines, each line corresponding to one individual). Colored ribbons correspond to the different credibility intervals for the mean growth for each cohort under the prior distribution. The thicker black lines represent the predicted mean body weight based solely on prior assumptions.
 #| label: fig-priorpredVIsim
 #| fig-height: 4
 #| fig-width: 8
 
-pred <- predicted_draws(m.1.VI.prior, newdata=df_sim) # <1> 
+pred <- predicted_draws(m.sim.prior, newdata=df_sim) # <1> 
 
 y_max <- 500
 
@@ -598,20 +611,22 @@ plot.prior_pred
 
 The @fig-priorpredVIsim shows the chosen priors are realistic.
 
+The prior sensitivity of our model is explored @sec-Fpriorsens.
+
 ### Posterior predictive check
 
 #### Model fit
 
 We can now fit the model to our simulated data.
 
-```{r, warning=F, message=F}
+```{r modrun, warning=F, message=F}
 #| code-fold: show
 
-m.1.VI.post <-
+m.sim.post <-
 
   brm(
     data = df_sim,                                 # <1>
-    bf.mod.VI,                                     # <2>
+    bf.mod,                                        # <2>
     backend = "cmdstanr",                          # <3>
     prior = priors,                                # <4>
     save_pars = save_pars(all = TRUE),             # <5>
@@ -621,11 +636,10 @@ m.1.VI.post <-
     iter = 6000, warmup = 1000,                    # <9>
     control = list(adapt_delta = .95,              # <10>
     max_treedepth = 12),                           # <10>
-    file=here::here("mod/m_brms_VI_post_sim")      # <11>
+    file=here::here("mod/m_brms_post_sim")      # <11>
   )
 
-print(m.1.VI.post)
-
+print(m.sim.post)
 ```
 
 1.  Data used
@@ -645,7 +659,7 @@ print(m.1.VI.post)
 Chains recuperation and calculation of additional parameters :
 
 ```{r chains}
-df_chains <- ggs(m.1.VI.post, burnin = T) |>                    # <1>
+df_chains <- ggs(m.sim.post, burnin = T) |>                     # <1>
   filter(Parameter %in% List_parameters) |>                     # <1>
   mutate(                                                       # <1>
     Chain=as.factor(Chain),                                     # <1>
@@ -673,7 +687,7 @@ df_chains_post_large <- df_chains_post_large |>                 # <4>
     Delta_a_sd = sd_ID__a_exposition1-sd_ID__a_exposition0,     # <4>
     Ratio_a_sd = sd_ID__a_exposition1/sd_ID__a_exposition0,     # <4>
     LnRR = log(b_a_exposition1/b_a_exposition0),                # <4>
-    LnCVR = log((sd_ID__a_exposition1/b_a_exposition1)/(sd_ID__a_exposition0/b_a_exposition0)) # <4>
+    LnCVi = log((sd_ID__a_exposition1/b_a_exposition1)/(sd_ID__a_exposition0/b_a_exposition0)) # <4>
   )
 
 df_chains_post_long <- df_chains_post_large |>                  # <4>
@@ -722,7 +736,7 @@ df_chains_post_long <- df_chains_post_long |>
 3.  Adding medians from each distribution
 4.  Calculation delta and ratios between non-exposed and exposed individuals
 
-```{r}
+```{r comppriorpost}
 #| fig-cap: Prior (light grey) and posterior distributions for each parameter.
 #| label: fig-priorpost
 #| fig-height: 12
@@ -990,10 +1004,10 @@ p
 Parameters estimation results :
 
 ```{r tableres}
-#| tbl-cap: Comparaison  of the different statistical values of the posterior distributions
+#| tbl-cap: Different statistical values of the posterior distributions
 #| label: tbl-compvalposttheoVI
 
-df_res_VI <- summarise_draws(tidy_draws(m.1.VI.post))
+df_res_VI <- summarise_draws(tidy_draws(m.sim.post))
 df_res_VI_show <- df_res_VI[1:7,]
 
 df_res_VI_show |> datatable(
@@ -1005,7 +1019,7 @@ df_res_VI_show |> datatable(
     ),
   class="hover"
   ) |>
-  formatRound(columns = 2:length(df_res_VI_show), digits = 4)
+  formatRound(columns = 2:length(df_res_VI_show), digits = 2)
 ```
 
 ```{r lnRRCVI}
@@ -1015,9 +1029,9 @@ df_res_VI_show |> datatable(
 # Calculation of the results for Ln(RR) and Ln(CVi)
 
 Median_LnRR <- median(subset(df_chains_post_long, Parameter=="LnRR")$value)
-Median_LnCVR <- median(subset(df_chains_post_long, Parameter=="LnCVR")$value)
+Median_LnCVi <- median(subset(df_chains_post_long, Parameter=="LnCVi")$value)
 Median_LnRR_print <- round(Median_LnRR, 2)
-Median_LnCVR_print <- round(Median_LnCVR, 2)
+Median_LnCVi_print <- round(Median_LnCVi, 2)
 
 Median_Ratio_a_mu <- median(subset(df_chains_post_long, Parameter=="Ratio_a_mu")$value)
 Median_Ratio_a_sd <- median(subset(df_chains_post_long, Parameter=="Ratio_a_sd")$value)
@@ -1030,26 +1044,26 @@ CI_Ratio_a_sd_p <- paste("[", round(CI_Ratio_a_sd$CI_low,2), " ; ", round(CI_Rat
 CI_LnRR <- bayestestR::ci(subset(df_chains_post_long, Parameter=="LnRR")$value, method = "ETI", ci = 0.90)
 CI_LnRR_p <- paste("[", round(CI_LnRR$CI_low,2), " ; ", round(CI_LnRR$CI_high,2), "]", sep="")
 
-CI_LnCVR <- bayestestR::ci(subset(df_chains_post_long, Parameter=="LnCVR")$value, ci = 0.90)
-CI_LnCVR_p <- paste("[", round(CI_LnCVR$CI_low,2), " ; ", round(CI_LnCVR$CI_high,2), "]", sep="")
+CI_LnCVi <- bayestestR::ci(subset(df_chains_post_long, Parameter=="LnCVi")$value, ci = 0.90)
+CI_LnCVi_p <- paste("[", round(CI_LnCVi$CI_low,2), " ; ", round(CI_LnCVi$CI_high,2), "]", sep="")
 
 pd_LnRR <- p_direction(subset(df_chains_post_long, Parameter=="LnRR")$value)
-pd_LnCVR <- p_direction(subset(df_chains_post_long, Parameter=="LnCVR")$value)
+pd_LnCVi <- p_direction(subset(df_chains_post_long, Parameter=="LnCVi")$value)
 
 pd_Ratio_a_mu <- p_direction(subset(df_chains_post_long, Parameter=="Ratio_a_mu")$value)
 pd_Ratio_a_sd <- p_direction(subset(df_chains_post_long, Parameter=="Ratio_a_sd")$value)
 
 df_res_Ln <- data.frame(
-  Variable = c("LnRR", "LnCVR", "Ratio a_mu", "Ratio a_sd"),
-  Median = c(Median_LnRR, Median_LnCVR, Median_Ratio_a_mu, Median_Ratio_a_sd),
-  CI = c(CI_LnRR_p, CI_LnCVR_p, CI_Ratio_a_mu_p, CI_Ratio_a_sd_p),
-  pd = c(pd_LnRR$pd, pd_LnCVR$pd, pd_Ratio_a_mu$pd, pd_Ratio_a_sd$pd)
+  Variable = c("LnRR", "LnCVi", "Ratio a_mu", "Ratio a_sd"),
+  Median = c(Median_LnRR, Median_LnCVi, Median_Ratio_a_mu, Median_Ratio_a_sd),
+  CI = c(CI_LnRR_p, CI_LnCVi_p, CI_Ratio_a_mu_p, CI_Ratio_a_sd_p),
+  pd = c(pd_LnRR$pd, pd_LnCVi$pd, pd_Ratio_a_mu$pd, pd_Ratio_a_sd$pd)
 ) |> 
   mutate(
     Median = round(Median, 3)
   )
 
-# Results expressed as LnRR and LnCVR
+# Results expressed as LnRR and LnCVi
 df_res_Ln |> datatable(
   options = list(
     dom = 't',
@@ -1059,7 +1073,8 @@ df_res_Ln |> datatable(
       )
     ), 
   class="hover"
-  ) 
+  ) |>
+  formatRound(columns = c(2,4), digits = 2)
 ```
 
 #### Chains
@@ -1096,22 +1111,22 @@ plot
 
 We can also check on the parameters correlations (@fig-pairsVIsim).
 
-```{r, echo = T}
+```{r pairs, echo = T}
 #| fig-cap: Parameters correlations
 #| label: fig-pairsVIsim
 #| fig-height: 10
 #| fig-width: 10
 
 bayesplot::color_scheme_set("gray")
-p <- pairs(m.1.VI.post, regex=T)
+p <- pairs(m.sim.post, regex=T)
 p
 ```
 
 #### Model predictions
 
 ```{r dfpred, warning=F, message=F}
-pred <- predicted_draws(m.1.VI.post, newdata=df_sim)
-post_i <- as.data.frame(posterior_summary(m.1.VI.post))
+pred <- predicted_draws(m.sim.post, newdata=df_sim)
+post_i <- as.data.frame(posterior_summary(m.sim.post))
 
 ID <- subset(df_sim, t==0)$ID
 expo <- subset(df_sim, t==0)$exposition
@@ -1172,7 +1187,7 @@ colnames(df_pred) <- c("t", "ID", "exposition",
 We now check the predictions of the model at the population level (@fig-postpredVIsim) and the individual level (@fig-postpredVIindctrlsim & @fig-postpredVIindtrtsim) :
 
 ```{r predmean, echo = T, warning=F}
-#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points and thin lines, each line corresponding to one individual). Colored ribbons correspond to the different credibility intervals for the mean growth for each cohort. The thicker black lines represent the predicted mean body weight.
+#| fig-cap: Posterior predictive check. Fresh body weight of simulated non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points and thin lines, each line corresponding to one individual). Colored ribbons correspond to the different credibility intervals for the mean growth for each cohort. The thicker black lines represent the predicted mean body weight.
 #| label: fig-postpredVIsim
 #| fig-height: 4
 #| fig-width: 8
@@ -1279,8 +1294,8 @@ ggsave(
 ::: panel-tabset
 ## Non-exposed
 
-```{r predid, echo = T, warning=F}
-#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
+```{r ctrlpredcheck, echo = T, warning=F}
+#| fig-cap: Posterior predictive check. Fresh body weight of simulated non-exposed earthworms (blue points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
 #| label: fig-postpredVIindctrlsim
 #| fig-height: 8
 #| fig-width: 9
@@ -1329,8 +1344,8 @@ p_ctrl
 
 ## Exposed
 
-```{r, warning=F, message=F}
-#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
+```{r trtpredcheck, warning=F, message=F}
+#| fig-cap: Posterior predictive check. Fresh body weight of simulated exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
 #| label: fig-postpredVIindtrtsim
 #| fig-height: 8
 #| fig-width: 9
@@ -1462,7 +1477,7 @@ plot_predobs_log <- ggplot()+
 plot_predobs_log
 ```
 
-```{r}
+```{r foldpred}
 #| tbl-cap: Percentage of points in the X-fold change area
 #| label: tbl-foldpred
 
@@ -1477,7 +1492,7 @@ f_fold <- function(fold){
   return(res)
 }
 
-df_fold <- data.frame(fold = c(1.01, 1.025, 1.05, 1.075, 1.1)) %>%
+df_fold <- data.frame(fold = c(1.05, 1.075, 1, 1.25, 1.5, 2)) %>%
   mutate(per = signif(mapply(f_fold, fold),2)*100)
 
 colnames(df_fold) <- c("Fold", "Percentage of predictions within")
@@ -1612,20 +1627,76 @@ plot_res_sd <- ggplot(
     legend.position="none"
     )
 
-plot <- plot_L0_mu +plot_L0_sd +plot_res_mu + plot_res_sd +
-  plot_layout(ncol=2, guides="collect", heights = c(1, 1))
+plot_LnRR <- ggplot(
+  data=subset(df_chains_post_long,Parameter == "LnRR"),
+  aes(
+    x=value
+    ),
+  color = Nord_polar[4],
+  fill = Nord_polar[4]
+  )+
+  labs(x=bquote("Mean pesticides effect (LnRR)"))+
+  stat_halfeye(
+    adjust=0.5,
+    alpha=alpha_expo
+    )+
+  geom_vline(xintercept = sim_LnRR, color = Nord_polar[4])+
+
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+
+  theme_classic(font_size)+
+  theme(
+    axis.line.y=element_blank(),
+    axis.title.y=element_blank(),
+    axis.ticks.y=element_blank(),
+    axis.text.y=element_blank(),
+    legend.position="none"
+    )
+
+plot_LnCVi <- ggplot(
+  data=subset(df_chains_post_long,Parameter == "LnCVi"),
+  aes(
+    x=value
+    ),
+  color = Nord_polar[4],
+  fill = Nord_polar[4]
+  )+
+  labs(x=bquote("Pesticides effect on individual variation (LnCVi)"))+
+  stat_halfeye(
+    adjust=0.5,
+    alpha=alpha_expo
+    )+
+  geom_vline(xintercept = sim_LnCVi, color = Nord_polar[4])+
+
+  scale_color_manual(values=rev(pal_col), name="")+
+  scale_fill_manual(values=rev(pal_col), name="")+
+
+  theme_classic(font_size)+
+  theme(
+    axis.line.y=element_blank(),
+    axis.title.y=element_blank(),
+    axis.ticks.y=element_blank(),
+    axis.text.y=element_blank(),
+    legend.position="none"
+    )
+
+plot <- plot_L0_mu +plot_L0_sd +plot_res_mu + plot_res_sd + plot_LnRR + plot_LnCVi +
+  plot_layout(ncol=2, guides="collect", heights = c(1, 1, 1))
 plot
 
 ```
+
+@fig-comppredsim shows the posterior distributions of estimated parameters, with vertical black lines indicating the true population values. The results demonstrate good parameter recovery, as the distributions are generally centered around the true values. Estimates for initial structural length, growth rate, and pesticide effects align well with the simulated data, indicating accurate inference.
 
 ```{r err}
 #| tbl-cap: Estimation errors on parameters
 #| label: tbl-err
 
 df_err <- data.frame(
-  Parameter = as.list(df_res_VI_show[1])$variable,
-  Simulated = c(sim_L0_mu, sim_a_ctrl_mu, sim_a_trt_mu, sim_L0_sd, sim_a_ctrl_sd, sim_a_trt_sd, sd),
-  Predicted = as.list(df_res_VI_show[2])$mean
+  Parameter = c(as.list(df_res_VI_show[1])$variable, "LnRR", "LnCVi"),
+  Simulated = c(sim_L0_mu, sim_a_ctrl_mu, sim_a_trt_mu, sim_L0_sd, sim_a_ctrl_sd, sim_a_trt_sd, sd, sim_LnRR, sim_LnCVi),
+  Predicted = c(as.list(df_res_VI_show[2])$mean, mean(subset(df_chains_post_long, Parameter == "LnRR")$value), mean(subset(df_chains_post_long, Parameter == "LnCVi")$value))
 )
 df_err <- df_err |> 
   mutate(
@@ -1641,7 +1712,9 @@ df_err |> datatable(
     ),
   class="hover"
   ) |>
-  formatRound(columns = 1:length(df_err), digits = 4)
+  formatRound(columns = 2:length(df_err), digits = 4)
 ```
 
 Parameter recovery is excellent at the population level, with absolute errors below 0.5%, and strong at the individual level, with absolute errors between 4 to 5%.
+
+!!!!!!!!!! Problème avec sigma !!!!!!!!!!!!

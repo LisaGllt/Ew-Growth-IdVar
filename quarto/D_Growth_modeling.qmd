@@ -1,29 +1,7 @@
-```{r, include=F, warning=F, message=F}
-library(tidyverse); library(here); library(ggthemes)
-library(viridis); library(tidybayes); library(wesanderson)
-library(ggdist); library(patchwork); library(extrafont)
-library(parallel); library(deSolve); library(tmvtnorm)
-library(fdrtool); library(readxl); library(here); library(easystats)
-library(RColorBrewer); library(devtools); library(car); library(plotly)
-library(knitr); library(Hmisc); library(nlstools); library(lsmeans)
-library(ggpubr); library(gridExtra) ; library(grid);
-library(modelsummary);
-library(plan); library(brms); library(ggmcmc); library(latex2exp);
-library(reshape2); library(ggbreak); library(nord); library(ggtext); 
-library(kableExtra); library(DT); library(grid);
-library(rstan); library(cmdstanr)
-
-sizetitle <- 12
-
-Nord_frost <- nord(palette = "frost")
-Nord_polar <- nord(palette = "polarnight")
-
-col_blue <- "#5E81AC"
-col_red <- "#f42404"
-pal_col <- c(col_blue, col_red)
-
-pal_blue <- c("#5E81AC", "#7F9DC4", "#A0C1D9", "#DCE9F2")
-pal_red <- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
+```{r libraries, include=F, warning=F, message=F}
+library(here)
+source(file = here::here("functions/functions.R"))
+f_load_libraries_colors() 
 ```
 
 # Analysis of experimental data
@@ -63,7 +41,7 @@ n_trt <- length(subset(df_growth, t==0 & exposition == 1)$ID)                   
 6.  Creation of a dataset with the mean growth per exposition group
 7.  Number of individuals in each group
 
-```{r, warning=F, message=F}
+```{r growthplot, warning=F, message=F}
 #| fig-cap: Evolution of fresh body weight of non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points and thin lines, each line corresponding to one individual).
 #| label: fig-growthdataset2
 #| fig-width: 6
@@ -160,7 +138,7 @@ We can conclude there is no effect of the cohort on the initial weight of the in
 #| code-fold: show
 
 # Model definition
-bf.mod.VI <- 
+bf.mod<- 
   
   bf(
     L  ~ L0+a*t,                            # <1> 
@@ -204,27 +182,25 @@ The model parameters are named as follows by `brms` :
 
 ## Priors definition
 
-The priors were defined according to the results of @bart_2020a considering the studied non-exposed individuals. The same priors are given to the two cohorts. A growth rate individual variation of 20% was given as a prior for the two cohort.
-
-!!!!!!!!!!! JUSTIF CHOIX PRIORS !!!!!!!!!!!!!!!!!!!!!!!!!!
+The priors were defined the same way as in @sec-Cpriorsdef.
 
 ```{r prior}
 #| code-fold: show
 
 # Priors definition
-priors <- 
-  prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) +          # <1>
-  prior(normal(2.25*0.2, 2.25*0.2), class = sd, nlpar = L0)+          # <2> 
+priors <-
+  prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +                       # <1>
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+                           # <2>
 
-  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) + # <3>
-  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) + # <4>
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # <3>
+  prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
 
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd,                       # <5>
-        coef=exposition0, group=ID, nlpar = a)+                       # <5>
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd,                       # <6>
-        coef=exposition1, group=ID, nlpar = a)+                       # <6>
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <5>
+        coef=exposition0, group=ID, nlpar = a)+                                        # <5>
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <6>
+        coef=exposition1, group=ID, nlpar = a)+                                        # <6>
 
-  prior(exponential(1), sigma)                                        # <7>
+  prior(exponential(1), sigma, nlpar = "")                                             # <7>
 
 ```
 
@@ -236,150 +212,19 @@ priors <-
 6.  Prior on $a_{\text{trt},\sigma}$
 7.  Prior on residuals
 
-```{r}
-#| fig-cap: Priors of our model.
-#| label: fig-priorplot
-#| fig-height: 12
-#| fig-width: 12
-
-col_dens <- Nord_polar[1]
-alpha_dens <- 0.5
-sizetitle <- 18
-
-priors$nlpar <- factor(priors$nlpar, levels = c("L0", "a")) 
-
-
-p1 <- priors %>% 
-  parse_dist() %>% 
-  filter(class == "b") %>% 
-  ggplot(
-    aes(
-      xdist = .dist_obj, 
-      y = format(.dist_obj),
-      color = coef,
-      fill = coef
-      )
-    ) +
-  stat_dist_halfeye(
-    alpha = alpha_dens
-  ) +
-  facet_wrap(
-    ~nlpar+coef, 
-    scales = "free"
-    ) +
-  scale_color_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
-  scale_fill_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
-  ggtitle("Intercepts") +
-  labs(
-    x = "Value",
-    y = "Density"
-    )+
-  theme_minimal()+
-  theme(
-    axis.text.y = element_text(angle = 90),
-    plot.title = element_text(face="bold", size = sizetitle),
-    strip.text = element_text(face="plain", size = sizetitle-2),
-        )
-
-p2 <- priors %>% 
-  parse_dist() %>% 
-  filter(class == "sd") %>% 
-  ggplot(
-    aes(
-      xdist = .dist_obj, 
-      y = format(.dist_obj),
-      color = coef,
-      fill = coef
-      )
-    ) +
-  stat_dist_halfeye(
-    alpha = alpha_dens
-  ) +
-  facet_wrap(
-    ~nlpar+coef, 
-    scales = "free"
-    ) +
-  scale_color_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
-  scale_fill_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
-  ggtitle("Inter-individual variances") +
-  labs(
-    x = "Value",
-    y = "Density"
-    )+
-  theme_minimal()+
-  theme(
-    axis.text.y = element_text(angle = 90),
-    plot.title = element_text(face="bold", size = sizetitle),
-    strip.text = element_text(face="plain", size = sizetitle-2),
-    )
-
-p3 <- priors %>% 
-  parse_dist() %>% 
-  filter(class == "sigma") %>% 
-  ggplot(
-    aes(
-      xdist = .dist_obj, 
-      y = format(.dist_obj),
-      color = coef,
-      fill = coef
-      )
-    ) +
-  stat_dist_halfeye(
-    alpha = alpha_dens
-  ) +
-  facet_wrap(
-    ~nlpar, 
-    scales = "free"
-    ) +
-  scale_color_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
-  scale_fill_manual(values = c(Nord_polar[4], Nord_frost[4], col_red))+
-  ggtitle("Residual variance") +
-  labs(
-    x = "Value",
-    y = "Density"
-    )+
-  theme_minimal()+
-  theme(
-    axis.text.y = element_text(angle = 90),
-    plot.title = element_text(face="bold", size = sizetitle),
-    strip.text = element_text(face="plain", size = sizetitle-2),
-    )
-
-p <- p1 + p2 + p3 + 
-  plot_layout(ncol = 1)&
-  theme(legend.position = "none")
-p
-```
-
-```{r savepriorsplot, include=F, message=F, warning=F}
-ggsave(
-  filename="ModVI_priors.png", 
-  plot=p, 
-  width=8, height = 10, 
-  path=here::here("fig/")
-  )
-
-ggsave(
-  filename="ModVI_priors.svg", 
-  plot=p, 
-  width=8, height = 10, 
-  path=here::here("fig/")
-  )
-```
-
 ## Prior predictive check
 
 In bayesian modeling, we first perform a prior predictive check before fitting the model to our data. This allows us to check on the rationnality of the chosen priors.
 
 Results of the model with the sampling of priors :
 
-```{r, warning=F, message=F}
+```{r modrunprior, warning=F, message=F}
 
-m.1.VI.prior <- 
+m.prior <- 
   
   brm(
     data = df_growth,                   # <1>
-    bf.mod.VI,                          # <2>
+    bf.mod,                             # <2>
     backend = "cmdstanr",               # <3>
     prior = priors,                     # <4>
     sample_prior = "only",              # <5>
@@ -393,8 +238,7 @@ m.1.VI.prior <-
     file=here::here("mod/m_brms_VI_prior")   # <10>
   )
 
-print(m.1.VI.prior)
-
+print(m.prior)
 ```
 
 1.  Data used
@@ -416,7 +260,7 @@ We can then plot the predictions of this model and see if they represent at leas
 #| fig-height: 4
 #| fig-width: 8
 
-pred <- predicted_draws(m.1.VI.prior, newdata=df_growth) # <1> 
+pred <- predicted_draws(m.prior, newdata=df_growth) # <1> 
 
 y_max <- 480
 
@@ -514,14 +358,14 @@ The @fig-priorpredVI shows the chosen priors are realistic.
 
 We can now fit the model to our experimental data.
 
-```{r, warning=F, message=F}
+```{r modrunpost, warning=F, message=F}
 #| code-fold: show
 
-m.1.VI.post <- 
+m.post <- 
   
   brm(
     data = df_growth,                              # <1>
-    bf.mod.VI,                                     # <2>
+    bf.mod,                                        # <2>
     backend = "cmdstanr",                          # <3>
     prior = priors,                                # <4>
     save_pars = save_pars(all = TRUE),             # <5>
@@ -534,8 +378,7 @@ m.1.VI.post <-
     file=here::here("mod/m_brms_VI_post")   # <11>
   )
 
-print(m.1.VI.post)
-
+print(m.post)
 ```
 
 1.  Data used
@@ -556,7 +399,7 @@ Chains recuperation and calculation of additional parameters :
 
 ```{r chainspost, warning=F, message=F}
                                              
-df_chains <- ggs(m.1.VI.post, burnin = T) |>                    # <1>
+df_chains <- ggs(m.post, burnin = T) |>                    # <1>
   filter(Parameter %in% List_parameters) |>                     # <1>
   mutate(                                                       # <1>
     Chain=as.factor(Chain),                                     # <1>
@@ -638,11 +481,11 @@ df_chains_post_long <- df_chains_post_long |>
 The results of the pesticides effect can be expressed with a response ratio (Ln(RR), @eq-LnRR) and a coefficient of variation ratio (Ln(CVi), @eq-LnCVi).
 
 $$
-\text{Ln}(\text{RR}) = \text{Ln}\left( \frac{a_{ctrl,\mu}}{a_{trt,\mu}} \right)
+\text{Ln}(\text{RR}) = \text{Ln}\left( \frac{a_{trt,\mu}}{a_{ctrl,\mu}} \right)
 $$ {#eq-LnRR}
 
 $$
-\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right) - \frac{1}{2(n_{trt}-1)}-\frac{1}{2(n_{ctrl}-1)}\\
+\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{trt}}{CV_{ctrl}} \right)\\
 $$ {#eq-LnCVi}
 
 With :
@@ -925,7 +768,7 @@ The fit on data gives information on model parameters as the posterior distribut
 #| tbl-cap: Comparaison  of the different statistical values of the posterior distributions
 #| label: tbl-compvalposttheoVI
 
-df_res_VI <- summarise_draws(tidy_draws(m.1.VI.post))
+df_res_VI <- summarise_draws(tidy_draws(m.post))
 
 df_res_VI_show <- df_res_VI[1:7,]
 
@@ -1010,7 +853,7 @@ df_res_Ln |> datatable(
 
 ### Chains
 
-We can check if the chains look good (@fig-chainsVI) and have a first look to the posterior distributions (@fig-postdistribVI).
+We can check if the chains look good (@fig-chainsVI).
 
 ```{r chainspost, echo=T, message=F, warning=F}
 #| fig-cap: Parameters chains (without the first 1000 iterations of warmup).
@@ -1071,7 +914,7 @@ We can also check on the parameters correlations (@fig-pairsVI).
 #| fig-width: 10
 
 bayesplot::color_scheme_set("gray")
-p <- pairs(m.1.VI.post, regex=T)
+p <- pairs(m.post, regex=T)
 p
 ```
 
@@ -1096,8 +939,8 @@ ggsave(
 ### Comparison of observed vs predicted data
 
 ```{r dfpred, warning=F, message=F}
-pred <- predicted_draws(m.1.VI.post, newdata=df_growth)
-post_i <- as.data.frame(posterior_summary(m.1.VI.post))
+pred <- predicted_draws(m.post, newdata=df_growth)
+post_i <- as.data.frame(posterior_summary(m.post))
 
 ID <- subset(df_growth, t==0)$ID
 expo <- subset(df_growth, t==0)$exposition
@@ -1557,7 +1400,7 @@ ggsave(
 ## Non-exposed
 
 ```{r predid, echo = T, warning=F}
-#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
+#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
 #| label: fig-postpredVIindctrl
 #| fig-height: 8
 #| fig-width: 9
@@ -1607,7 +1450,7 @@ p_ctrl
 ## Exposed
 
 ```{r, warning=F, message=F}
-#| fig-cap: Posterior predictive check. Fresh body weight of non-exposed earthworms (blue points) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
+#| fig-cap: Posterior predictive check. Fresh body weight of earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed each 28 days (red points). Colored ribbons correspond to the different credibility intervals for the predicted growth for each individual. The thicker black lines represent the predicted body weight.
 #| label: fig-postpredVIindtrt
 #| fig-height: 8
 #| fig-width: 9

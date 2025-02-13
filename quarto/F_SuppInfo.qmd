@@ -1,29 +1,7 @@
-```{r, include=F, warning=F, message=F}
-library(tidyverse); library(here); library(ggthemes)
-library(viridis); library(tidybayes); library(wesanderson)
-library(ggdist); library(patchwork); library(extrafont)
-library(parallel); library(deSolve); library(tmvtnorm)
-library(fdrtool); library(readxl); library(here); library(easystats)
-library(RColorBrewer); library(devtools); library(car); library(plotly)
-library(knitr); library(Hmisc); library(nlstools); library(lsmeans)
-library(ggpubr); library(gridExtra) ;
-library(modelsummary);
-library(plan); library(brms); library(ggmcmc); library(latex2exp);
-library(reshape2); library(ggbreak); library(nord); library(ggtext); 
-library(kableExtra); library(DT); library(glmmTMB); library(priorsense); 
-#library(renv)
-
-sizetitle <- 12
-
-Nord_frost <- nord(palette = "frost")
-Nord_polar <- nord(palette = "polarnight")
-
-col_blue <- "#5E81AC"
-col_red <- "#f42404"
-pal_col <- c(col_blue, col_red)
-
-pal_blue <- c("#5E81AC", "#7F9DC4", "#A0C1D9", "#DCE9F2")
-pal_red <- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
+```{r libraries, include=F, warning=F, message=F}
+library(here)
+source(file = here::here("functions/functions.R"))
+f_load_libraries_colors() 
 ```
 
 # Supplementary information
@@ -33,9 +11,9 @@ pal_red <- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")
 df_growth <- read_excel(here::here("data/Data_growth_EPX_DMX.xlsx"), sheet="Growth") # <1>
 
 dead <- subset(df_growth, t==14 & status == "D")$ID 
-                                                                         # <2>
+                                                                                     # <2>
 df_growth <- df_growth |> 
-  subset((!ID %in% dead)) |>                                      # <3>
+  subset((!ID %in% dead)) |>                                                         # <3>
   mutate(
     L            = w^(1/3),
     exposition   = 0 + 1*(exposition == "Trt"),
@@ -45,8 +23,8 @@ df_growth <- df_growth |>
 df_growth$exposition <- as.factor(df_growth$exposition)
 df_growth$ID <- as.factor(df_growth$ID)
 
-df_growth_mean <- df_growth |>                                           # <6>
-  aggregate(w ~ t + exposition, mean)                                    # <6>
+df_growth_mean <- df_growth |>                                                       # <6>
+  aggregate(w ~ t + exposition, mean)                                                # <6>
 
 # Number of individuals in each group
 n_ctrl <- length(subset(df_growth, t==0 & exposition == 0)$ID)
@@ -96,29 +74,38 @@ bf.mod.Ln <-
 
 We use the same priors as in #sec-Dpriors.
 
-```{r}
+```{r prior}
 #| code-fold: show
 
 # Priors definition
-priors <- 
-  prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) +
-  prior(normal(2.25*0.2, 2.25*0.2), class = sd, nlpar = L0)+
+priors <-
+  prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +                       # <1>
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+                           # <2>
 
-  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) +
-  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) +
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # <3>
+  prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
 
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd,
-        coef=exposition0, group=ID, nlpar = a)+
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd,
-        coef=exposition1, group=ID, nlpar = a)+
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <5>
+        coef=exposition0, group=ID, nlpar = a)+                                        # <5>
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <6>
+        coef=exposition1, group=ID, nlpar = a)+                                        # <6>
 
-  prior(exponential(1), sigma)
+  prior(exponential(1), sigma, nlpar = "")                                             # <7>
+
 ```
+
+1.  Prior on $L0_{\mu}$
+2.  Prior on $L0_{\sigma}$
+3.  Prior on $a_{\text{ctrl},\mu}$
+4.  Prior on $a_{\text{trt},\mu}$
+5.  Prior on $a_{\text{ctrl},\sigma}$
+6.  Prior on $a_{\text{trt},\sigma}$
+7.  Prior on residuals
 
 ```{r}
 #| code-fold: show
 
-m.1.VI.post <- 
+m.post <- 
   
   brm(
     data = df_growth,
@@ -135,7 +122,7 @@ m.1.VI.post <-
     file=here::here("mod/m_brms_VI_post")
   )
 
-m.1.Ln.post <- 
+m.Ln.post <- 
   
   brm(
     data = df_growth_Ln,
@@ -154,9 +141,9 @@ m.1.Ln.post <-
 ```
 
 ```{r, message=F, warning=F}
-p1 <- pp_check(m.1.VI.post, ndraws = 100) +
+p1 <- pp_check(m.post, ndraws = 100) +
   scale_color_manual(values = c(Nord_polar[1], Nord_frost[3]))
-p2 <- pp_check(m.1.Ln.post, ndraws = 100)+
+p2 <- pp_check(m.Ln.post, ndraws = 100)+
   scale_color_manual(values = c(Nord_polar[1], Nord_frost[3]))
 p <- p1+p2+
   plot_layout(ncol = 2) & 
@@ -184,8 +171,8 @@ bf.mod.null <- bf(
   nl=T
   )
 
-# Individual variation in growth rate, not depending on exposition
-bf.mod.VI.noexpo <- bf(
+# Individual variation in growth rate only
+bf.mod.vi <- bf(
   L ~ L0+a*t,
   L0~1+(1||ID),
   a~1+(1||ID),
@@ -195,7 +182,7 @@ bf.mod.VI.noexpo <- bf(
   )
 
 # Effect of the pesticide on mean growth rate, no individual variation
-bf.mod.expo <- bf(
+bf.mod.trt <- bf(
   L ~ L0+a*t,
   L0~1,
   a~0+exposition,
@@ -205,10 +192,10 @@ bf.mod.expo <- bf(
   )
 
 # Addition of inter-individual variation in growth rate, depending on exposition
-# bf.mod.VI (Defined above)
+# bf.mod (Defined above)
 
 # Addition of a correlation between initial length and growth rate
-bf.mod.VI.cor <- bf(
+bf.mod.trt.vi.cor <- bf(
   L ~ L0+a*t,
   L0~1+(1|c|ID),
   a~0+exposition+(0+exposition|c|ID),
@@ -223,37 +210,37 @@ We use the same priors for all models.
 ```{r priorscompmod}
 #| code-fold: show
 
-priors.null <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) +
+priors.null <- prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +
   # Mean values of a 
-  prior(normal(0.075, 0.015), class=b, nlpar = a) +
+  prior(normal(0.070, 0.070*0.2), class=b, nlpar = a) +
   # Résidus
   prior(exponential(1), sigma)
 
-priors.VI.noexpo <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) + 
-  prior(normal(2.25*0.2, 2.25*0.2), class = sd, nlpar = L0)+
+priors.vi <- prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) + 
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+
   # Mean values of a for the two cohorts
-  prior(normal(0.075, 0.015), class=b, nlpar = a) + 
+  prior(normal(0.070, 0.070*0.2), class=b, nlpar = a) + 
   # Individual variations values of a for the two cohorts
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd, group=ID, nlpar = a)+
+  prior(normal(0.070*0.2, 0.070*0.2), class=sd, group=ID, nlpar = a)+
   # Résidus
   prior(exponential(1), sigma)
 
-priors.expo <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) +
+priors.trt <- prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +
   # Mean values of a for the two cohorts
-  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) + 
-  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) + 
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) + 
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition1, nlpar = a) + 
   # Résidus
   prior(exponential(1), sigma)
 
-priors.VI.cor <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) + 
-  prior(normal(2.25*0.2, 2.25*0.2), class = sd, nlpar = L0)+
+priors.trt.vi.cor <- prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) + 
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+
   # Mean values of a for the two cohorts
-  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) + 
-  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) + 
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) + 
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition1, nlpar = a) + 
   # Individual variations values of a for the two cohorts
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd, 
+  prior(normal(0.070*0.2, 0.070*0.2), class=sd, 
         coef=exposition0, group=ID, nlpar = a)+
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd, 
+  prior(normal(0.070*0.2, 0.070*0.2), class=sd, 
         coef=exposition1, group=ID, nlpar = a)+
   # Default prior for correlations
   # Résidus
@@ -263,7 +250,7 @@ priors.VI.cor <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) +
 
 ```{r compmodrun}
 
-m.1 <- brm(
+m.null <- brm(
   data = df_growth, 
   bf.mod.null, 
   backend = "cmdstanr",
@@ -277,14 +264,14 @@ m.1 <- brm(
     adapt_delta = .95,
     max_treedepth = 12
     ),
-  file=here::here("mod/model_choice/m.1")
+  file=here::here("mod/model_choice/m.null")
   )
 
-m.2 <- brm(
+m.vi <- brm(
   data = df_growth, 
-  bf.mod.VI.noexpo, 
+  bf.mod.vi, 
   backend = "cmdstanr",
-  prior = priors.VI.noexpo,
+  prior = priors.vi,
   save_pars = save_pars(all = TRUE),
   sample_prior = "yes",
   seed = 42,
@@ -294,14 +281,14 @@ m.2 <- brm(
     adapt_delta = .95,
     max_treedepth = 12
     ),
-  file=here::here("mod/model_choice/m.2")
+  file=here::here("mod/model_choice/m.vi")
   )
 
-m.3 <- brm(
+m.trt <- brm(
   data = df_growth, 
-  bf.mod.expo, 
+  bf.mod.trt, 
   backend = "cmdstanr",
-  prior = priors.expo,
+  prior = priors.trt,
   save_pars = save_pars(all = TRUE),
   sample_prior = "yes",
   seed = 42,
@@ -311,16 +298,16 @@ m.3 <- brm(
     adapt_delta = .95,
     max_treedepth = 12
     ),
-  file=here::here("mod/model_choice/m.3")
+  file=here::here("mod/model_choice/m.trt")
   )
 
-m.4 <- m.1.VI.post
+m.trt.vi <- m.post
 
-m.5 <- brm(
+m.trt.vi.cor <- brm(
   data = df_growth, 
-  bf.mod.VI.cor, 
+  bf.mod.trt.vi.cor, 
   backend = "cmdstanr",
-  prior = priors.VI.cor,
+  prior = priors.trt.vi.cor,
   save_pars = save_pars(all = TRUE),
   sample_prior = "yes",
   seed = 42,
@@ -330,18 +317,18 @@ m.5 <- brm(
     adapt_delta = .95,
     max_treedepth = 12
     ),
-  file=here::here("mod/model_choice/m.5")
+  file=here::here("mod/model_choice/m.trt.vi.cor")
   )
 
 ```
 
 ```{r, warning=F, message=F}
 
-m.1 <- add_criterion(m.1, criterion=c("waic", "loo"))
-m.2 <- add_criterion(m.2, criterion=c("waic", "loo"))
-m.3 <- add_criterion(m.3, criterion=c("waic", "loo"))
-m.4 <- add_criterion(m.4, criterion=c("waic", "loo"))
-m.5 <- add_criterion(m.5, criterion=c("waic", "loo"))
+m.null <- add_criterion(m.null, criterion=c("waic", "loo"))
+m.vi <- add_criterion(m.vi, criterion=c("waic", "loo"))
+m.trt <- add_criterion(m.trt, criterion=c("waic", "loo"))
+m.trt.vi <- add_criterion(m.trt.vi, criterion=c("waic", "loo"))
+m.trt.vi.cor <- add_criterion(m.trt.vi.cor, criterion=c("waic", "loo"))
 ```
 
 ::: panel-tabset
@@ -353,7 +340,7 @@ m.5 <- add_criterion(m.5, criterion=c("waic", "loo"))
 #| fig-height: 4
 #| fig-width: 6
 
-w <- loo_compare(m.1, m.2, m.3, m.4, m.5, criterion = "waic")
+w <- loo_compare(m.null, m.vi, m.trt, m.trt.vi, m.trt.vi.cor, criterion = "waic")
 
 #print(w, simplify = F)
 cbind(waic_diff = w[, 1] * -2,
@@ -396,7 +383,7 @@ plot
 #| fig-height: 4
 #| fig-width: 6
 
-w <- loo_compare(m.1, m.2, m.3, m.4, m.5, criterion = "loo")
+w <- loo_compare(m.null, m.vi, m.trt, m.trt.vi, m.trt.vi.cor, criterion = "loo")
 
 
 #print(w, simplify = F)
@@ -431,13 +418,13 @@ plot
 ```
 :::
 
-## Checking priors sensitivity
+## Checking priors sensitivity {#sec-Fpriorsens}
 
 ```{r}
 #| tbl-cap: Priors sensitivity
 
 tbl_powerscale_sens <- powerscale_sensitivity(
-  m.4,
+  m.trt.vi,
   variable = c(
     "b_a_exposition0",
     "b_a_exposition1",
@@ -466,7 +453,7 @@ tbl_powerscale_sens |>
 # A very heavy object (4.5 GB)
 
 # p_dens <- powerscale_plot_dens(
-#   m.4,
+#   m.trt.vi,
 #   variable = c(
 #     "b_a_exposition0",
 #     "b_a_exposition1",
@@ -496,11 +483,11 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_2.png"))
 # Another very heavy object
 
 # p_ecdf <- powerscale_plot_ecdf(
-#   m.4,
+#   m.trt.vi,
 #   variable = c(
-#     "b_a_exposition0", 
+#     "b_a_exposition0",
 #     "b_a_exposition1",
-#     "sd_ID__a_exposition0", 
+#     "sd_ID__a_exposition0",
 #     "sd_ID__a_exposition1"
 #     )
 #   )+
@@ -525,22 +512,22 @@ knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_1.png"))
 
 # Another very heavy object
 
-p_quant <- powerscale_plot_quantities(
-  m.4,
-  variable = c(
-    "b_a_exposition0", 
-    "b_a_exposition1",
-    "sd_ID__a_exposition0", 
-    "sd_ID__a_exposition1"
-    )
-  )
-
-ggsave(
-  filename="Plot_priors_sensitivity_3.png",
-  plot=p_quant,
-  width=10, height = 6,
-  path=here::here("fig/")
-  )
+# p_quant <- powerscale_plot_quantities(
+#   m.trt.vi,
+#   variable = c(
+#     "b_a_exposition0", 
+#     "b_a_exposition1",
+#     "sd_ID__a_exposition0", 
+#     "sd_ID__a_exposition1"
+#     )
+#   )
+# 
+# ggsave(
+#   filename="Plot_priors_sensitivity_3.png",
+#   plot=p_quant,
+#   width=10, height = 6,
+#   path=here::here("fig/")
+#   )
 
 knitr::include_graphics(here::here("fig/Plot_priors_sensitivity_3.png"))
 
@@ -779,13 +766,13 @@ plot(
 ```{r}
 models <- list(
   "null.f" = glmmTMB.null,
-  "null.b" = m.1,
+  "null.b" = m.null,
   "trt.f" = glmmTMB.trt,
-  "trt.b" = m.3,
+  "trt.b" = m.trt,
   "vi.f" = glmmTMB.vi,
-  "vi.b" = m.2,
-  "trt.vi.f" = glmmTMB.trt.vi,
-  "trt.vi.b" = m.4
+  "vi.b" = m.vi,
+  "trt.vi.f" = glmmTMB.trt.vi.2,
+  "trt.vi.b" = m.trt.vi
   )
 ```
 

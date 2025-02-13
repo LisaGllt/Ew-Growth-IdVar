@@ -14,20 +14,20 @@ nb_ind_sim <- 500
 
 List_L0_i <- rnorm(
   nb_ind_sim*2,
-  2.175386,
-  0.221118
+  2.1765,
+  0.2209
 )
 
 List_a_i_ctrl <- rnorm(
   nb_ind_sim,                                              
-  0.08282688,     
-  0.008880017
+  0.0827,     
+  0.0087
   )
 
 List_a_i_trt <- rnorm(
   nb_ind_sim,                                               
-  0.07502984,     
-  0.02772767
+  0.0746,     
+  0.0272
   )
 
 df_pop_sim <- data.frame(
@@ -104,7 +104,7 @@ trt_individuals_draws <- rand_draws(trt_individuals, n_rep_trt, n_ind_cosm, n_dr
 # 3. Model ----
 
 # Model definition
-bf.mod.VI <- bf(
+bf.mod <- bf(
   L ~ L0+a*t,
   L0~1 + (1||ID), # no expo at t0 
   a~0+exposition+(0+exposition||ID),
@@ -112,23 +112,26 @@ bf.mod.VI <- bf(
   nl=T
   )
 
-priors <- prior(normal(2.25, 0.45), class = b, nlpar = L0, lb = 0) + # CV 20%
-  prior(normal(2.25*0.2, 2.25*0.2), class = sd, nlpar = L0)+
-  # Mean values of a for the two cohorts
-  prior(normal(0.075, 0.015), class=b, coef=exposition0, nlpar = a) + # CV 20%
-  prior(normal(0.075, 0.015), class=b, coef=exposition1, nlpar = a) + # CV 20%
-  # Individual variations values of a for the two cohorts
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd, 
-        coef=exposition0, group=ID, nlpar = a)+
-  prior(normal(0.075*0.2, 0.075*0.2), class=sd, 
-        coef=exposition1, group=ID, nlpar = a)+
-  # Résidus
-  prior(exponential(1), sigma)
+
+# Priors definition
+priors <-
+  prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +                     
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+                        
+  
+  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +            
+  prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +          
+  
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                 
+        coef=exposition0, group=ID, nlpar = a)+                                      
+  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                  
+        coef=exposition1, group=ID, nlpar = a)+                                       
+  
+  prior(exponential(1), sigma, nlpar = "")                                             
 
 
 fit.model <- function(data){
   m.i <- brm(data = data, 
-             bf.mod.VI, 
+             bf.mod, 
              backend = "rstan",
              prior = priors,
              sample_prior = "yes",

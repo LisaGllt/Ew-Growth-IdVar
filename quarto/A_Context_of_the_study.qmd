@@ -1,18 +1,7 @@
 ```{r, include = F}
-library(tidyverse); library(here); library(ggthemes)
-library(viridis); library(tidybayes); library(wesanderson)
-library(ggdist); library(patchwork); library(extrafont)
-library(scales); library(ggdist); library(ggsci)
-library(parallel); library(deSolve); library(tmvtnorm)
-library(fdrtool); library(readxl); library(here); library(bayestestR)
-library(RColorBrewer); library(devtools); library(car); library(plotly)
-library(knitr); library(Hmisc); library(nlstools); library(lsmeans)
-
-col_blue <- "#5E81AC"
-col_red <- "#f42404"
-pal_col <- c(col_blue, col_red)
-
-getwd()
+library(here)
+source(file = here::here("functions/functions.R"))
+f_load_libraries_colors()
 ```
 
 # Context of the study {#sec-A}

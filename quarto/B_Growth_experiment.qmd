@@ -1,16 +1,7 @@
 ```{r, include=F}
-library(tidyverse); library(here); library(readxl); library(ggbreak);
-library(ggpubr); library(gridExtra) ; library(patchwork); library(knitr)
-library(ggtext); library(kableExtra); library(DT); 
-library(ggiraph); library(nord)
-
-Nord_frost <- nord(palette = "frost")
-
-col_blue <- "#5E81AC"
-col_red <- "#f42404"
-pal_col <- c(col_blue, col_red)
-
-sizetitle <- 12
+library(here)
+source(file = here::here("functions/functions.R"))
+f_load_libraries_colors()
 ```
 
 # Longitudinal monitoring of earthworm growth exposed to a fungicide
