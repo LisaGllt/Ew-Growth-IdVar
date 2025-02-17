@@ -12,7 +12,7 @@ To evaluate individual variations in growth and fungicide sensitivity parameters
 
 We used an individual reaction norm approach [@dingemanse_2013] to compare growth rate across exposed and non-exposed individuals. As indicated by [@bart_2020a], *A. caliginosa* growth is approximately linear with the structural volumetric length $L$ during the juvenile phase of the life-cycle. This structural volumetric length can be calculated as the cubic root of the wet weight of the organisms.
 
-Here, we assume that both cohorts can have a different growth rate $\alpha$ (mg$^{1/3}$/d). We suppose the structural volumetric length at the start of the experiment ($L0$) does not depend on the treatment as individuals came from the same pool of individuals.
+Here, we assume that both cohorts can have a different growth rate $a$ (mg$^{1/3}$/d). We suppose the structural volumetric length at the start of the experiment ($L0$) does not depend on the treatment as individuals came from the same pool of individuals.
 
 To take individual variations for both parameters, we assume that each parameter can be considered as a random variable described by a normal distribution whose mean is the population-level value of the parameter and the standard deviation is the individual variation of the parameter. Each individual can then have a parameter value that is taken from this normal distribution.
 
@@ -75,7 +75,7 @@ $$
 $$ {#eq-LnRR}
 
 $$
-\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right) - \frac{1}{2(n_{trt}-1)}-\frac{1}{2(n_{ctrl}-1)}\\
+\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right)\\
 $$ {#eq-LnCVi}
 
 With :
