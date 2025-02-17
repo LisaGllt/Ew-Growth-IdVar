@@ -27,20 +27,20 @@ csl: references/apa.csl
 
 execute:
   cache: true
-  cache.path: 'cache/'
+  freeze: auto
 
 format:
   html:
     code-fold: true
     code-tools: true
     code-block-bg: true
-    highlight-style: lightnord.theme
+    highlight-style: appearance/lightnord.theme
     code-block-border-left: "#E5E9F0"
     code-overflow: wrap
     code-annotations: select
     theme:
       - cosmo
-      - html_css.scss
+      - appearance/html_css.scss
 
 
 editor: 

@@ -85,12 +85,12 @@ priors <-
   prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # <3>
   prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
 
-  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <5>
+  prior(normal(0.070*0.2,  0.070), class=sd,                                           # <5>
         coef=exposition0, group=ID, nlpar = a)+                                        # <5>
-  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <6>
+  prior(normal(0.070*0.2,  0.070), class=sd,                                           # <6>
         coef=exposition1, group=ID, nlpar = a)+                                        # <6>
 
-  prior(exponential(1), sigma, nlpar = "")                                             # <7>
+  prior(exponential(1), sigma, nlpar="")                                                         # <7>
 
 ```
 
@@ -226,7 +226,7 @@ priors.vi <- prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +
   # Mean values of a for the two cohorts
   prior(normal(0.070, 0.070*0.2), class=b, nlpar = a) + 
   # Individual variations values of a for the two cohorts
-  prior(normal(0.070*0.2, 0.070*0.2), class=sd, group=ID, nlpar = a)+
+  prior(normal(0.070*0.2, 0.070), class=sd, group=ID, nlpar = a)+
   # Résidus
   prior(exponential(1), sigma)
 
@@ -243,9 +243,9 @@ priors.trt.vi.cor <- prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0
   prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) + 
   prior(normal(0.070, 0.070*0.2), class=b, coef=exposition1, nlpar = a) + 
   # Individual variations values of a for the two cohorts
-  prior(normal(0.070*0.2, 0.070*0.2), class=sd, 
+  prior(normal(0.070*0.2, 0.070), class=sd, 
         coef=exposition0, group=ID, nlpar = a)+
-  prior(normal(0.070*0.2, 0.070*0.2), class=sd, 
+  prior(normal(0.070*0.2, 0.070), class=sd, 
         coef=exposition1, group=ID, nlpar = a)+
   # Default prior for correlations
   # Résidus
