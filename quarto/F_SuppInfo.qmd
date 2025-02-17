@@ -141,7 +141,7 @@ m.Ln.post <-
 ```
 
 ```{r, message=F, warning=F}
-#| fig-cap: Pp check
+#| fig-cap: Posterior predictive checks of both models (1 = left ; 2 = right). This figure helps comparing observed data to simulated data from the posterior predictive distribution.
 #| label: fig-ppcheckcomp
 #| fig-height: 4
 #| fig-width: 8
@@ -157,7 +157,16 @@ p <- p1+p2+
 p
 ```
 
-The fit from both model are similar so the first model was kept.
+```{r saveppacheck, include=F}
+ggsave(
+  filename="CompMod_CubeLn_ppcheck.png", 
+  plot=p, 
+  width=8, height = 5, 
+  path=here::here("fig/")
+  )
+```
+
+The fit from both models are similar so the first model was kept.
 
 ### Test of different model parametrization
 
@@ -368,7 +377,7 @@ plot <- w[, 7:8] %>%
     alpha=0.7
     ) +
   labs(
-    title = "My custom WAIC plot",
+    title = "WAIC comparison",
     x = NULL, 
     y = NULL
     ) +
@@ -378,6 +387,15 @@ plot <- w[, 7:8] %>%
 
 plot
 
+```
+
+```{r saveWAIC, include=F}
+ggsave(
+  filename="CompMod_WAIC.png", 
+  plot=plot, 
+  width=6, height = 4, 
+  path=here::here("fig/")
+  )
 ```
 
 ## LOO comparison
@@ -412,7 +430,7 @@ plot <- w[, 7:8] %>%
     shape = 21
     ) +
   labs(
-    title = "My custom LOO plot",
+    title = "L00 comparison",
     x = NULL, 
     y = NULL
     ) +
@@ -420,6 +438,16 @@ plot <- w[, 7:8] %>%
   theme(axis.ticks.y = element_blank())
 
 plot
+```
+
+```{r saveLOO, include=F}
+ggsave(
+  filename="CompMod_LOO.png", 
+  plot=plot, 
+  width=6, height = 4, 
+  path=here::here("fig/")
+  )
+
 ```
 :::
 

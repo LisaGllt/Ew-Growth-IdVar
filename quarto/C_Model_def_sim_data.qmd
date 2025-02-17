@@ -58,7 +58,7 @@ A first step is to look at the parameter recovery with a fit on simulated data.
 
 ### Data simulation
 
-According to @bart_2020a, earthworm initial size is 2.25 mg$^{1/3}$ ($L0$) and grow at xxx mg$^{1/3}$/day ($a$). Next, we simulate data according to a variation attenuation scenario. To do so, we assume that the average growth rate in earthworms exposed to 3 RD of Swing Gold decreases by 10 % compared to a control cohort, as shown in @bart_2020a. We set the individual variability in the control group to 10% around the average growth rate which is coherent with Bart's data. We set the change in among-individiual variance to 50 %, which would correspond to a moderate effect size of pesticide exposure on growth rate variation.
+According to @bart_2020a, earthworm initial size is 2.25 mg$^{1/3}$ ($L0$) with a standard deviation of 0.45 mg$^{1/3}$ and grow at xxx mg$^{1/3}$/day ($a$). Next, we simulate data according to a variation attenuation scenario. To do so, we assume that the average growth rate in earthworms exposed to 3 RD of Swing Gold decreases by 10 % compared to a control cohort, as shown in @bart_2020a. We set the individual variability in the control group to 10% around the average growth rate which is coherent with Bart's data. We set the change in among-individiual variance to 50 %, which would correspond to a moderate effect size of pesticide exposure on growth rate variation.
 
 This gives us the following simulation parameters :
 
@@ -68,7 +68,7 @@ This gives us the following simulation parameters :
 -   $a_{ctrl,\sigma}$ = 0.0075 mg$^{1/3}$/d
 -   $a_{trt,\sigma}$ = 0.008775 mg$^{1/3}$/d
 
-In parallele, the simulated pesticides effect can be expressed with a response ratio (Ln(RR), @eq-LnRR) and a coefficient of variation ratio (Ln(CVi), @eq-LnCVi).
+In parallel, the simulated pesticides effect can be expressed with a response ratio (Ln(RR), @eq-LnRR) and a coefficient of variation ratio (Ln(CVi), @eq-LnCVi).
 
 $$
 \text{Ln}(\text{RR}) = \text{Ln}\left( \frac{a_{ctrl,\mu}}{a_{trt,\mu}} \right)
@@ -249,6 +249,15 @@ p_growth
 
 ```
 
+```{r, include = F}
+ggsave(
+  filename="Modsim_data.png", 
+  plot=p_growth, 
+  width=8, height = 4, 
+  path=here::here("fig/")
+  )
+```
+
 ### Model definition with `brms`
 
 ```{r moddef}
@@ -300,9 +309,9 @@ The model parameters are named as follows by `brms` :
 
 The priors cannot be defined according to the results of @bart_2020a. Therefore we base the prior to our general knowledge about *A. caliginosa* :
 
--   Weight at birth is often around 10 to 15 mg and might range from 8 to 20. The prior on $L0_{\mu}$ can be a normal distribution with a mean of 12.5$^{1/3}$ = 2.32 mg$^{1/3}$ and coefficient of variation of 20%. The prior on $L0_{\sigma}$ can be a normal distribution with a mean of 2.32 $\times$ 0.2 and a coefficient of variation of 100%. We also know that $L0_{\mu}$ cannot
+-   Weight at birth is often around 10 to 15 mg and might range from 8 to 20 mg. The prior on $L0_{\mu}$ can be a normal distribution with a mean of 12.5$^{1/3}$ = 2.32 mg$^{1/3}$ and coefficient of variation of 20%. The prior on $L0_{\sigma}$ can be a normal distribution with a mean of 2.32 $\times$ 0.2 and a coefficient of variation of 100%. We also know that $L0_{\mu}$ cannot be less than 0.
 -   An individual typically takes 4 months to be an adult weighting around 600 mg. It gives us a growth rate of 600$^{1/3}$/(30 $\times$ 4) = 0.070 mg$^{1/3}$/d. The prior on $a_{ctrl,\mu}$ can be a normal distribution with a mean of 0.070 and a coefficient of variation of 20% so our prior is less restrictive.
--   We have no real *a priori* knowledge about the inter-individual variation of growth. We therefore want a large prior such as a normal distribution with a mean of 15% of the mean growth rate and a coefficient of variation of 100%.
+-   We have no real *a priori* knowledge about the inter-individual variation of growth. We therefore want a large prior such as a normal distribution with a mean of 20% of the mean growth rate and a coefficient of variation of 100%.
 
 The same priors are given to the two cohorts. A growth rate individual variation of 20% was given as a prior for the two cohort.
 
@@ -1686,6 +1695,15 @@ plot <- plot_L0_mu +plot_L0_sd +plot_res_mu + plot_res_sd + plot_LnRR + plot_LnC
   plot_layout(ncol=2, guides="collect", heights = c(1, 1, 1))
 plot
 
+```
+
+```{r, include = F}
+ggsave(
+  filename="Modsim_compestimations.png", 
+  plot=plot, 
+  width=6, height = 4, 
+  path=here::here("fig/")
+  )
 ```
 
 @fig-comppredsim shows the posterior distributions of estimated parameters, with vertical black lines indicating the true population values. The results demonstrate good parameter recovery, as the distributions are generally centered around the true values. Estimates for initial structural length, growth rate, and pesticide effects align well with the simulated data, indicating accurate inference.
