@@ -295,7 +295,7 @@ window.Quarto = {
 <h2 data-number="4.1" class="anchored" data-anchor-id="model-definition"><span class="header-section-number">4.1</span> Model definition</h2>
 <p>To evaluate individual variations in growth and fungicide sensitivity parameters, a simplified version of the bioenergetic model from <span class="citation" data-cites="bart_2020a">Bart et al. (<a href="references.html#ref-bart_2020a" role="doc-biblioref">2020</a>)</span> was developed.</p>
 <p>We used an individual reaction norm approach <span class="citation" data-cites="dingemanse_2013">(<a href="references.html#ref-dingemanse_2013" role="doc-biblioref">Dingemanse &amp; Dochtermann, 2013</a>)</span> to compare growth rate across exposed and non-exposed individuals. As indicated by <span class="citation" data-cites="bart_2020a">(<a href="references.html#ref-bart_2020a" role="doc-biblioref">Bart et al., 2020</a>)</span>, <em>A. caliginosa</em> growth is approximately linear with the structural volumetric length <span class="math inline">\(L\)</span> during the juvenile phase of the life-cycle. This structural volumetric length can be calculated as the cubic root of the wet weight of the organisms.</p>
-<p>Here, we assume that both cohorts can have a different growth rate <span class="math inline">\(\alpha\)</span> (mg<span class="math inline">\(^{1/3}\)</span>/d). We suppose the structural volumetric length at the start of the experiment (<span class="math inline">\(L0\)</span>) does not depend on the treatment as individuals came from the same pool of individuals.</p>
+<p>Here, we assume that both cohorts can have a different growth rate <span class="math inline">\(a\)</span> (mg<span class="math inline">\(^{1/3}\)</span>/d). We suppose the structural volumetric length at the start of the experiment (<span class="math inline">\(L0\)</span>) does not depend on the treatment as individuals came from the same pool of individuals.</p>
 <p>To take individual variations for both parameters, we assume that each parameter can be considered as a random variable described by a normal distribution whose mean is the population-level value of the parameter and the standard deviation is the individual variation of the parameter. Each individual can then have a parameter value that is taken from this normal distribution.</p>
 <p>This gives us <a href="#eq-growth" class="quarto-xref">Equation&nbsp;<span>4.1</span></a>.</p>
 <p><span id="eq-growth"><span class="math display">\[
@@ -354,7 +354,7 @@ a_{c,i} &amp;\sim \mathcal{N}(a_{c,\mu}, a_{c,\sigma})
 \text{Ln}(\text{RR}) = \text{Ln}\left( \frac{a_{ctrl,\mu}}{a_{trt,\mu}} \right)
 \tag{4.2}\]</span></span></p>
 <p><span id="eq-LnCVi"><span class="math display">\[
-\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right) - \frac{1}{2(n_{trt}-1)}-\frac{1}{2(n_{ctrl}-1)}\\
+\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right)\\
 \tag{4.3}\]</span></span></p>
 <p>With :</p>
 <p><span class="math display">\[
@@ -2968,7 +2968,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>We used an individual reaction norm approach <span class="co">[</span><span class="ot">@dingemanse_2013</span><span class="co">]</span> to compare growth rate across exposed and non-exposed individuals. As indicated by <span class="co">[</span><span class="ot">@bart_2020a</span><span class="co">]</span>, *A. caliginosa* growth is approximately linear with the structural volumetric length $L$ during the juvenile phase of the life-cycle. This structural volumetric length can be calculated as the cubic root of the wet weight of the organisms.</span>
 <span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>Here, we assume that both cohorts can have a different growth rate $\alpha$ (mg$^{1/3}$/d). We suppose the structural volumetric length at the start of the experiment ($L0$) does not depend on the treatment as individuals came from the same pool of individuals.</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>Here, we assume that both cohorts can have a different growth rate $a$ (mg$^{1/3}$/d). We suppose the structural volumetric length at the start of the experiment ($L0$) does not depend on the treatment as individuals came from the same pool of individuals.</span>
 <span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>To take individual variations for both parameters, we assume that each parameter can be considered as a random variable described by a normal distribution whose mean is the population-level value of the parameter and the standard deviation is the individual variation of the parameter. Each individual can then have a parameter value that is taken from this normal distribution.</span>
 <span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a></span>
@@ -3031,7 +3031,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb22-75"><a href="#cb22-75" aria-hidden="true" tabindex="-1"></a>$$ {#eq-LnRR}</span>
 <span id="cb22-76"><a href="#cb22-76" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-77"><a href="#cb22-77" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a>\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right) - \frac{1}{2(n_{trt}-1)}-\frac{1}{2(n_{ctrl}-1)}<span class="sc">\\</span></span>
+<span id="cb22-78"><a href="#cb22-78" aria-hidden="true" tabindex="-1"></a>\text{Ln}(\text{CVi}) = \text{Ln}\left( \frac{CV_{ctrl}}{CV_{trt}} \right)<span class="sc">\\</span></span>
 <span id="cb22-79"><a href="#cb22-79" aria-hidden="true" tabindex="-1"></a>$$ {#eq-LnCVi}</span>
 <span id="cb22-80"><a href="#cb22-80" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb22-81"><a href="#cb22-81" aria-hidden="true" tabindex="-1"></a>With :</span>
