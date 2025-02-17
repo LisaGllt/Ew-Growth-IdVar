@@ -4772,6 +4772,80 @@
             "volume": "9"
         },
         {
+            "DOI": "10.32614/RJ-2017-066",
+            "ISSN": "2073-4859",
+            "URL": "https://journal.r-project.org/archive/2017/RJ-2017-066/index.html",
+            "abstract": "Count data can be analyzed using generalized linear mixed models when observations are correlated in ways that require random effects. However, count data are often zero-inflated, containing more zeros than would be expected from the typical error distributions. We present a new package, glmmTMB, and compare it to other R packages that fit zero-inflated mixed models. The glmmTMB package fits many types of GLMMs and extensions, including models with continuously distributed responses, but here we focus on count responses. glmmTMB is faster than glmmADMB, MCMCglmm, and brms, and more flexible than INLA and mgcv for zero-inflated modeling. One unique feature of glmmTMB (among packages that fit zero-inflated mixed models) is its ability to estimate the Conway-Maxwell-Poisson distribution parameterized by the mean. Overall, its most appealing features for new users may be the combination of speed, flexibility, and its interface’s similarity to lme4.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        2,
+                        17
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Brooks",
+                    "given": "Mollie",
+                    "suffix": "E."
+                },
+                {
+                    "family": "Kristensen",
+                    "given": "Kasper"
+                },
+                {
+                    "family": "Benthem",
+                    "given": "van",
+                    "suffix": "J."
+                },
+                {
+                    "family": "Magnusson",
+                    "given": "Arni"
+                },
+                {
+                    "family": "Berg",
+                    "given": "Casper",
+                    "suffix": "W."
+                },
+                {
+                    "family": "Nielsen",
+                    "given": "Anders"
+                },
+                {
+                    "family": "Skaug",
+                    "given": "Hans",
+                    "suffix": "J."
+                },
+                {
+                    "family": "Mächler",
+                    "given": "Martin"
+                },
+                {
+                    "family": "Bolker",
+                    "given": "Benjamin",
+                    "suffix": "M."
+                }
+            ],
+            "container-title": "The R Journal",
+            "container-title-short": "The R Journal",
+            "id": "brooks_2017a",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "378",
+            "title": "glmmTMB Balances Speed and Flexibility Among Packages for Zero-inflated Generalized Linear Mixed Modeling",
+            "type": "article-journal",
+            "volume": "9"
+        },
+        {
             "DOI": "10.1016/0043-1354(68)90044-4",
             "ISSN": "00431354",
             "URL": "https://linkinghub.elsevier.com/retrieve/pii/0043135468900444",

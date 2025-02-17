@@ -1734,7 +1734,7 @@ df_err |> datatable(
   formatRound(columns = 2:length(df_err), digits = 4)
 ```
 
-Parameter recovery is excellent at the population level, with absolute errors below 0.5%, and strong at the individual level, with absolute errors between 4 to 5%.
+Parameter recovery is excellent at the population level, with absolute errors below 1.1%, and strong at the individual level, with absolute errors below 4%. Effect sizes -LnRR and LnCVi- are estimated with 12.5% and 14.7%, respectively.
 
 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
 
