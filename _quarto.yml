@@ -2,7 +2,7 @@ project:
   type: book
 
 book:
-  title: "Reavealing Hidden Sensitivity - Inter-Individual Growth Variation in Earthworms Exposed to a Fungicide"
+  title: "Uncovering Hidden Sensitivity - Inter-Individual Growth Variation in Earthworms Under Fungicide Exposure"
   subtitle: "Git repository"
   author:
     - name: "Lisa Gollot"

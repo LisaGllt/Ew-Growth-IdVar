@@ -195,9 +195,9 @@ priors <-
   prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # <3>
   prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
 
-  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <5>
+  prior(normal(0.070*0.2,  0.070), class=sd,                                       # <5>
         coef=exposition0, group=ID, nlpar = a)+                                        # <5>
-  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # <6>
+  prior(normal(0.070*0.2,  0.070), class=sd,                                       # <6>
         coef=exposition1, group=ID, nlpar = a)+                                        # <6>
 
   prior(exponential(1), sigma, nlpar = "")                                             # <7>

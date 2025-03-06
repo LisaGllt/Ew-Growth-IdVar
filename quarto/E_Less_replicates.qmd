@@ -6,8 +6,6 @@ f_load_libraries_colors()
 
 # Can we ignore individual differences? Bias, type M and type S errors in OECD guidelines using a simulation study
 
-!!!!!!!!! REFAIRE TOURNER LE BOOTSTRAP !!!!!!!!!!!!!!!!!!!!!
-
 We also sought to assess the accuracy of our inference if we had followed a typical biotest design for Environmental Risk Assessment (ERA). The standardized earthworm reproduction test of the OECD (TG n°222), which also assesses growth effects, recommends four replicates per treatment and eight replicates for the control condition, with each replicate containing 10 earthworms. To simulate this design, we used the results of our growth model to generate growth data for 500 individuals. Using this simulated dataset, we performed a bootstrap procedure with 1,000 iterations. Each iteration corresponded to an experimental design adhering to the OECD TG 222 guidelines, where individuals were randomly assigned to replicates according to the recommended structure. This approach allowed us to estimate the variability and potential biases in parameter inference under the constraints of a typical ERA experimental design. This approach allowed us to calculate the Type M (magnitude) and Type S (sign) errors on the effect estimation, providing insights into the reliability and accuracy of the inferred parameters under the constraints of a typical ERA experimental design.
 
 The R file used and the corresponding results are available in the `bootstrap` folder. The script ran on a Macbook Air M2 for about 12 hours.

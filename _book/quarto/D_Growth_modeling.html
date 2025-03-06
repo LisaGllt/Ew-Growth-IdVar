@@ -551,9 +551,9 @@ mean in group 0 mean in group 1
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="3">3</button><span id="annotated-cell-7-6" class="code-annotation-target"><a href="#annotated-cell-7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="fl">0.070</span>, <span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>), <span class="at">class=</span>b, <span class="at">coef=</span>exposition0, <span class="at">nlpar =</span> a) <span class="sc">+</span></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="4">4</button><span id="annotated-cell-7-7" class="code-annotation-target"><a href="#annotated-cell-7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="fl">0.070</span>,  <span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>), <span class="at">class=</span>b, <span class="at">coef=</span>exposition1, <span class="at">nlpar =</span> a) <span class="sc">+</span></span>
 <span id="annotated-cell-7-8"><a href="#annotated-cell-7-8" aria-hidden="true" tabindex="-1"></a></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="5">5</button><span id="annotated-cell-7-9" class="code-annotation-target"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>,  <span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>), <span class="at">class=</span>sd,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="5">5</button><span id="annotated-cell-7-9" class="code-annotation-target"><a href="#annotated-cell-7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>,  <span class="fl">0.070</span>), <span class="at">class=</span>sd,</span>
 <span id="annotated-cell-7-10"><a href="#annotated-cell-7-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">coef=</span>exposition0, <span class="at">group=</span>ID, <span class="at">nlpar =</span> a)<span class="sc">+</span></span>
-<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="6">6</button><span id="annotated-cell-7-11" class="code-annotation-target"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>,  <span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>), <span class="at">class=</span>sd,</span>
+<button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="6">6</button><span id="annotated-cell-7-11" class="code-annotation-target"><a href="#annotated-cell-7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prior</span>(<span class="fu">normal</span>(<span class="fl">0.070</span><span class="sc">*</span><span class="fl">0.2</span>,  <span class="fl">0.070</span>), <span class="at">class=</span>sd,</span>
 <span id="annotated-cell-7-12"><a href="#annotated-cell-7-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">coef=</span>exposition1, <span class="at">group=</span>ID, <span class="at">nlpar =</span> a)<span class="sc">+</span></span>
 <span id="annotated-cell-7-13"><a href="#annotated-cell-7-13" aria-hidden="true" tabindex="-1"></a></span>
 <button class="code-annotation-anchor" data-target-cell="annotated-cell-7" data-target-annotation="7">7</button><span id="annotated-cell-7-14" class="code-annotation-target"><a href="#annotated-cell-7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prior</span>(<span class="fu">exponential</span>(<span class="dv">1</span>), sigma, <span class="at">nlpar =</span> <span class="st">""</span>)</span><div class="code-annotation-gutter-bg"></div><div class="code-annotation-gutter"></div></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -664,66 +664,7 @@ mean in group 0 mean in group 1
 </dl>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Running MCMC with 4 parallel chains...
-
-Chain 1 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 2 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 3 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 4 Iteration:   1 / 1000 [  0%]  (Warmup) 
-Chain 1 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 1 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 1 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 1 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 1 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 1 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 1 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 2 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 1 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 1 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 2 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 2 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 3 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 4 Iteration: 100 / 1000 [ 10%]  (Warmup) 
-Chain 4 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 1 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 1 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 2 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 2 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 2 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 2 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 3 Iteration: 200 / 1000 [ 20%]  (Warmup) 
-Chain 3 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 4 Iteration: 300 / 1000 [ 30%]  (Warmup) 
-Chain 4 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 4 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 4 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 1 finished in 1.1 seconds.
-Chain 2 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 2 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 3 Iteration: 400 / 1000 [ 40%]  (Warmup) 
-Chain 3 Iteration: 500 / 1000 [ 50%]  (Warmup) 
-Chain 3 Iteration: 501 / 1000 [ 50%]  (Sampling) 
-Chain 3 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 600 / 1000 [ 60%]  (Sampling) 
-Chain 4 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 2 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 3 Iteration: 700 / 1000 [ 70%]  (Sampling) 
-Chain 3 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 4 Iteration: 800 / 1000 [ 80%]  (Sampling) 
-Chain 4 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 2 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 3 Iteration: 900 / 1000 [ 90%]  (Sampling) 
-Chain 3 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 4 Iteration: 1000 / 1000 [100%]  (Sampling) 
-Chain 2 finished in 1.3 seconds.
-Chain 3 finished in 1.3 seconds.
-Chain 4 finished in 1.2 seconds.
-
-All 4 chains finished successfully.
-Mean chain execution time: 1.2 seconds.
-Total execution time: 1.7 seconds.
-
- Family: gaussian 
+<pre><code> Family: gaussian 
   Links: mu = identity; sigma = identity 
 Formula: L ~ L0 + a * t 
          L0 ~ 1 + (1 || ID)
@@ -735,19 +676,19 @@ Formula: L ~ L0 + a * t
 Multilevel Hyperparameters:
 ~ID (Number of levels: 54) 
                   Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sd(L0_Intercept)      0.58      0.36     0.04     1.36 1.00     1480      783
-sd(a_exposition0)     0.02      0.01     0.00     0.04 1.00     1433      851
-sd(a_exposition1)     0.02      0.01     0.00     0.04 1.00     1785      664
+sd(L0_Intercept)      0.60      0.36     0.04     1.34 1.01     1403      781
+sd(a_exposition0)     0.06      0.05     0.00     0.17 1.00     1409      829
+sd(a_exposition1)     0.06      0.05     0.00     0.17 1.00     1680     1010
 
 Regression Coefficients:
               Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-L0_Intercept      2.31      0.47     1.41     3.23 1.00     2593     1180
-a_exposition0     0.07      0.01     0.04     0.10 1.00     2671     1431
-a_exposition1     0.07      0.01     0.04     0.10 1.00     2764     1426
+L0_Intercept      2.33      0.48     1.37     3.26 1.00     2782     1039
+a_exposition0     0.07      0.01     0.04     0.10 1.00     3679     1622
+a_exposition1     0.07      0.01     0.04     0.10 1.00     3826     1387
 
 Further Distributional Parameters:
       Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
-sigma     0.96      0.93     0.02     3.38 1.00     1925      826
+sigma     1.01      1.01     0.02     3.63 1.00     2115      979
 
 Draws were sampled using sample(hmc). For each parameter, Bulk_ESS
 and Tail_ESS are effective sample size measures, and Rhat is the potential
@@ -1396,8 +1337,8 @@ Table&nbsp;5.1: Comparaison of the different statistical values of the posterior
 </figcaption>
 <div aria-describedby="tbl-compvalposttheoVI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-0bb5b1e0e095e67fb63a" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-0bb5b1e0e095e67fb63a">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7"],["b_L0_Intercept","b_a_exposition0","b_a_exposition1","sd_ID__L0_Intercept","sd_ID__a_exposition0","sd_ID__a_exposition1","sigma"],[2.1772975345,0.082668366455,0.074474475015,0.220102774855,0.008830610035,0.02903865621,0.28848241555],[2.176945,0.08269209999999999,0.0745686,0.219142,0.008680480000000001,0.0285403,0.287701],[0.0434033204328601,0.002061118599728638,0.005434102029299,0.04569574629071643,0.001818875758960129,0.004778641772920222,0.0159114014572691],[0.0424468379999999,0.00201099863999999,0.005310376680000005,0.0438212082,0.001743204014999999,0.004549506360000001,0.01561251929999996],[2.10636,0.07925207000000001,0.06548949499999999,0.14608055,0.0061175075,0.022198175,0.26362685],[2.2489305,0.08602943500000002,0.08319081,0.2959641,0.012039135,0.037655555,0.31605805],[1.000117153011265,1.000201623397978,1.000386493552838,1.000045058414424,1.000064785179482,1.001262034456095,1.000108651438055],[20955.05056907059,16362.740591793,3665.684645145298,6856.696145265224,9636.180159386706,6423.638367061748,12635.06528763064],[16122.00947343989,15986.20906010478,5945.263058142724,7570.251025320507,13909.31814154317,10751.22668082934,13017.91015802534]],"container":"<table class=\"hover\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>mean<\/th>\n      <th>median<\/th>\n      <th>sd<\/th>\n      <th>mad<\/th>\n      <th>q5<\/th>\n      <th>q95<\/th>\n      <th>rhat<\/th>\n      <th>ess_bulk<\/th>\n      <th>ess_tail<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":8,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":9,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":10,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"className":"dt-left","targets":"_all"},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"mean","targets":2},{"name":"median","targets":3},{"name":"sd","targets":4},{"name":"mad","targets":5},{"name":"q5","targets":6},{"name":"q95","targets":7},{"name":"rhat","targets":8},{"name":"ess_bulk","targets":9},{"name":"ess_tail","targets":10}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.columnDefs.7.render","options.columnDefs.8.render"],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-d2bab306fc411e2449c9" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-d2bab306fc411e2449c9">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7"],["b_L0_Intercept","b_a_exposition0","b_a_exposition1","sd_ID__L0_Intercept","sd_ID__a_exposition0","sd_ID__a_exposition1","sigma"],[2.1772975345,0.082668366455,0.074474475015,0.220102774855,0.008830610035,0.02903865621,0.28848241555],[2.176945,0.08269209999999999,0.0745686,0.219142,0.008680480000000001,0.0285403,0.287701],[0.0434033204328601,0.002061118599728638,0.005434102029299,0.04569574629071643,0.001818875758960129,0.004778641772920222,0.0159114014572691],[0.0424468379999999,0.00201099863999999,0.005310376680000005,0.0438212082,0.001743204014999999,0.004549506360000001,0.01561251929999996],[2.10636,0.07925207000000001,0.06548949499999999,0.14608055,0.0061175075,0.022198175,0.26362685],[2.2489305,0.08602943500000002,0.08319081,0.2959641,0.012039135,0.037655555,0.31605805],[1.000117153011265,1.000201623397978,1.000386493552838,1.000045058414424,1.000064785179482,1.001262034456095,1.000108651438055],[20955.05056907059,16362.740591793,3665.684645145298,6856.696145265224,9636.180159386706,6423.638367061748,12635.06528763064],[16122.00947343989,15986.20906010478,5945.263058142724,7570.251025320507,13909.31814154317,10751.22668082934,13017.91015802534]],"container":"<table class=\"hover\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>variable<\/th>\n      <th>mean<\/th>\n      <th>median<\/th>\n      <th>sd<\/th>\n      <th>mad<\/th>\n      <th>q5<\/th>\n      <th>q95<\/th>\n      <th>rhat<\/th>\n      <th>ess_bulk<\/th>\n      <th>ess_tail<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"targets":2,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":3,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":4,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":5,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":6,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":7,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":8,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":9,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"targets":10,"render":"function(data, type, row, meta) {\n    return type !== 'display' ? data : DTWidget.formatRound(data, 4, 3, \",\", \".\", null);\n  }"},{"className":"dt-left","targets":"_all"},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"variable","targets":1},{"name":"mean","targets":2},{"name":"median","targets":3},{"name":"sd","targets":4},{"name":"mad","targets":5},{"name":"q5","targets":6},{"name":"q95","targets":7},{"name":"rhat","targets":8},{"name":"ess_bulk","targets":9},{"name":"ess_tail","targets":10}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":["options.columnDefs.0.render","options.columnDefs.1.render","options.columnDefs.2.render","options.columnDefs.3.render","options.columnDefs.4.render","options.columnDefs.5.render","options.columnDefs.6.render","options.columnDefs.7.render","options.columnDefs.8.render"],"jsHooks":[]}</script>
 </div>
 </div>
 </figure>
@@ -1474,8 +1415,8 @@ Table&nbsp;5.2: Effect size results
 </figcaption>
 <div aria-describedby="tbl-lnRRCVI-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-4ddb02fbc67059ca4a63" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-4ddb02fbc67059ca4a63">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["LnRR","LnCVR","Ratio a_mu","Ratio a_sd"],[-0.103,1.298,0.902,3.294],["[-0.24 ; 0.01]","[0.86 ; 1.77]","[0.79 ; 1.01]","[2.18 ; 5.11]"],[0.92575,1,1,1]],"container":"<table class=\"hover\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Median<\/th>\n      <th>CI<\/th>\n      <th>pd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","autoWidth":true,"columnDefs":[{"className":"dt-left","targets":"_all"},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Median","targets":2},{"name":"CI","targets":3},{"name":"pd","targets":4}],"order":[],"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f4e4c228041a18447c3c" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f4e4c228041a18447c3c">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4"],["LnRR","LnCVR","Ratio a_mu","Ratio a_sd"],[-0.103,1.298,0.902,3.294],["[-0.24 ; 0.01]","[0.86 ; 1.77]","[0.79 ; 1.01]","[2.18 ; 5.11]"],[0.92575,1,1,1]],"container":"<table class=\"hover\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Variable<\/th>\n      <th>Median<\/th>\n      <th>CI<\/th>\n      <th>pd<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","autoWidth":true,"columnDefs":[{"className":"dt-left","targets":"_all"},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Variable","targets":1},{"name":"Median","targets":2},{"name":"CI","targets":3},{"name":"pd","targets":4}],"order":[],"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </figure>
@@ -1731,8 +1672,8 @@ Table&nbsp;5.3: Percentage of points in the X-fold change area
 </figcaption>
 <div aria-describedby="tbl-foldpred-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div class="datatables html-widget html-fill-item" id="htmlwidget-5bef30e0e57673c67387" style="width:100%;height:auto;"></div>
-<script type="application/json" data-for="htmlwidget-5bef30e0e57673c67387">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7"],[1.1,1.2,1.25,1.3,1.5,1.7,2],[66,83,89,94,98,100,100]],"container":"<table class=\"hover\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Fold<\/th>\n      <th>Percentage of predictions within<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Fold","targets":1},{"name":"Percentage of predictions within","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-11b8adbcf98f84a85803" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-11b8adbcf98f84a85803">{"x":{"filter":"none","vertical":false,"data":[["1","2","3","4","5","6","7"],[1.1,1.2,1.25,1.3,1.5,1.7,2],[66,83,89,94,98,100,100]],"container":"<table class=\"hover\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Fold<\/th>\n      <th>Percentage of predictions within<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"dom":"t","columnDefs":[{"className":"dt-right","targets":[1,2]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Fold","targets":1},{"name":"Percentage of predictions within","targets":2}],"order":[],"autoWidth":false,"orderClasses":false},"selection":{"mode":"multiple","selected":null,"target":"row","selectable":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 </figure>
@@ -3487,9 +3428,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb36-195"><a href="#cb36-195" aria-hidden="true" tabindex="-1"></a><span class="in">  prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # &lt;3&gt;</span></span>
 <span id="cb36-196"><a href="#cb36-196" aria-hidden="true" tabindex="-1"></a><span class="in">  prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # &lt;4&gt;</span></span>
 <span id="cb36-197"><a href="#cb36-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-198"><a href="#cb36-198" aria-hidden="true" tabindex="-1"></a><span class="in">  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # &lt;5&gt;</span></span>
+<span id="cb36-198"><a href="#cb36-198" aria-hidden="true" tabindex="-1"></a><span class="in">  prior(normal(0.070*0.2,  0.070), class=sd,                                       # &lt;5&gt;</span></span>
 <span id="cb36-199"><a href="#cb36-199" aria-hidden="true" tabindex="-1"></a><span class="in">        coef=exposition0, group=ID, nlpar = a)+                                        # &lt;5&gt;</span></span>
-<span id="cb36-200"><a href="#cb36-200" aria-hidden="true" tabindex="-1"></a><span class="in">  prior(normal(0.070*0.2,  0.070*0.2), class=sd,                                       # &lt;6&gt;</span></span>
+<span id="cb36-200"><a href="#cb36-200" aria-hidden="true" tabindex="-1"></a><span class="in">  prior(normal(0.070*0.2,  0.070), class=sd,                                       # &lt;6&gt;</span></span>
 <span id="cb36-201"><a href="#cb36-201" aria-hidden="true" tabindex="-1"></a><span class="in">        coef=exposition1, group=ID, nlpar = a)+                                        # &lt;6&gt;</span></span>
 <span id="cb36-202"><a href="#cb36-202" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-203"><a href="#cb36-203" aria-hidden="true" tabindex="-1"></a><span class="in">  prior(exponential(1), sigma, nlpar = "")                                             # &lt;7&gt;</span></span>
