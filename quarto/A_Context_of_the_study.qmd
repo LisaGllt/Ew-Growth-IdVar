@@ -35,9 +35,12 @@ alpha_line <- 0.5
 size_text <- 5
 size_point <- 5
 alpha_point <- 1
+size_range <- 1
+alpha_range <- 0.5
 size_title <- 13
 mar <- 0.2
-col_grey <- "grey50"
+col_grey <- Nord_snow[1]
+linetype_levels <- 2
 
 y_min <- -1
 y_max <- 0.5
@@ -65,6 +68,53 @@ plot_Inf <- ggplot()+
     size=size_point, 
     alpha=alpha_point
     )+
+  geom_segment(
+    aes(
+      x = 1.5, 
+      xend = 1.5, 
+      y = 0, 
+      yend = -mu_dim
+      ),
+    arrow = arrow(length = unit(0.15, "inches")),
+    color = col_grey, 
+    linewidth = 1.2
+    ) + 
+  geom_segment(
+    aes(
+      x = 2.2, 
+      xend = 2.2, 
+      y = -0.15-mu_dim, 
+      yend = -mu_dim-0.02
+      ),
+    arrow = arrow(length = unit(0.15, "inches")),
+    color = col_grey, 
+    linewidth = 1.2
+    ) +
+  geom_segment(
+    aes(
+      x = 2.2, 
+      xend = 2.2, 
+      y = 0.15-mu_dim, 
+      yend = -mu_dim+0.02
+      ),
+    arrow = arrow(length = unit(0.15, "inches")),
+    color = col_grey, 
+    linewidth = 1.2
+    ) +
+  geom_abline(
+    intercept = 0,
+    slope = 0,
+    color = col_ctrl,
+    alpha = 0.3,
+    linetype = linetype_levels
+  )+
+  geom_abline(
+    intercept = -mu_dim,
+    slope = 0,
+    color = col_trt,
+    alpha = 0.3,
+    linetype = linetype_levels
+  )+
   ylim(
     y_min,
     y_max
@@ -140,6 +190,53 @@ plot_Sup <- ggplot()+
     size=size_point, 
     alpha=alpha_point
     )+
+  geom_segment(
+    aes(
+      x = 1.5, 
+      xend = 1.5, 
+      y = 0, 
+      yend = -mu_dim
+      ),
+    arrow = arrow(length = unit(0.15, "inches")),
+    color = col_grey, 
+    linewidth = 1.2
+    ) + 
+  geom_segment(
+    aes(
+      x = 2.2, 
+      xend = 2.2, 
+      yend = -0.6-mu_dim, 
+      y = -mu_dim-0.02
+      ),
+    arrow = arrow(length = unit(0.15, "inches")),
+    color = col_grey, 
+    linewidth = 1.2
+    ) +
+  geom_segment(
+    aes(
+      x = 2.2, 
+      xend = 2.2, 
+      yend = 0.6-mu_dim, 
+      y = -mu_dim+0.02
+      ),
+    arrow = arrow(length = unit(0.15, "inches")),
+    color = col_grey, 
+    linewidth = 1.2
+    ) +
+  geom_abline(
+    intercept = 0,
+    slope = 0,
+    color = col_ctrl,
+    alpha = 0.3,
+    linetype = linetype_levels
+  )+
+  geom_abline(
+    intercept = -mu_dim,
+    slope = 0,
+    color = col_trt,
+    alpha = 0.3,
+    linetype = linetype_levels
+  )+
   ylim(
     y_min,
     y_max
@@ -271,19 +368,40 @@ df_sim_increase <- rbind(subset(df_sim_decrease, exposition==0),subset(data_sim,
 alpha_line <- 0.8
 line_width <- 1.2
 
-plot_Inf_traj <- ggplot(
-  data=df_sim_decrease, 
-  aes(
-    x=t, 
-    y=L^3, 
-    color=exposition, 
-    group=as.factor(ID))
-  )+
+plot_Inf_traj <- ggplot()+
   scale_color_manual(values=pal_col, label=Exposition, name="")+
   geom_line(
+    data=df_sim_decrease, 
+    aes(
+      x=t, 
+      y=L^3, 
+      color=exposition, 
+      group=as.factor(ID)
+    ),
     lwd=line_width, 
     alpha=alpha_line
     )+
+  geom_pointrange(
+    mapping = aes(
+      x = c(62, 67),
+      y = c(
+        mean(subset(df_sim_decrease,t==56 & exposition == "0")$w), 
+        mean(subset(df_sim_decrease,t==56 & exposition == "1")$w)
+        ),
+      ymin = c(
+        min(subset(df_sim_decrease,t==56 & exposition == "0")$w), 
+        min(subset(df_sim_decrease,t==56 & exposition == "1")$w)
+        ),
+      ymax = c(
+        max(subset(df_sim_decrease,t==56 & exposition == "0")$w), 
+        max(subset(df_sim_decrease,t==56 & exposition == "1")$w)
+        ),
+      color = c("0", "1")
+    ),
+    lwd=line_width, 
+    alpha=alpha_range,
+    size = size_range
+  )+
   labs(
     x="Time", 
     y="Weight",
@@ -319,20 +437,41 @@ plot_Inf_traj <- ggplot(
       )
     )
 
-plot_Sup_traj <- ggplot(
-  data=df_sim_increase, 
-  aes(
-    x=t, 
-    y=L^3, 
-    color=exposition, 
-    group=as.factor(ID))
-  )+
+plot_Sup_traj <- ggplot()+
   scale_color_manual(values=pal_col, label=Exposition, name="")+
 
   geom_line(
-    lwd=line_width, 
-    alpha=alpha_line
+    data=df_sim_increase, 
+    aes(
+      x=t, 
+      y=L^3, 
+      color=exposition, 
+      group=as.factor(ID)
+      ),
+      lwd=line_width, 
+      alpha=alpha_line
     )+
+  geom_pointrange(
+    mapping = aes(
+      x = c(62, 67),
+      y = c(
+        mean(subset(df_sim_increase,t==56 & exposition == "0")$w), 
+        mean(subset(df_sim_increase,t==56 & exposition == "1")$w)
+        ),
+      ymin = c(
+        min(subset(df_sim_increase,t==56 & exposition == "0")$w), 
+        min(subset(df_sim_increase,t==56 & exposition == "1")$w)
+        ),
+      ymax = c(
+        max(subset(df_sim_increase,t==56 & exposition == "0")$w), 
+        max(subset(df_sim_increase,t==56 & exposition == "1")$w)
+        ),
+      color = c("0", "1")
+    ),
+    lwd=line_width, 
+    alpha=alpha_range,
+    size = size_range
+  )+
   
   labs(
     x="Time", 
@@ -396,11 +535,11 @@ ggsave(
 library(officer)
 library(rvg)
 
-# Create a PowerPoint file and add the editable plot
-doc <- read_pptx() %>%
-  add_slide(layout = "Title and Content", master = "Office Theme") %>%
-  ph_with(value = dml(ggobj = plot_hyp), location = ph_location(width = 8, height = 8))
-
-# Save the PowerPoint
-print(doc, target = "editable_plot.pptx")
+# # Create a PowerPoint file and add the editable plot
+# doc <- read_pptx() %>%
+#   add_slide(layout = "Title and Content", master = "Office Theme") %>%
+#   ph_with(value = dml(ggobj = plot_hyp), location = ph_location(width = 8, height = 8))
+# 
+# # Save the PowerPoint
+# print(doc, target = "editable_plot.pptx")
 ```

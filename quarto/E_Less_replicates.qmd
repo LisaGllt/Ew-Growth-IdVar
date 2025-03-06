@@ -42,7 +42,7 @@ We can then load the results of the bootstrap :
 #| label: tbl-resOECDindboot
 #| code-fold: show
 
-load(file=here::here("bootstrap/Bootstrap_VI_OECD_seed121212_28j_f.RData"))
+load(file=here::here("bootstrap/Bootstrap_VI_OECD_seed121212_28j_OK_f.RData"))
 
 df_draws <- res_f
 

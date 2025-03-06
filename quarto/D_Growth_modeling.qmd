@@ -1005,6 +1005,10 @@ df_pred <- df_pred_mean |>
 
 colnames(df_pred) <- c("t", "ID", "exposition", 
                        "pred_L_mean", "pred_L_Q2.5", "pred_L_Q97.5", "Expo")
+
+# a_trt_mean <- mean(subset(df_estimates, exposition == 1)$a_i)
+# length(subset(df_estimates, a_i < a_trt_mean*0.9)$ID)/length(subset(df_estimates, exposition == 1)$ID)
+
 ```
 
 ```{r predobs, warning=F, message=F}

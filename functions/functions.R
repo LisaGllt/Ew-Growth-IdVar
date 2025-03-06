@@ -73,6 +73,7 @@ f_load_colors <- function(){
   Nord_frost <<- nord(palette = "frost")
   Nord_polar <<- nord(palette = "polarnight")
   Nord_aurora <<- nord(palette = "aurora")
+  Nord_snow <<- nord(palette = "snowstorm")
   sizetitle <<- 12
   
   col_blue <<- "#5E81AC"

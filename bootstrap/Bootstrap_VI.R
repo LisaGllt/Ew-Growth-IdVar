@@ -257,7 +257,7 @@ for(i in 1:n_draws){
                     L0sd_est, asd_ctrl_est, asd_trt_est, Rhat_L0sd, Rhat_asd_ctrl, Rhat_asd_trt,
                     sigma_est, Rhat_sigma)
   
-  save(res, file = "Bootstrap_VI_OECD_seed121212_28j_OK.RData")
+  save(res, file = "bootstrap/Bootstrap_VI_OECD_seed121212_28j_OK.RData")
   
 }
 
@@ -268,5 +268,5 @@ res_f <- cbind(df_draws,
                   L0sd_est, asd_ctrl_est, asd_trt_est, Rhat_L0sd, Rhat_asd_ctrl, Rhat_asd_trt,
                   sigma_est, Rhat_sigma)
 
-save(res_f, file = "Bootstrap_VI_OECD_seed121212_28j_OK_f.RData")
+save(res_f, file = "bootstrap/Bootstrap_VI_OECD_seed121212_28j_OK_f.RData")
 
