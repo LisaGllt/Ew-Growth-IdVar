@@ -941,6 +941,152 @@
             "volume": "203"
         },
         {
+            "DOI": "10.1016/j.chemosphere.2024.142444",
+            "ISSN": "00456535",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0045653524013377",
+            "abstract": "Epoxiconazole (EPX) is a world widely used chiral triazole fungicide in the agriculture field. The excessive application of this triazole may cause damage to lizards. However, limited information is known about the toxicokinetics of EPX on lizards. Our study aimed to investigate the enantioselective absorption, distribution, metabolism, and elimination (ADME) of EPX in lizards following low and high dose exposure (10 and 100 mg kg 1 bodyweitht (bw)). The results demonstrated that (+)-EPX was easier absorbed than ( )-EPX in lizard plasma. Both (+)-EPX and ( )-EPX were detected in the liver, gonad, kidney, skin, brain, and intestine, with (+)-EPX preferentially distributed in these tissues. The elimination of ( )-EPX was faster than that of (+)-EPX in lizard liver and kidney in the high dose groups. Chiral conversion was found between EPX enantiomers in lizard skin. Simultaneously, five metabolites including M2, M4, M10, M18 and M19 were detected in lizard liver and kidney after EPX enantiomers exposure. The relative concentrations of M2, M4, and M10 were higher in the liver and kidney of ( )-EPX groups than those produced from (+)-EPX groups. The metabolic enzymes CYP3A4 and SULT1A1 primarily mediated enantioselective metabolism of EPX. The conclusions drawn from this study significantly enhance our understanding of the enantioselective behaviors of chiral triazole fungicides in reptiles, offering essential guidance for assessing the risks associated with different enantiomers of triazole fungicides.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "An",
+                    "given": "Qiong"
+                },
+                {
+                    "family": "Hao",
+                    "given": "Weiyu"
+                },
+                {
+                    "family": "Ma",
+                    "given": "Zheng"
+                },
+                {
+                    "family": "Zhang",
+                    "given": "Leisen"
+                },
+                {
+                    "family": "Song",
+                    "given": "Zheyuan"
+                },
+                {
+                    "family": "Wan",
+                    "given": "Bin"
+                },
+                {
+                    "family": "Xu",
+                    "given": "Peng"
+                },
+                {
+                    "family": "Wang",
+                    "given": "Huili"
+                },
+                {
+                    "family": "Chang",
+                    "given": "Jing"
+                },
+                {
+                    "family": "Li",
+                    "given": "Jianzhong"
+                }
+            ],
+            "container-title": "Chemosphere",
+            "container-title-short": "Chemosphere",
+            "id": "an_2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024,
+                        7
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "142444",
+            "title": "Absorption, distribution, metabolism, and elimination of epoxiconazole enantiomers in lizards (Eremias argus)",
+            "type": "article-journal",
+            "volume": "360"
+        },
+        {
+            "DOI": "10.1016/j.chemosphere.2024.142444",
+            "ISSN": "00456535",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0045653524013377",
+            "abstract": "Epoxiconazole (EPX) is a world widely used chiral triazole fungicide in the agriculture field. The excessive application of this triazole may cause damage to lizards. However, limited information is known about the toxicokinetics of EPX on lizards. Our study aimed to investigate the enantioselective absorption, distribution, metabolism, and elimination (ADME) of EPX in lizards following low and high dose exposure (10 and 100 mg kg 1 bodyweitht (bw)). The results demonstrated that (+)-EPX was easier absorbed than ( )-EPX in lizard plasma. Both (+)-EPX and ( )-EPX were detected in the liver, gonad, kidney, skin, brain, and intestine, with (+)-EPX preferentially distributed in these tissues. The elimination of ( )-EPX was faster than that of (+)-EPX in lizard liver and kidney in the high dose groups. Chiral conversion was found between EPX enantiomers in lizard skin. Simultaneously, five metabolites including M2, M4, M10, M18 and M19 were detected in lizard liver and kidney after EPX enantiomers exposure. The relative concentrations of M2, M4, and M10 were higher in the liver and kidney of ( )-EPX groups than those produced from (+)-EPX groups. The metabolic enzymes CYP3A4 and SULT1A1 primarily mediated enantioselective metabolism of EPX. The conclusions drawn from this study significantly enhance our understanding of the enantioselective behaviors of chiral triazole fungicides in reptiles, offering essential guidance for assessing the risks associated with different enantiomers of triazole fungicides.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "An",
+                    "given": "Qiong"
+                },
+                {
+                    "family": "Hao",
+                    "given": "Weiyu"
+                },
+                {
+                    "family": "Ma",
+                    "given": "Zheng"
+                },
+                {
+                    "family": "Zhang",
+                    "given": "Leisen"
+                },
+                {
+                    "family": "Song",
+                    "given": "Zheyuan"
+                },
+                {
+                    "family": "Wan",
+                    "given": "Bin"
+                },
+                {
+                    "family": "Xu",
+                    "given": "Peng"
+                },
+                {
+                    "family": "Wang",
+                    "given": "Huili"
+                },
+                {
+                    "family": "Chang",
+                    "given": "Jing"
+                },
+                {
+                    "family": "Li",
+                    "given": "Jianzhong"
+                }
+            ],
+            "container-title": "Chemosphere",
+            "container-title-short": "Chemosphere",
+            "id": "an_2024a",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024,
+                        7
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "142444",
+            "title": "Absorption, distribution, metabolism, and elimination of epoxiconazole enantiomers in lizards (Eremias argus)",
+            "type": "article-journal",
+            "volume": "360"
+        },
+        {
             "DOI": "10.1016/j.scitotenv.2004.04.021",
             "ISSN": "00489697",
             "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0048969704003316",
@@ -986,6 +1132,56 @@
             "title": "Organophosphorus flame retardants and plasticisers in surface waters",
             "type": "article-journal",
             "volume": "332"
+        },
+        {
+            "DOI": "10.1002/tox.20618",
+            "ISSN": "1520-4081, 1522-7278",
+            "URL": "https://onlinelibrary.wiley.com/doi/10.1002/tox.20618",
+            "abstract": "This research work investigated the bioconcentration of tebuconazole [(6)-a-[2-(4-chlorophenyl)ethyl]-a-(1,1-dimethylethyl)-1H-1,2,4-triazole-1-ethanol] fungicide in zebrafish (Danio rerio) under laboratory conditions and a first-order kinetic pesticide dissipation in the water. The concentrations of tebuconazole fitted to an equivalent nonlinear kinetic type model which allowed the calculation of the following parameters: bioconcentration factor (38.80 L kg21), time to reach maximum fish concentration (6 days), maximum concentration in fish (0.0075 lg mg21), half-life in fish (24 days) and time needed for the fish to eliminate 95% of the maximum concentration (105 days). These calculations permitted the establishment of theoretical reference limit values for human consumption of fish and the establishment of safe limits for the water pesticide concentration. The data would also be useful in safe strategies associated with fishery activities that are conducted in aquatic regions close to crops using tebuconazole. The information will contribute to enlarge the tebuconazole toxicokinetics database of aquatic organisms. # 2011 Wiley Periodicals, Inc. Environ Toxicol 27: 109–116, 2012.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Andreu‐Sánchez",
+                    "given": "Oscar"
+                },
+                {
+                    "family": "Paraíba",
+                    "given": "Lourival C."
+                },
+                {
+                    "family": "Jonsson",
+                    "given": "Claudio M."
+                },
+                {
+                    "family": "Carrasco",
+                    "given": "José M."
+                }
+            ],
+            "container-title": "Environmental Toxicology",
+            "container-title-short": "Environmental Toxicology",
+            "id": "andreu-sanchez_2012",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012,
+                        2
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "109-116",
+            "title": "Acute toxicity and bioconcentration of fungicide tebuconazole in zebrafish ( <i>Danio</i><i> Rerio</i> )",
+            "type": "article-journal",
+            "volume": "27"
         },
         {
             "URL": "https://www.anses.fr/fr/content/fongicides-sdhi-les-travaux-de-lanses",
@@ -10502,6 +10698,42 @@
             "volume": "6"
         },
         {
+            "DOI": "10.2903/j.efsa.2008.138r",
+            "ISSN": "18314732, 18314732",
+            "URL": "https://data.europa.eu/doi/10.2903/j.efsa.2008.138r",
+            "abstract": "Epoxiconazole is one of the 79 substances of the third stage Part A of the review programme covered by Commission Regulation (EC) No 1490/20021. This Regulation requires the European Food Safety Authority (EFSA) to organise a peer review of the initial evaluation, i.e. the draft assessment report (DAR), provided by the designated rapporteur Member State and to provide within one year a conclusion on the risk assessment to the EU-Commission.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "literal": "European Food Safety Authority (EFSA)"
+                }
+            ],
+            "container-title": "EFSA Journal",
+            "container-title-short": "EFS2",
+            "id": "europeanfoodsafetyauthorityefsa_2008a",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        7
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "title": "Conclusion regarding the peer review of the pesticide risk assessment of the active substance epoxiconazole",
+            "type": "article-journal",
+            "volume": "6"
+        },
+        {
             "DOI": "10.2903/j.efsa.2022.7634",
             "ISSN": "18314732, 18314732",
             "URL": "https://data.europa.eu/doi/10.2903/j.efsa.2022.7634",
@@ -11618,6 +11850,67 @@
             "title": "Concept of REACH and impact on evaluation of chemicals",
             "type": "article-journal",
             "volume": "27"
+        },
+        {
+            "DOI": "10.1016/j.cbpc.2018.01.002",
+            "ISSN": "15320456",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S1532045618300024",
+            "abstract": "Studies were conducted to determine the distribution and elimination of imidacloprid (IMI) in rainbow trout. Animals were injected with a low (47.6 μg/kg), medium (117.5 μg/kg) or high (232.7 μg/kg) dose directly into the bloodstream and allowed to depurate. The fish were then sampled to characterize the loss of IMI from plasma and its appearance in expired water (all dose groups) and urine (medium dose only). In vitro biotransformation of IMI was evaluated using trout liver S9 fractions. Mean total clearance (CLT) values determined by noncompartmental analysis of plasma time-course data were 21.8, 27.0 and 19.5 mL/h/kg for the low, medium and high dose groups, respectively. Estimated half-lives for the same groups were 67.0, 68.4 and 68.1 h, while fitted values for the steady-state volume of distribution (VSS) were 1.72, 2.23 and 1.81 L/kg. Branchial elimination rates were much lower than expected, suggesting that IMI is highly bound in blood. Renal clearance rates were greater than measured rates of branchial clearance (60% of CLT in the medium dose group), possibly indicating a role for renal membrane transporters. There was no evidence for hepatic biotransformation of IMI. Collectively, these findings suggest that IMI would accumulate in trout in continuous waterborne exposures.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Frew",
+                    "given": "John A."
+                },
+                {
+                    "family": "Brown",
+                    "given": "Jacob T."
+                },
+                {
+                    "family": "Fitzsimmons",
+                    "given": "Patrick N."
+                },
+                {
+                    "family": "Hoffman",
+                    "given": "Alex D."
+                },
+                {
+                    "family": "Sadilek",
+                    "given": "Martin"
+                },
+                {
+                    "family": "Grue",
+                    "given": "Christian E."
+                },
+                {
+                    "family": "Nichols",
+                    "given": "John W."
+                }
+            ],
+            "container-title": "Comparative Biochemistry and Physiology Part C: Toxicology & Pharmacology",
+            "container-title-short": "Comparative Biochemistry and Physiology Part C: Toxicology & Pharmacology",
+            "id": "frew_2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        2
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "34-42",
+            "title": "Toxicokinetics of the neonicotinoid insecticide imidacloprid in rainbow trout ( Oncorhynchus mykiss )",
+            "type": "article-journal",
+            "volume": "205"
         },
         {
             "DOI": "10.1186/s12302-018-0136-2",
@@ -14289,6 +14582,59 @@
             "title": "Avoiding the misuse of BLUP in behavioural ecology",
             "type": "article-journal",
             "volume": "28"
+        },
+        {
+            "DOI": "10.1016/j.aquatox.2021.105837",
+            "ISSN": "0166445X",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0166445X21000965",
+            "abstract": "Previous studies have explored effects of imidacloprid and its metabolites on terrestrial species, such as bees, and indicated the importance of some active metabolites. However, the biotransformation of IMI and the toxicity of its metabolites to aquatic arthropods are largely unknown, especially the mechanisms driving species sensitivity differences and time-cumulative toxicity effects. To assess the potential effects of the metabolization of IMI and the toxicokinetics and toxicity of the metabolite(s) on aquatic arthropods, we first studied the acute toxicity of IMI and relevant metabolites to the mayfly species Cloen dipterum (sensitive to IMI) and the amphipod species Gammarus pulex (less sensitive to IMI). Secondly, toxicokinetic experiments were conducted using both the parent compound and imidacloprid-olefin (IMI-ole), a metabolite assessed as toxic in the acute tests and defined as bioactive. Of the four tested metabolites, only IMI-ole was readily biotransformed from the parent IMI and showed similar toxicity to C. dipterum as IMI. However, C. dipterum was hardly able to eliminate IMI-ole from its body. For G. pulex, IMI-ole was also the only detected metabolite causing toxicity, but the biotransformation of IMI to IMI-ole was slower and lower in G. pulex compared to C. dipterum, and G. pulex eliminated IMI-ole quicker than C. dipterum. Our results on internal kinetics of IMI and IMI-ole, and on biotransformation of IMI indicated that the metabolite IMI-ole was toxic and was rather persistent inside the body tissue of both invertebrate species, especially for C. dipterum. In conclusion, as IMI and IMI-ole have similar toxicity and IMI was replaced rapidly by IMI-ole which in turn was poorly eliminated by C. dipterum, the overall toxicity is a function of dose and time. As a result, no long-term threshold of effects of IMI may exist for C. dipterum as the poor elimination results in an ongoing increase of toxicity over time for mayflies as also found experimentally in previous published papers.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Huang",
+                    "given": "Anna"
+                },
+                {
+                    "family": "Van Den Brink",
+                    "given": "Nico W."
+                },
+                {
+                    "family": "Buijse",
+                    "given": "Laura"
+                },
+                {
+                    "family": "Roessink",
+                    "given": "Ivo"
+                },
+                {
+                    "family": "Van Den Brink",
+                    "given": "Paul J."
+                }
+            ],
+            "container-title": "Aquatic Toxicology",
+            "container-title-short": "Aquatic Toxicology",
+            "id": "huang_2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021,
+                        6
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "105837",
+            "title": "The toxicity and toxicokinetics of imidacloprid and a bioactive metabolite to two aquatic arthropod species",
+            "type": "article-journal",
+            "volume": "235"
         },
         {
             "id": "ImpactsProduitsPhytopharmaceutiques2022",
@@ -17556,6 +17902,64 @@
             "volume": "13"
         },
         {
+            "DOI": "10.1016/j.chemosphere.2019.03.023",
+            "ISSN": "00456535",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S004565351930459X",
+            "abstract": "The fungicide imazalil is a chiral compound with one R- and one S-enantiomer. Enantiomers, while having the same chemical properties, can differ in their biological activity expressed as efficacy/toxicity as well as in their degradation kinetics and pathways. Azoles such as imazalil have been shown to synergize the effect of pyrethroid insecticides like a-cypermethrin through inhibition of cytochrome P450 monooxygenase responsible for pyrethroid detoxification. The aim of this study was to investigate, if the enantiomers of imazalil are selective in their synergistic potential in a mixture with a pyrethroid insecticide tested in Chironomus riparius. Potential enantioselectivity was studied on the level of uptake and elimination, inhibition of cytochrome P450 activity measured in vitro and in vivo and on synergistic potential of a-cypermethrin induced immobilization. Synergy was measured as an increase in acypermethrin toxicity after 144h applying a constant non-lethal imazalil concentration of 0.65 mmol/L. The R- and S-imazalil enantiomers increased a-cypermethrin toxicity from an EC50 of 1580 ± 980 pmol/L to an EC50 of 83 ± 10 pmol/L and 53 ± 8 pmol/L, respectively. The relatively small potency difference between imazalil enantiomers could not be explained by the in vitro cytochrome P450 inhibition, as the IC50 values were similar (0.11 ± 0.01 and 0.09 ± 0.01 mmol/L for R- and S-imazalil). Measuring in vivo P450 inhibition and the toxicokinetic of imazalil did not show a clear trend of selectivity towards one or the other enantiomer. The study therefore suggests that cytochrome P450 enzymes involved in detoxification in C. riparius are not enantioselective for imazalil.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Kuhlmann",
+                    "given": "Janna"
+                },
+                {
+                    "family": "Kretschmann",
+                    "given": "Andreas C."
+                },
+                {
+                    "family": "Bester",
+                    "given": "Kai"
+                },
+                {
+                    "family": "Bollmann",
+                    "given": "Ulla E."
+                },
+                {
+                    "family": "Dalhoff",
+                    "given": "Kristoffer"
+                },
+                {
+                    "family": "Cedergreen",
+                    "given": "Nina"
+                }
+            ],
+            "container-title": "Chemosphere",
+            "container-title-short": "Chemosphere",
+            "id": "kuhlmann_2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        6
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "166-173",
+            "title": "Enantioselective mixture toxicity of the azole fungicide imazalil with the insecticide α-cypermethrin in Chironomus riparius: Investigating the importance of toxicokinetics and enzyme interactions",
+            "title-short": "Enantioselective mixture toxicity of the azole fungicide imazalil with the insecticide α-cypermethrin in Chironomus riparius",
+            "type": "article-journal",
+            "volume": "225"
+        },
+        {
             "DOI": "10.1016/S0038-0717(96)00030-2",
             "ISSN": "00380717",
             "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0038071796000302",
@@ -20163,6 +20567,72 @@
             "volume": "31"
         },
         {
+            "DOI": "10.1007/s11356-024-34642-7",
+            "ISSN": "1614-7499",
+            "URL": "https://link.springer.com/10.1007/s11356-024-34642-7",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Ly",
+                    "given": "Tu-Ky"
+                },
+                {
+                    "family": "De Oliveira",
+                    "given": "Julie"
+                },
+                {
+                    "family": "Chadili",
+                    "given": "Edith"
+                },
+                {
+                    "family": "Le Menach",
+                    "given": "Karyn"
+                },
+                {
+                    "family": "Budzinski",
+                    "given": "Hélène"
+                },
+                {
+                    "family": "James",
+                    "given": "Alice"
+                },
+                {
+                    "family": "Hinfray",
+                    "given": "Nathalie"
+                },
+                {
+                    "family": "Beaudouin",
+                    "given": "Rémy"
+                }
+            ],
+            "container-title": "Environmental Science and Pollution Research",
+            "container-title-short": "Environ Sci Pollut Res",
+            "id": "ly_2024a",
+            "issue": "40",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024,
+                        8,
+                        19
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "52758-52773",
+            "title": "Imazalil and prochloraz toxicokinetics in fish probed by a physiologically based kinetic (PBK) model",
+            "type": "article-journal",
+            "volume": "31"
+        },
+        {
             "DOI": "10.1016/j.scitotenv.2016.03.053",
             "ISSN": "00489697",
             "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0048969716304788",
@@ -20592,6 +21062,61 @@
             "language": "fr-FR",
             "title": "Le \"plan d’action\" du gouvernement contre les PFAS, ces produits chimiques ultratoxiques pour l’environnement et la santé",
             "type": "article-newspaper"
+        },
+        {
+            "DOI": "10.1021/acs.est.2c04085",
+            "ISSN": "0013-936X, 1520-5851",
+            "URL": "https://pubs.acs.org/doi/10.1021/acs.est.2c04085",
+            "abstract": "In the face of global climate change, where temperature fluctuations and the frequency of extreme weather events are increasing, it is needed to evaluate the impact of temperature on the ecological risk assessment of chemicals. Current state-of-the-art mechanistic effect models, such as toxicokinetic−toxicodynamic (TK−TD) models, often do not explicitly consider temperature as a modulating factor. This study implemented the effect of temperature in a widely used modeling framework, the General Unified Threshold model for Survival (GUTS). We tested the model using data from toxicokinetic and toxicity experiments with Gammarus pulex exposed to the insecticides imidacloprid and flupyradifurone. The experiments revealed increased TK rates with increasing temperature and increased toxicity under chronic exposures. Using the widely used Arrhenius equation, we could include the temperature influence into the modeling. By further testing of different model approaches, differences in the temperature scaling of TK and TD model parameters could be identified, urging further investigations of the underlying mechanisms. Finally, our results show that predictions of TK−TD models improve if we include the toxicity modulating effect of temperature explicitly.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Mangold-Döring",
+                    "given": "Annika"
+                },
+                {
+                    "family": "Huang",
+                    "given": "Anna"
+                },
+                {
+                    "family": "Van Nes",
+                    "given": "Egbert H."
+                },
+                {
+                    "family": "Focks",
+                    "given": "Andreas"
+                },
+                {
+                    "family": "Van Den Brink",
+                    "given": "Paul J."
+                }
+            ],
+            "container-title": "Environmental Science & Technology",
+            "container-title-short": "Environ. Sci. Technol.",
+            "id": "mangold-doring_2022",
+            "issue": "22",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022,
+                        11,
+                        15
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "15920-15929",
+            "title": "Explicit Consideration of Temperature Improves Predictions of Toxicokinetic–Toxicodynamic Models for Flupyradifurone and Imidacloprid in <i>Gammarus</i><i> Pulex</i>",
+            "type": "article-journal",
+            "volume": "56"
         },
         {
             "author": [
@@ -22607,6 +23132,60 @@
             "title": "Contaminants as a neglected source of behavioural variation",
             "type": "article-journal",
             "volume": "88"
+        },
+        {
+            "DOI": "10.1371/journal.pone.0057142",
+            "ISSN": "1932-6203",
+            "URL": "https://dx.plos.org/10.1371/journal.pone.0057142",
+            "abstract": "The fundamental phenotypes of growth rate, size and morphology are the result of complex interactions between genotype and environment. We developed a high-throughput software application, WormSizer, which computes size and shape of nematodes from brightfield images. Existing methods for estimating volume either coarsely model the nematode as a cylinder or assume the worm shape or opacity is invariant. Our estimate is more robust to changes in morphology or optical density as it only assumes radial symmetry. This open source software is written as a plugin for the well-known image-processing framework Fiji/ImageJ. It may therefore be extended easily. We evaluated the technical performance of this framework, and we used it to analyze growth and shape of several canonical Caenorhabditis elegans mutants in a developmental time series. We confirm quantitatively that a Dumpy (Dpy) mutant is short and fat and that a Long (Lon) mutant is long and thin. We show that daf-2 insulin-like receptor mutants are larger than wild-type upon hatching but grow slow, and WormSizer can distinguish dauer larvae from normal larvae. We also show that a Small (Sma) mutant is actually smaller than wild-type at all stages of larval development. WormSizer works with Uncoordinated (Unc) and Roller (Rol) mutants as well, indicating that it can be used with mutants despite behavioral phenotypes. We used our complete data set to perform a power analysis, giving users a sense of how many images are needed to detect different effect sizes. Our analysis confirms and extends on existing phenotypic characterization of well-characterized mutants, demonstrating the utility and robustness of WormSizer.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        20
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Moore",
+                    "given": "Brad T."
+                },
+                {
+                    "family": "Jordan",
+                    "given": "James M."
+                },
+                {
+                    "family": "Baugh",
+                    "given": "L. Ryan"
+                }
+            ],
+            "container-title": "PLoS ONE",
+            "container-title-short": "PLoS ONE",
+            "editor": [
+                {
+                    "family": "Gill",
+                    "given": "Matthew"
+                }
+            ],
+            "id": "moore_2013",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013,
+                        2,
+                        22
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "e57142",
+            "title": "WormSizer: High-throughput Analysis of Nematode Size and Shape",
+            "title-short": "WormSizer",
+            "type": "article-journal",
+            "volume": "8"
         },
         {
             "DOI": "10.1111/oik.03642",

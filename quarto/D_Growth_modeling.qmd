@@ -774,7 +774,7 @@ p
 The fit on data gives information on model parameters as the posterior distributions are much more restrictive on parameter values than our priors.
 
 ```{r tableres}
-#| tbl-cap: Comparaison  of the different statistical values of the posterior distributions
+#| tbl-cap: Comparaison of the different statistical values of the posterior distributions
 #| label: tbl-compvalposttheoVI
 
 df_res_VI <- summarise_draws(tidy_draws(m.post))
