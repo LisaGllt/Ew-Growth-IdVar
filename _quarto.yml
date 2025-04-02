@@ -8,10 +8,26 @@ book:
     - name: "Lisa Gollot"
       orcid: ""
       affiliations:
-        - name: "Université Paris-Saclay, INRAE, AgroParisTech, UMR EcoSys,
-91120 Palaiseau, France"
+        - name: "Université Paris-Saclay, INRAE, AgroParisTech, UMR EcoSys, 91120 Palaiseau, France"
         - name: "Experimental Toxicology and Modeling Unit, INERIS, Verneuil en Halatte 65550, France"
-  date: "6/25/2024"
+    - name: "Rémy Beaudouin"
+      orcid: ""
+      affiliations:
+        - name: "Experimental Toxicology and Modeling Unit, INERIS, Verneuil en Halatte 65550, France"
+    - name: "Jérôme Mathieu"
+      orcid: ""
+      affiliations:
+        - name: "Sorbonne Université, CNRS, IRD, INRAE, Université Paris Est Créteil, Université de Paris Cité, Institute of Ecology and Environmental Sciences of Paris (iEES-Paris), Paris, France"
+    - name: "Juliette Faburé"
+      orcid: ""
+      affiliations:
+        - name: "Université Paris-Saclay, INRAE, AgroParisTech, UMR EcoSys, 91120 Palaiseau, France"
+    - name: "Raphaël Royauté"
+      orcid: ""
+      affiliations:
+        - name: "Université Paris-Saclay, INRAE, AgroParisTech, UMR EcoSys, 91120 Palaiseau, France"
+    
+  date: "4/2/2025"
   chapters:
     - index.qmd
     - quarto/A_Context_of_the_study.qmd

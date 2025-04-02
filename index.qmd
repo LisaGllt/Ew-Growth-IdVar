@@ -39,4 +39,4 @@ Instructions :
     -   If you do not want to run the models again, move on to the next step
     -   If you wish to run the models again, please delete the files in `mod/model_choice`and in `mod` (keep the arborescence)
     -   If you wish to run the bootstrap again (warning : long calculations of about 24 h on a Macbook M2), please delete the `.RData` files in the `bootstrap` folder. Run it again by just executing the `Bootstrap_VI.R` script.
--   Then, you can render again all .qmd files from the `quarto` folder in the alphabetical order of their name.
+-   Then, you can render again all .qmd files from the `quarto` folder in the alphabetical order of their name. Some code line will have to be de-commented for some figures to be rendered again.

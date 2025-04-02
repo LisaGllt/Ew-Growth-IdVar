@@ -6858,6 +6858,59 @@
             "type": "article-newspaper"
         },
         {
+            "DOI": "10.1007/s10646-012-0983-3",
+            "ISSN": "0963-9292, 1573-3017",
+            "URL": "http://link.springer.com/10.1007/s10646-012-0983-3",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        28
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Chen",
+                    "given": "Wei-Yu"
+                },
+                {
+                    "family": "Lin",
+                    "given": "Chia-Jung"
+                },
+                {
+                    "family": "Ju",
+                    "given": "Yun-Ru"
+                },
+                {
+                    "family": "Tsai",
+                    "given": "Jeng-Wei"
+                },
+                {
+                    "family": "Liao",
+                    "given": "Chung-Min"
+                }
+            ],
+            "container-title": "Ecotoxicology",
+            "container-title-short": "Ecotoxicology",
+            "id": "chen_2012",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012,
+                        11
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "2264-2275",
+            "title": "Coupled dynamics of energy budget and population growth of tilapia in response to pulsed waterborne copper",
+            "type": "article-journal",
+            "volume": "21"
+        },
+        {
             "DOI": "10.1007/s10646-017-1769-4",
             "ISSN": "0963-9292, 1573-3017",
             "URL": "http://link.springer.com/10.1007/s10646-017-1769-4",
@@ -7997,6 +8050,7 @@
         {
             "DOI": "10.1021/es049720m",
             "ISSN": "0013-936X",
+            "URL": "https://www.ncbi.nlm.nih.gov/pubmed/15597872",
             "abstract": "In this study, the effects of modifying Ca (0.2-4 mM), Mg (0.05-3 mM), Na (0.75-5 mM), and pH (5.5-7.5) on the chronic toxicity of zinc to juvenile rainbow trout (Oncorhynchus mykiss) were investigated using standard 30-d assays in which survival and growth were monitored. Survival was observed to be a more sensitive end point than growth, and mortality mainly occurred during the initial stages of the exposure. This suggested that the mode of action of zinc toxicity was mainly of an acute nature. A review and analysis of existing literature demonstrated similar results for most other fish species investigated. Overall, up to a 30-fold variation of zinc toxicity was observed, as indicated by no observed effect concentrations varying between 32.7 and 974 microg of Zn L(-1). Increased concentrations of Ca2+, Mg2+, Na+, and H+ (within the tested ranges) resulted in a reduction of chronic zinc toxicity by a factor of 12, 3, $>$2, and 2, respectively. This suggests the major importance of Ca competing with zinc and protecting against zinc toxicity, which seems to be a ubiquitous concept in fish species (and probably also invertebrate). On the basis of the toxicity data obtained, a chronic biotic ligand model (BLM) was developed that takes into account both chemical speciation of zinc and competition between zinc and the above-mentioned cations. The developed model was able to predict chronic effect concentrations with an error of less than a factor of 2 in most cases. Hence, it was concluded that the chronic Zn BLM can reduce toxicity variability due to bioavailability to a considerable extent and that the BLM can become an important tool in criteria setting and risk assessment practice of zinc and zinc substances.",
             "author": [
                 {
@@ -11916,6 +11970,7 @@
             "DOI": "10.1186/s12302-018-0136-2",
             "ISSN": "2190-4707",
             "PMCID": "PMC5849641",
+            "URL": "https://www.ncbi.nlm.nih.gov/pubmed/29576997",
             "abstract": "This position paper intends to stimulate a profound rethinking of contemporary agricultural practice. We criticise the current intensity of chemical plant protection in Germany as ecologically unsustainable and thus threatening the achievement of key targets of environmental protection and nature conservation policies. In the first part of the paper, we provide background information on the use of plant protection products (PPP) in German agriculture, the role of agricultural policy, European pesticide legislation, the principles of and framework for environmental risk assessment and risk management of PPP, as well as environmental effects of PPP. The second part is presented against the backdrop of the European \"Sustainable Use Directive\" (2009/128/EC). This directive requires that \"Member States shall adopt National Action Plans to set up their quantitative objectives, targets, measures, and timetables to reduce risks and impacts of pesticide use on human health and the environment and to encourage the development and introduction of integrated pest management and of alternative approaches or techniques to reduce dependency on the use of pesticides.\" Reflecting on the corresponding debate in Germany, we suggest the following five key principles for a sustainable use of PPP and provide recommendations for their implementation: (1) minimising use; (2) identifying, quantifying, and communicating risks; (3) optimising risk management; (4) compensating for unavoidable effects; (5) internalising external costs.",
             "author": [
                 {
@@ -33635,6 +33690,7 @@
         },
         {
             "ISSN": "0262-8767",
+            "URL": "https://www.ncbi.nlm.nih.gov/pubmed/2091733",
             "abstract": "The ergosterol biosynthesis-inhibiting (EBI) antifungals constitute the most important group of compounds developed for the control of fungal diseases in man. Currently, representatives of two classes of EBI antifungals are available: the squalene epoxidase inhibitors and those that interfere with cytochrome P450-dependent ergosterol synthesis. The allylamines (eg, terbinafine) inhibit squalene epoxidase in sensitive fungi, Trichophyton mentagrophytes being the most sensitive species. The most important developments have come from the introduction of the N-substituted imidazoles and triazoles, the so-called azole antifungals. Most of the currently available imidazoles (eg, miconazole, clotrimazole, econazole) and the triazole derivative terconazole are mainly for topical treatment. Ketoconazole was the first azole derivative orally active against yeasts, dermatophytes and dimorphic fungi. The new triazole, itraconazole, appears to be among the most promising orally active systemic agents. All the azole antifungals inhibit the cytochrome P450-dependent, 14 alpha-demethylase, a key enzyme in the synthesis of ergosterol, the main sterol in most fungal cells. Of all the azoles tested, itraconazole shows the highest affinity for the cytochrome P450 involved. It is about three and ten times more active in vitro than miconazole and the bis-triazole, fluconazole, respectively. Itraconazole’s high affinity for the fungal P450 originates from its triazole group as well as from the nonligating lipophilic tail.",
             "author": [
                 {
@@ -34106,6 +34162,57 @@
             "title-short": "The return of the variance",
             "type": "article-journal",
             "volume": "27"
+        },
+        {
+            "DOI": "10.1002/etc.4946",
+            "ISSN": "0730-7268, 1552-8618",
+            "URL": "https://academic.oup.com/etc/article/40/2/513/7734405",
+            "abstract": "Mechanistic population models are gaining considerable interest in ecological risk assessment. The dynamic energy budget approach for toxicity (debtox) and the general unified threshold model for survival (guts) is a well-established theoretical framework that describes sub-lethal and lethal effects of a chemical stressor, respectively. However, there have been limited applications of these models for mixtures of chemicals, especially to predict long-term effects on populations.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        3,
+                        28
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Vlaeminck",
+                    "given": "Karel"
+                },
+                {
+                    "family": "Viaene",
+                    "given": "Karel P. J."
+                },
+                {
+                    "family": "Van Sprang",
+                    "given": "Patrick"
+                },
+                {
+                    "family": "De Schamphelaere",
+                    "given": "Karel A. C."
+                }
+            ],
+            "container-title": "Environmental Toxicology and Chemistry",
+            "id": "vlaeminck_2020",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020,
+                        12,
+                        1
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "page": "513-527",
+            "title": "Development and Validation of a Mixture Toxicity Implementation in the Dynamic Energy Budget–Individual-Based Model: Effects of Copper and Zinc on <i>Daphnia</i><i> Magna</i> Populations",
+            "title-short": "Development and Validation of a Mixture Toxicity Implementation in the Dynamic Energy Budget–Individual-Based Model",
+            "type": "article-journal",
+            "volume": "40"
         },
         {
             "DOI": "10.1111/j.1420-9101.2012.02558.x",

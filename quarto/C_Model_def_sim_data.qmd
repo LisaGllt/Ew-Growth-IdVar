@@ -311,7 +311,7 @@ The priors cannot be defined according to the results of @bart_2020a. Therefore 
 
 -   Weight at birth is often around 10 to 15 mg and might range from 8 to 20 mg. The prior on $L0_{\mu}$ can be a normal distribution with a mean of 12.5$^{1/3}$ = 2.32 mg$^{1/3}$ and coefficient of variation of 20%. The prior on $L0_{\sigma}$ can be a normal distribution with a mean of 2.32 $\times$ 0.2 and a coefficient of variation of 100%. We also know that $L0_{\mu}$ cannot be less than 0.
 -   An individual typically takes 4 months to be an adult weighting around 600 mg. It gives us a growth rate of 600$^{1/3}$/(30 $\times$ 4) = 0.070 mg$^{1/3}$/d. The prior on $a_{ctrl,\mu}$ can be a normal distribution with a mean of 0.070 and a coefficient of variation of 20% so our prior is less restrictive.
--   We have no real *a priori* knowledge about the inter-individual variation of growth. We therefore want a large prior such as a normal distribution with a mean of 20% of the mean growth rate and a coefficient of variation of 100%.
+-   We have no real *a priori* knowledge about the change inter-individual variation of growth. We therefore want a large prior for individual variations such as a normal distribution with a mean of 20% of the mean growth rate and a coefficient of variation of 100%. We are however sure of the existence of individual variation throught our expertise of the breeding culture and the data from @bart_2019d.
 
 The same priors are given to the two cohorts. A growth rate individual variation of 20% was given as a prior for the two cohort.
 
@@ -327,9 +327,9 @@ priors <-
   prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
 
   prior(normal(0.070*0.2,  0.070), class=sd,                                           # <5>
-        coef=exposition0, group=ID, nlpar = a)+                                        # <5>
+        coef=exposition0, group=ID, nlpar = a, lb = 0)+                                # <5>
   prior(normal(0.070*0.2,  0.070), class=sd,                                           # <6>
-        coef=exposition1, group=ID, nlpar = a)+                                        # <6>
+        coef=exposition1, group=ID, nlpar = a, lb = 0)+                                # <6>
 
   prior(exponential(1), sigma, nlpar="")                                                         # <7>
 
@@ -431,8 +431,6 @@ p3 <- priors %>%
       )
     ) +
   stat_dist_halfeye(
-    # fill = col_dens,
-    # color = col_dens,
     alpha = alpha_dens
   ) +
   facet_wrap(
@@ -452,8 +450,6 @@ p3 <- priors %>%
     plot.title = element_text(face="bold", size = sizetitle),
     strip.text = element_text(face="plain", size = sizetitle-2),
     )
-
-
 
 p <- plot_grid(
   p1, p2, p3, 
@@ -523,7 +519,7 @@ print(m.sim.prior)
 We can then plot the predictions of this model and see if they represent at least the full range of our experimental data.
 
 ```{r priorpredcheck, warning=F}
-#| fig-cap: Prior predictive check.Fresh body weight of simulated non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed every 28 days (red points and thin lines, each line corresponding to one individual). Colored ribbons correspond to the different credibility intervals for the mean growth for each cohort under the prior distribution. The thicker black lines represent the predicted mean body weight based solely on prior assumptions.
+#| fig-cap: Prior predictive check. Fresh body weight of simulated non-exposed earthworms (blue points and thin lines, each line corresponding to one individual) and earthworms exposed to the equivalent of 3 RD of Swing® Gold renewed every 28 days (red points and thin lines, each line corresponding to one individual). Colored ribbons correspond to the different credibility intervals for the mean growth for each cohort under the prior distribution. The thicker black lines represent the predicted mean body weight based solely on prior assumptions.
 #| label: fig-priorpredVIsim
 #| fig-height: 4
 #| fig-width: 8
@@ -1713,7 +1709,7 @@ ggsave(
 #| label: tbl-err
 
 df_err <- data.frame(
-  Parameter = c(as.list(df_res_VI_show[1])$variable, "LnRR", "LnCVi"),
+  Parameter_name = c(as.list(df_res_VI_show[1])$variable, "LnRR", "LnCVi"),
   Simulated = c(sim_L0_mu, sim_a_ctrl_mu, sim_a_trt_mu, sim_L0_sd, sim_a_ctrl_sd, sim_a_trt_sd, sd, sim_LnRR, sim_LnCVi),
   Predicted = c(as.list(df_res_VI_show[2])$mean, mean(subset(df_chains_post_long, Parameter == "LnRR")$value), mean(subset(df_chains_post_long, Parameter == "LnCVi")$value))
 )

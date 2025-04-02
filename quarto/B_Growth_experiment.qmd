@@ -243,7 +243,7 @@ grid.arrange(plot_1, plot_2, plot_3, plot_4, plot_5,
 | pH                              | 7.5   |
 | Total Cu (mg/kg)                | 25.2  |
 
-: Closeaux soil characteristics {#tbl-clx .hover}
+: Closeaux soil characteristics {#tbl-clx .hover tbl-colwidths="\[25,75\]"}
 
 To get synchronized cohorts of hatchlings, cocoons were collected in the breeding culture by wet sieving the soil through a 1-mm mesh size [@bart_2018], and incubated at 18°C in Petri dishes on wet filter papers [@holmstrup_1991] (@fig-cocoons). Everyday, new hatchlings were collected and stored in soil at 4°C, to slow their development until the start of the experiment.
 

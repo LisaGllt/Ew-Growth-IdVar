@@ -4,7 +4,7 @@ source(file = here::here("functions/functions.R"))
 f_load_libraries_colors() 
 ```
 
-# Supplementary information
+# Model robustness checks
 
 ```{r data, warning=F, message=F}
 
