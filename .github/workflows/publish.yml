@@ -1,3 +1,10 @@
+on:
+  workflow_dispatch:
+  push:
+    branches: master
+
+name: Quarto Publish
+
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
