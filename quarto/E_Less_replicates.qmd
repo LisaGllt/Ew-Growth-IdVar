@@ -30,7 +30,8 @@ asd_trt_est30  <- res_30$Estimate[6]
 effect_est30   <- a_trt_est30/a_ctrl_est30
 effectsd_est30 <- asd_trt_est30/asd_ctrl_est30
 
-res_show <- res_30[1:7,] |> 
+res_show <- res_30[1:7,]|> 
+  mutate(across(everything(), ~ signif(.x, digits = 2))) |> 
   datatable(options = list(dom = 't'), class="hover") 
 res_show
 ```
@@ -47,6 +48,7 @@ load(file=here::here("bootstrap/Bootstrap_VI_OECD_seed121212_28j_OK_f.RData"))
 df_draws <- res_f
 
 df_draws_show <- df_draws[1:4] |> 
+  mutate(across(everything(), ~ signif(.x, digits = 2))) |> 
   datatable(options = list(dom = 't'), class="hover", rownames=FALSE) 
 df_draws_show
 ```
@@ -329,11 +331,12 @@ selected_var <- c("err_L0", "err_a_ctrl", "err_a_trt", "err_L0sd", "err_asd_ctrl
 df_res_draws <- df_res_draws |> 
   filter(variable %in% selected_var)
 
-df_res_draws_show <- df_res_draws |> datatable(
+df_res_draws_show <- df_res_draws|> 
+  mutate(across(where(is.numeric), ~ signif(.x, digits = 2))) |> 
+  datatable(
   options = list(dom = 't'), 
   class="hover"
-  ) |> 
-  formatRound(columns = 2:length(df_res_draws), digits = 2)
+  ) 
 df_res_draws_show
 
 mean_err_effect <- round(subset(df_res_draws, variable == "err_effect")$mean,2)
@@ -366,7 +369,7 @@ df_err_show <- df_err |>
     class="hover", 
     rownames=FALSE
     )  |> 
-  formatRound(columns = 1:length(df_err), digits = 2)
+  formatRound(columns = 1:length(df_err), digits = 1)
 
 df_err_show
 

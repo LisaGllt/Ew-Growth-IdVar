@@ -1017,7 +1017,9 @@ Parameters estimation results :
 df_res_VI <- summarise_draws(tidy_draws(m.sim.post))
 df_res_VI_show <- df_res_VI[1:7,]
 
-df_res_VI_show |> datatable(
+df_res_VI_show|> 
+  mutate(across(where(is.numeric), ~ signif(.x, digits = 3))) |> 
+  datatable(
   options = list(
     dom = 't',
     columnDefs = list(
@@ -1025,8 +1027,7 @@ df_res_VI_show |> datatable(
       )
     ),
   class="hover"
-  ) |>
-  formatRound(columns = 2:length(df_res_VI_show), digits = 2)
+  )
 ```
 
 ```{r lnRRCVI}

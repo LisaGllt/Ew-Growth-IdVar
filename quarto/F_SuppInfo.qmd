@@ -478,7 +478,8 @@ tbl_powerscale_sens <- powerscale_sensitivity( # <1>
   )                                            # <1>
 
 
-tbl_powerscale_sens |> 
+tbl_powerscale_sens|> 
+  mutate(across(where(is.numeric), ~ signif(.x, digits = 2))) |> 
   DT::datatable(
     options = list(dom = 't'), 
     class="hover", 
