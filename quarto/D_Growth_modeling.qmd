@@ -188,17 +188,18 @@ The priors were defined the same way as in @sec-Cpriorsdef.
 #| code-fold: show
 
 # Priors definition
+
 priors <-
   prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +                       # <1>
-  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+                           # <2>
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0, lb = 0)+                           # <2>
 
   prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # <3>
   prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
 
   prior(normal(0.070*0.2,  0.070), class=sd,                                       # <5>
-        coef=exposition0, group=ID, nlpar = a)+                                        # <5>
+        coef=exposition0, group=ID, nlpar = a, lb = 0)+                                        # <5>
   prior(normal(0.070*0.2,  0.070), class=sd,                                       # <6>
-        coef=exposition1, group=ID, nlpar = a)+                                        # <6>
+        coef=exposition1, group=ID, nlpar = a, lb = 0)+                                        # <6>
 
   prior(exponential(1), sigma, nlpar = "")                                             # <7>
 

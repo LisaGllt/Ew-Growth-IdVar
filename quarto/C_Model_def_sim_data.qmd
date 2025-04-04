@@ -321,7 +321,7 @@ The same priors are given to the two cohorts. A growth rate individual variation
 # Priors definition
 priors <-
   prior(normal(2.32, 2.32*0.2), class = b, nlpar = L0, lb = 0) +                       # <1>
-  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0)+                           # <2>
+  prior(normal(2.32*0.2, 2.32*0.2), class = sd, nlpar = L0, lb = 0)+                           # <2>
 
   prior(normal(0.070, 0.070*0.2), class=b, coef=exposition0, nlpar = a) +              # <3>
   prior(normal(0.070,  0.070*0.2), class=b, coef=exposition1, nlpar = a) +             # <4>
@@ -754,6 +754,7 @@ font_size <- 12
 col_dens <- Nord_polar[1]
 col_dens_ctrl <- Nord_frost[4]
 col_dens_trt <- col_red
+
 size_norm <- 0.7
 
 prior_L0_mu <- priors %>% 
@@ -1503,7 +1504,13 @@ df_fold <- data.frame(fold = c(1.05, 1.075, 1, 1.25, 1.5, 2)) %>%
 
 colnames(df_fold) <- c("Fold", "Percentage of predictions within")
 
-df_fold |> datatable(options = list(dom = 't'), class="hover")
+df_fold |> datatable(
+  options = list(
+    dom = 't', 
+    autoWidth=TRUE
+    ), 
+  class="hover"
+  )
 ```
 
 ```{r comppredsim, warning=F, message=F}
@@ -1715,7 +1722,9 @@ df_err <- data.frame(
 )
 df_err <- df_err |> 
   mutate(
-    Per_error = (Predicted-Simulated)/Simulated*100
+    Simulated = signif(Simulated,2),
+    Predicted = signif(Predicted,2),
+    Per_error = round((Predicted-Simulated)/Simulated*100, 2)
   )
 
 df_err |> datatable(
@@ -1725,9 +1734,8 @@ df_err |> datatable(
       list(className = 'dt-left', targets = "_all")
       )
     ),
-  class="hover"
-  ) |>
-  formatRound(columns = 2:length(df_err), digits = 4)
+  class="compact"
+  ) 
 ```
 
 Parameter recovery is excellent at the population level, with absolute errors below 1.1%, and strong at the individual level, with absolute errors below 4%. Effect sizes -LnRR and LnCVi- are estimated with 12.5% and 14.7%, respectively.

@@ -205,9 +205,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#how-to-use-this-repository" id="toc-how-to-use-this-repository" class="nav-link active" data-scroll-target="#how-to-use-this-repository"><span class="header-section-number">1</span> How to use this repository ?</a>
   <ul class="collapse">
-  <li><a href="#html-pages" id="toc-html-pages" class="nav-link" data-scroll-target="#html-pages"><span class="header-section-number">1.1</span> Html pages</a></li>
-  <li><a href="#repository-organisation" id="toc-repository-organisation" class="nav-link" data-scroll-target="#repository-organisation"><span class="header-section-number">1.2</span> Repository organisation</a></li>
-  <li><a href="#how-to-reproduce-everything" id="toc-how-to-reproduce-everything" class="nav-link" data-scroll-target="#how-to-reproduce-everything"><span class="header-section-number">1.3</span> How to reproduce everything</a></li>
+  <li><a href="#repository-organisation" id="toc-repository-organisation" class="nav-link" data-scroll-target="#repository-organisation"><span class="header-section-number">1.1</span> Repository organisation</a></li>
+  <li><a href="#how-to-reproduce-everything" id="toc-how-to-reproduce-everything" class="nav-link" data-scroll-target="#how-to-reproduce-everything"><span class="header-section-number">1.2</span> How to reproduce everything</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -291,11 +290,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="how-to-use-this-repository" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> How to use this repository ?</h1>
-<section id="html-pages" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="html-pages"><span class="header-section-number">1.1</span> Html pages</h2>
-</section>
-<section id="repository-organisation" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="repository-organisation"><span class="header-section-number">1.2</span> Repository organisation</h2>
+<section id="repository-organisation" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="repository-organisation"><span class="header-section-number">1.1</span> Repository organisation</h2>
 <p>Folders containing files concerning directly the study :</p>
 <ul>
 <li><code>data</code> folder : Contains the raw data files with direct notations from the experiments</li>
@@ -324,8 +320,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><code>lightnord.theme</code> : Theme to use for code blocks displayed in the html pages</li>
 </ul>
 </section>
-<section id="how-to-reproduce-everything" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="how-to-reproduce-everything"><span class="header-section-number">1.3</span> How to reproduce everything</h2>
+<section id="how-to-reproduce-everything" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="how-to-reproduce-everything"><span class="header-section-number">1.2</span> How to reproduce everything</h2>
 <p>If you wish to reproduce the results of this study, all you need are available in the <code>quarto</code> folder, the <code>mod</code> folder and the <code>bootstrap</code> folder.</p>
 <p>Instructions :</p>
 <ul>
@@ -865,46 +861,44 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># How to use this repository ?</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Html pages</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repository organisation</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repository organisation</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Folders containing files concerning directly the study :</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>Folders containing files concerning directly the study :</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`data`</span> folder : Contains the raw data files with direct notations from the experiments</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`functions`</span> folder : Contains R scripts with general functions used throughout different scripts</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`quarto`</span> folder : Contains all the <span class="in">`.qmd`</span> files that generate the html pages, and their associated cache and files which cannot be moved to another folder.</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mod`</span> folder : Contain all the models generated in <span class="in">`.rds`</span> files</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`bootstrap`</span> folder : Contain the R script and its results concerning the bootstrap.</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`photos`</span> folder : Contains all photos used in html pages</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`fig`</span> folder : Contains all figure generated by quarto documents</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`references`</span> folder</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`apa.csl`</span> : File of the reference style used for the website</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`reference.bib`</span> : File containing all references from a zotero library</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`data`</span> folder : Contains the raw data files with direct notations from the experiments</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`functions`</span> folder : Contains R scripts with general functions used throughout different scripts</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`quarto`</span> folder : Contains all the <span class="in">`.qmd`</span> files that generate the html pages, and their associated cache and files which cannot be moved to another folder.</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mod`</span> folder : Contain all the models generated in <span class="in">`.rds`</span> files</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`bootstrap`</span> folder : Contain the R script and its results concerning the bootstrap.</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`photos`</span> folder : Contains all photos used in html pages</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`fig`</span> folder : Contains all figure generated by quarto documents</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`references`</span> folder</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`apa.csl`</span> : File of the reference style used for the website</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="in">`reference.bib`</span> : File containing all references from a zotero library</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>Folders concerning the setup of the git repository and the web pages :</span>
 <span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>Folders concerning the setup of the git repository and the web pages :</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_book`</span> : Where the final html pages are created</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`index.qmd`</span> : Home page of the web site (cannot be put in the <span class="in">`quarto`</span> folder)</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_quarto.yaml`</span> : YAML file that setup the structure of the website from the quarto (<span class="in">`.qmd`</span>) documents</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_freeze`</span> folder : Cache the results of code blocks (code cells) to avoid recalculating them on each execution</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`.git`</span>, <span class="in">`.gitignore`</span> &amp; <span class="in">`.github`</span> : Git related folders</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`.quarto`</span> : Store configuration files, metadata, and intermediate files related to a Quarto project</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`.Rproj.user`</span> &amp; <span class="in">`ew-growth-vi.Rproj`</span> : R project related files</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`html_css.scss`</span> : CSS file to modify the look of the html pages</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lightnord.theme`</span> : Theme to use for code blocks displayed in the html pages</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_book`</span> : Where the final html pages are created</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`index.qmd`</span> : Home page of the web site (cannot be put in the <span class="in">`quarto`</span> folder)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_quarto.yaml`</span> : YAML file that setup the structure of the website from the quarto (<span class="in">`.qmd`</span>) documents</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`_freeze`</span> folder : Cache the results of code blocks (code cells) to avoid recalculating them on each execution</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`.git`</span>, <span class="in">`.gitignore`</span> &amp; <span class="in">`.github`</span> : Git related folders</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`.quarto`</span> : Store configuration files, metadata, and intermediate files related to a Quarto project</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`.Rproj.user`</span> &amp; <span class="in">`ew-growth-vi.Rproj`</span> : R project related files</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`html_css.scss`</span> : CSS file to modify the look of the html pages</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`lightnord.theme`</span> : Theme to use for code blocks displayed in the html pages</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to reproduce everything</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="fu">## How to reproduce everything</span></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>If you wish to reproduce the results of this study, all you need are available in the <span class="in">`quarto`</span> folder, the <span class="in">`mod`</span> folder and the <span class="in">`bootstrap`</span> folder.</span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>If you wish to reproduce the results of this study, all you need are available in the <span class="in">`quarto`</span> folder, the <span class="in">`mod`</span> folder and the <span class="in">`bootstrap`</span> folder.</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>Instructions :</span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>Instructions :</span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Whether or not you want to run the models again, please delete the folders from the <span class="in">`quarto`</span> folder that end by <span class="in">`_cache`</span> or <span class="in">`_files`</span> and delete all the figures present in the <span class="in">`fig`</span> folder.</span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>If you do not want to run the models again, move on to the next step</span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>If you wish to run the models again, please delete the files in <span class="in">`mod/model_choice`</span>and in <span class="in">`mod`</span> (keep the arborescence)</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>If you wish to run the bootstrap again (warning : long calculations of about 24 h on a Macbook M2), please delete the <span class="in">`.RData`</span> files in the <span class="in">`bootstrap`</span> folder. Run it again by just executing the <span class="in">`Bootstrap_VI.R`</span> script.</span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Then, you can render again all .qmd files from the <span class="in">`quarto`</span> folder in the alphabetical order of their name. Some code line will have to be de-commented for some figures to be rendered again.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Whether or not you want to run the models again, please delete the folders from the <span class="in">`quarto`</span> folder that end by <span class="in">`_cache`</span> or <span class="in">`_files`</span> and delete all the figures present in the <span class="in">`fig`</span> folder.</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>If you do not want to run the models again, move on to the next step</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>If you wish to run the models again, please delete the files in <span class="in">`mod/model_choice`</span>and in <span class="in">`mod`</span> (keep the arborescence)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>If you wish to run the bootstrap again (warning : long calculations of about 24 h on a Macbook M2), please delete the <span class="in">`.RData`</span> files in the <span class="in">`bootstrap`</span> folder. Run it again by just executing the <span class="in">`Bootstrap_VI.R`</span> script.</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Then, you can render again all .qmd files from the <span class="in">`quarto`</span> folder in the alphabetical order of their name. Some code line will have to be de-commented for some figures to be rendered again.</span></code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

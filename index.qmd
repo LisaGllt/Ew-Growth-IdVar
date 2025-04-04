@@ -1,7 +1,5 @@
 # How to use this repository ?
 
-## Html pages
-
 ## Repository organisation
 
 Folders containing files concerning directly the study :

@@ -42,6 +42,7 @@ f_load_libraries <- function(){
   library(gridExtra)   # Arrange multiple plots
   library(grid)        # Low-level graphics functions
   library(extrafont)   # Additional fonts for ggplot
+  library(flextable)   # Tables rendering 
   
   # ---------------------------------------------------------------------------
   # 4. Model Summary & Reporting
