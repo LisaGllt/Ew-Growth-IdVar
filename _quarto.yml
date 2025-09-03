@@ -61,6 +61,8 @@ format:
     theme:
       - cosmo
       - appearance/html_css.scss
+    link-external-icon: true
+    link-external-newwindow: true
 
 
 editor: 
