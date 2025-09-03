@@ -1263,6 +1263,12 @@ ggsave(
   width=12, height = 13, 
   path=here::here("fig/")
   )
+ggsave(
+  filename="ModVI_predobs_weights.jpg", 
+  plot=plot_predobs_log, 
+  width=12, height = 13, 
+  path=here::here("fig/")
+  )
 
 ggsave(
   filename="ModVI_predobs_weights_ind_ctrl.png", 
@@ -2034,6 +2040,12 @@ grid::grid.draw(plot)
 ```{r saveres, include=F}
 ggsave(
   filename="Test_summary_res.png", 
+  plot=plot, 
+  width=12, height = 12, 
+  path=here::here("fig/")
+  )
+ggsave(
+  filename="Test_summary_res.jpg", 
   plot=plot, 
   width=12, height = 12, 
   path=here::here("fig/")

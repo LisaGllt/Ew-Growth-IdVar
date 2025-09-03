@@ -296,6 +296,18 @@ plot <- plot_L0 + plot_L0sd + plot_a_ctrl + plot_asd_ctrl+ plot_a_trt+ plot_asd_
     axis.title.x = element_text(face="plain")
     )
 plot
+
+plot_article <- plot_effect + plot_effectsd +
+  plot_layout(
+    ncol=2, 
+    guides="collect"
+    ) & 
+  theme(
+    legend.position = "right", 
+    title=element_text(size=sizetitle, face="bold"), 
+    axis.title.x = element_text(face="plain")
+    )
+
 ```
 
 ```{r, include=F}
@@ -304,6 +316,13 @@ ggsave(
   plot=plot, 
   width=6, 
   height = 10, 
+  path=here::here("fig/")
+  )
+ggsave(
+  filename="Bootstrap_OECD_res_err.jpg", 
+  plot=plot_article, 
+  width=6, 
+  height = 3, 
   path=here::here("fig/")
   )
 ```

@@ -532,6 +532,14 @@ ggsave(
   height=9
   )
 
+ggsave(
+  plot_hyp, 
+  filename="plot_hyp.jpg", 
+  path=here::here("fig/"), 
+  width=7, 
+  height=9
+  )
+
 library(officer)
 library(rvg)
 

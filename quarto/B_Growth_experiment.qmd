@@ -770,6 +770,12 @@ ggsave(
   width=8, height = 4, 
   path=here::here("fig/")
   )
+ggsave(
+  filename="Growth_experiment_56.jpg", 
+  plot=plot_save, 
+  width=8, height = 4, 
+  path=here::here("fig/")
+  )
 
 ggsave(
   filename="Growth_experiment_56.svg", 

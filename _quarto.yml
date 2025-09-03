@@ -37,6 +37,10 @@ book:
     - quarto/E_Less_replicates.qmd
     - quarto/F_SuppInfo.qmd
     - quarto/references.qmd
+  navbar:
+    right:
+      - icon: github
+        href: https://github.com/LisaGllt/Ew-Growth-IdVar
 
 bibliography: references/references.bib # ne pas exporter toute la bibliothèse juste la collection PhD
 csl: references/apa.csl

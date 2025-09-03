@@ -76,11 +76,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-150966b4e972daaeb40f8b30d259a9c5.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
+  "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
+  "panel-placement": "end",
+  "type": "overlay",
   "limit": 50,
   "keyboard-shortcut": [
     "f",
@@ -116,10 +116,34 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-sidebar floating">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Uncovering Hidden Sensitivity - Inter-Individual Growth Variation in Earthworms Under Fungicide Exposure</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/LisaGllt/Ew-Growth-IdVar"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
@@ -128,26 +152,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../quarto/E_Less_replicates.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Can we ignore individual differences? Bias, type M and type S errors in OECD guidelines using a simulation study</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
-        <i class="bi bi-search"></i>
-      </button>
     </div>
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header">
-    <div class="sidebar-title mb-0 py-0">
-      <a href="../">Uncovering Hidden Sensitivity - Inter-Individual Growth Variation in Earthworms Under Fungicide Exposure</a> 
-    </div>
-      </div>
-        <div class="mt-2 flex-shrink-0 align-items-center">
-        <div class="sidebar-search">
-        <div id="quarto-search" class="" title="Search"></div>
-        </div>
-        </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -533,7 +544,18 @@ Table&nbsp;6.2: 6 first line of the bootstrap result
 <span id="cb4-214"><a href="#cb4-214" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="fu">element_text</span>(<span class="at">size=</span>sizetitle, <span class="at">face=</span><span class="st">"bold"</span>), </span>
 <span id="cb4-215"><a href="#cb4-215" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"plain"</span>)</span>
 <span id="cb4-216"><a href="#cb4-216" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a>plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-217"><a href="#cb4-217" aria-hidden="true" tabindex="-1"></a>plot</span>
+<span id="cb4-218"><a href="#cb4-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-219"><a href="#cb4-219" aria-hidden="true" tabindex="-1"></a>plot_article <span class="ot">&lt;-</span> plot_effect <span class="sc">+</span> plot_effectsd <span class="sc">+</span></span>
+<span id="cb4-220"><a href="#cb4-220" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(</span>
+<span id="cb4-221"><a href="#cb4-221" aria-hidden="true" tabindex="-1"></a>    <span class="at">ncol=</span><span class="dv">2</span>, </span>
+<span id="cb4-222"><a href="#cb4-222" aria-hidden="true" tabindex="-1"></a>    <span class="at">guides=</span><span class="st">"collect"</span></span>
+<span id="cb4-223"><a href="#cb4-223" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">&amp;</span> </span>
+<span id="cb4-224"><a href="#cb4-224" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>, </span>
+<span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="fu">element_text</span>(<span class="at">size=</span>sizetitle, <span class="at">face=</span><span class="st">"bold"</span>), </span>
+<span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"plain"</span>)</span>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-errOECDboot" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -1476,99 +1498,118 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb8-298"><a href="#cb8-298" aria-hidden="true" tabindex="-1"></a><span class="in">    axis.title.x = element_text(face="plain")</span></span>
 <span id="cb8-299"><a href="#cb8-299" aria-hidden="true" tabindex="-1"></a><span class="in">    )</span></span>
 <span id="cb8-300"><a href="#cb8-300" aria-hidden="true" tabindex="-1"></a><span class="in">plot</span></span>
-<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=F}</span></span>
-<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a><span class="in">ggsave(</span></span>
-<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a><span class="in">  filename="Bootstrap_OECD_res_err.png", </span></span>
-<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a><span class="in">  plot=plot, </span></span>
-<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a><span class="in">  width=6, </span></span>
-<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a><span class="in">  height = 10, </span></span>
-<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a><span class="in">  path=here::here("fig/")</span></span>
-<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
-<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-301"><a href="#cb8-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-302"><a href="#cb8-302" aria-hidden="true" tabindex="-1"></a><span class="in">plot_article &lt;- plot_effect + plot_effectsd +</span></span>
+<span id="cb8-303"><a href="#cb8-303" aria-hidden="true" tabindex="-1"></a><span class="in">  plot_layout(</span></span>
+<span id="cb8-304"><a href="#cb8-304" aria-hidden="true" tabindex="-1"></a><span class="in">    ncol=2, </span></span>
+<span id="cb8-305"><a href="#cb8-305" aria-hidden="true" tabindex="-1"></a><span class="in">    guides="collect"</span></span>
+<span id="cb8-306"><a href="#cb8-306" aria-hidden="true" tabindex="-1"></a><span class="in">    ) &amp; </span></span>
+<span id="cb8-307"><a href="#cb8-307" aria-hidden="true" tabindex="-1"></a><span class="in">  theme(</span></span>
+<span id="cb8-308"><a href="#cb8-308" aria-hidden="true" tabindex="-1"></a><span class="in">    legend.position = "right", </span></span>
+<span id="cb8-309"><a href="#cb8-309" aria-hidden="true" tabindex="-1"></a><span class="in">    title=element_text(size=sizetitle, face="bold"), </span></span>
+<span id="cb8-310"><a href="#cb8-310" aria-hidden="true" tabindex="-1"></a><span class="in">    axis.title.x = element_text(face="plain")</span></span>
+<span id="cb8-311"><a href="#cb8-311" aria-hidden="true" tabindex="-1"></a><span class="in">    )</span></span>
 <span id="cb8-312"><a href="#cb8-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Statistical summary of the parameters distributions (in % or error)</span></span>
-<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-resOECDsummary</span></span>
-<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a>df_res_draws <span class="ot">&lt;-</span> df_draws_f <span class="sc">%&gt;%</span></span>
-<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>ID_draws, <span class="co"># Garde ID_draws intact</span></span>
-<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
-<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span></span>
-<span id="cb8-324"><a href="#cb8-324" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb8-325"><a href="#cb8-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
-<span id="cb8-326"><a href="#cb8-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb8-327"><a href="#cb8-327" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">median</span>(value)<span class="sc">*</span><span class="dv">100</span>,</span>
-<span id="cb8-328"><a href="#cb8-328" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(value)<span class="sc">*</span><span class="dv">100</span>,</span>
-<span id="cb8-329"><a href="#cb8-329" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q2.5 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.025</span>)<span class="sc">*</span><span class="dv">100</span>,</span>
-<span id="cb8-330"><a href="#cb8-330" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q97.5 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.975</span>)<span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb8-331"><a href="#cb8-331" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb8-332"><a href="#cb8-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-333"><a href="#cb8-333" aria-hidden="true" tabindex="-1"></a>selected_var <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"err_L0"</span>, <span class="st">"err_a_ctrl"</span>, <span class="st">"err_a_trt"</span>, <span class="st">"err_L0sd"</span>, <span class="st">"err_asd_ctrl"</span>, <span class="st">"err_asd_trt"</span>, <span class="st">"err_effect"</span>, <span class="st">"err_effectsd"</span>)</span>
-<span id="cb8-334"><a href="#cb8-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-335"><a href="#cb8-335" aria-hidden="true" tabindex="-1"></a>df_res_draws <span class="ot">&lt;-</span> df_res_draws <span class="sc">|&gt;</span> </span>
-<span id="cb8-336"><a href="#cb8-336" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">%in%</span> selected_var)</span>
+<span id="cb8-313"><a href="#cb8-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-314"><a href="#cb8-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-315"><a href="#cb8-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, include=F}</span></span>
+<span id="cb8-316"><a href="#cb8-316" aria-hidden="true" tabindex="-1"></a><span class="in">ggsave(</span></span>
+<span id="cb8-317"><a href="#cb8-317" aria-hidden="true" tabindex="-1"></a><span class="in">  filename="Bootstrap_OECD_res_err.png", </span></span>
+<span id="cb8-318"><a href="#cb8-318" aria-hidden="true" tabindex="-1"></a><span class="in">  plot=plot, </span></span>
+<span id="cb8-319"><a href="#cb8-319" aria-hidden="true" tabindex="-1"></a><span class="in">  width=6, </span></span>
+<span id="cb8-320"><a href="#cb8-320" aria-hidden="true" tabindex="-1"></a><span class="in">  height = 10, </span></span>
+<span id="cb8-321"><a href="#cb8-321" aria-hidden="true" tabindex="-1"></a><span class="in">  path=here::here("fig/")</span></span>
+<span id="cb8-322"><a href="#cb8-322" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb8-323"><a href="#cb8-323" aria-hidden="true" tabindex="-1"></a><span class="in">ggsave(</span></span>
+<span id="cb8-324"><a href="#cb8-324" aria-hidden="true" tabindex="-1"></a><span class="in">  filename="Bootstrap_OECD_res_err.jpg", </span></span>
+<span id="cb8-325"><a href="#cb8-325" aria-hidden="true" tabindex="-1"></a><span class="in">  plot=plot_article, </span></span>
+<span id="cb8-326"><a href="#cb8-326" aria-hidden="true" tabindex="-1"></a><span class="in">  width=6, </span></span>
+<span id="cb8-327"><a href="#cb8-327" aria-hidden="true" tabindex="-1"></a><span class="in">  height = 3, </span></span>
+<span id="cb8-328"><a href="#cb8-328" aria-hidden="true" tabindex="-1"></a><span class="in">  path=here::here("fig/")</span></span>
+<span id="cb8-329"><a href="#cb8-329" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb8-330"><a href="#cb8-330" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-331"><a href="#cb8-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-334"><a href="#cb8-334" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-335"><a href="#cb8-335" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Statistical summary of the parameters distributions (in % or error)</span></span>
+<span id="cb8-336"><a href="#cb8-336" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-resOECDsummary</span></span>
 <span id="cb8-337"><a href="#cb8-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-338"><a href="#cb8-338" aria-hidden="true" tabindex="-1"></a>df_res_draws_show <span class="ot">&lt;-</span> df_res_draws<span class="sc">|&gt;</span> </span>
-<span id="cb8-339"><a href="#cb8-339" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">signif</span>(.x, <span class="at">digits =</span> <span class="dv">2</span>))) <span class="sc">|&gt;</span> </span>
-<span id="cb8-340"><a href="#cb8-340" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(</span>
-<span id="cb8-341"><a href="#cb8-341" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">'t'</span>), </span>
-<span id="cb8-342"><a href="#cb8-342" aria-hidden="true" tabindex="-1"></a>  <span class="at">class=</span><span class="st">"hover"</span></span>
-<span id="cb8-343"><a href="#cb8-343" aria-hidden="true" tabindex="-1"></a>  ) </span>
-<span id="cb8-344"><a href="#cb8-344" aria-hidden="true" tabindex="-1"></a>df_res_draws_show</span>
-<span id="cb8-345"><a href="#cb8-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-346"><a href="#cb8-346" aria-hidden="true" tabindex="-1"></a>mean_err_effect <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">subset</span>(df_res_draws, variable <span class="sc">==</span> <span class="st">"err_effect"</span>)<span class="sc">$</span>mean,<span class="dv">2</span>)</span>
-<span id="cb8-347"><a href="#cb8-347" aria-hidden="true" tabindex="-1"></a>mean_err_effectsd <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">subset</span>(df_res_draws, variable <span class="sc">==</span> <span class="st">"err_effectsd"</span>)<span class="sc">$</span>mean,<span class="dv">2</span>)</span>
-<span id="cb8-348"><a href="#cb8-348" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-349"><a href="#cb8-349" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-350"><a href="#cb8-350" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-353"><a href="#cb8-353" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb8-354"><a href="#cb8-354" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Percentage of iteration for which the error on the different model parameters and effects on mean growth rate and its individual variation is inferior to the given x value. </span></span>
-<span id="cb8-355"><a href="#cb8-355" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-resOECDind</span></span>
+<span id="cb8-338"><a href="#cb8-338" aria-hidden="true" tabindex="-1"></a>df_res_draws <span class="ot">&lt;-</span> df_draws_f <span class="sc">%&gt;%</span></span>
+<span id="cb8-339"><a href="#cb8-339" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb8-340"><a href="#cb8-340" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>ID_draws, <span class="co"># Garde ID_draws intact</span></span>
+<span id="cb8-341"><a href="#cb8-341" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
+<span id="cb8-342"><a href="#cb8-342" aria-hidden="true" tabindex="-1"></a>    <span class="at">values_to =</span> <span class="st">"value"</span></span>
+<span id="cb8-343"><a href="#cb8-343" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb8-344"><a href="#cb8-344" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(variable) <span class="sc">%&gt;%</span></span>
+<span id="cb8-345"><a href="#cb8-345" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb8-346"><a href="#cb8-346" aria-hidden="true" tabindex="-1"></a>    <span class="at">median =</span> <span class="fu">median</span>(value)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb8-347"><a href="#cb8-347" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean =</span> <span class="fu">mean</span>(value)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb8-348"><a href="#cb8-348" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q2.5 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.025</span>)<span class="sc">*</span><span class="dv">100</span>,</span>
+<span id="cb8-349"><a href="#cb8-349" aria-hidden="true" tabindex="-1"></a>    <span class="at">Q97.5 =</span> <span class="fu">quantile</span>(value, <span class="fl">0.975</span>)<span class="sc">*</span><span class="dv">100</span></span>
+<span id="cb8-350"><a href="#cb8-350" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-351"><a href="#cb8-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-352"><a href="#cb8-352" aria-hidden="true" tabindex="-1"></a>selected_var <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"err_L0"</span>, <span class="st">"err_a_ctrl"</span>, <span class="st">"err_a_trt"</span>, <span class="st">"err_L0sd"</span>, <span class="st">"err_asd_ctrl"</span>, <span class="st">"err_asd_trt"</span>, <span class="st">"err_effect"</span>, <span class="st">"err_effectsd"</span>)</span>
+<span id="cb8-353"><a href="#cb8-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-354"><a href="#cb8-354" aria-hidden="true" tabindex="-1"></a>df_res_draws <span class="ot">&lt;-</span> df_res_draws <span class="sc">|&gt;</span> </span>
+<span id="cb8-355"><a href="#cb8-355" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(variable <span class="sc">%in%</span> selected_var)</span>
 <span id="cb8-356"><a href="#cb8-356" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-357"><a href="#cb8-357" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(.<span class="dv">05</span>,.<span class="dv">10</span>,.<span class="dv">25</span>, .<span class="dv">50</span>, .<span class="dv">75</span>, .<span class="dv">90</span>, .<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
-<span id="cb8-358"><a href="#cb8-358" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-359"><a href="#cb8-359" aria-hidden="true" tabindex="-1"></a>df_err <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x) <span class="sc">%&gt;%</span></span>
-<span id="cb8-360"><a href="#cb8-360" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb8-361"><a href="#cb8-361" aria-hidden="true" tabindex="-1"></a>    <span class="at">L0       =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_L0) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb8-362"><a href="#cb8-362" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_ctrl   =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_a_ctrl) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb8-363"><a href="#cb8-363" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_trt    =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_a_trt) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb8-364"><a href="#cb8-364" aria-hidden="true" tabindex="-1"></a>    <span class="at">asd_ctrl =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_asd_ctrl) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb8-365"><a href="#cb8-365" aria-hidden="true" tabindex="-1"></a>    <span class="at">asd_trt  =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_asd_trt) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb8-366"><a href="#cb8-366" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect   =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_effect) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
-<span id="cb8-367"><a href="#cb8-367" aria-hidden="true" tabindex="-1"></a>    <span class="at">effectsd =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_effectsd) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>)</span>
-<span id="cb8-368"><a href="#cb8-368" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-357"><a href="#cb8-357" aria-hidden="true" tabindex="-1"></a>df_res_draws_show <span class="ot">&lt;-</span> df_res_draws<span class="sc">|&gt;</span> </span>
+<span id="cb8-358"><a href="#cb8-358" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.numeric), <span class="sc">~</span> <span class="fu">signif</span>(.x, <span class="at">digits =</span> <span class="dv">2</span>))) <span class="sc">|&gt;</span> </span>
+<span id="cb8-359"><a href="#cb8-359" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(</span>
+<span id="cb8-360"><a href="#cb8-360" aria-hidden="true" tabindex="-1"></a>  <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">'t'</span>), </span>
+<span id="cb8-361"><a href="#cb8-361" aria-hidden="true" tabindex="-1"></a>  <span class="at">class=</span><span class="st">"hover"</span></span>
+<span id="cb8-362"><a href="#cb8-362" aria-hidden="true" tabindex="-1"></a>  ) </span>
+<span id="cb8-363"><a href="#cb8-363" aria-hidden="true" tabindex="-1"></a>df_res_draws_show</span>
+<span id="cb8-364"><a href="#cb8-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-365"><a href="#cb8-365" aria-hidden="true" tabindex="-1"></a>mean_err_effect <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">subset</span>(df_res_draws, variable <span class="sc">==</span> <span class="st">"err_effect"</span>)<span class="sc">$</span>mean,<span class="dv">2</span>)</span>
+<span id="cb8-366"><a href="#cb8-366" aria-hidden="true" tabindex="-1"></a>mean_err_effectsd <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">subset</span>(df_res_draws, variable <span class="sc">==</span> <span class="st">"err_effectsd"</span>)<span class="sc">$</span>mean,<span class="dv">2</span>)</span>
+<span id="cb8-367"><a href="#cb8-367" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb8-368"><a href="#cb8-368" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb8-369"><a href="#cb8-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-370"><a href="#cb8-370" aria-hidden="true" tabindex="-1"></a>l_df_err <span class="ot">&lt;-</span> <span class="fu">length</span>(df_err)</span>
-<span id="cb8-371"><a href="#cb8-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-372"><a href="#cb8-372" aria-hidden="true" tabindex="-1"></a>df_err_show <span class="ot">&lt;-</span> df_err <span class="sc">|&gt;</span> </span>
-<span id="cb8-373"><a href="#cb8-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(</span>
-<span id="cb8-374"><a href="#cb8-374" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">'t'</span>), </span>
-<span id="cb8-375"><a href="#cb8-375" aria-hidden="true" tabindex="-1"></a>    <span class="at">class=</span><span class="st">"hover"</span>, </span>
-<span id="cb8-376"><a href="#cb8-376" aria-hidden="true" tabindex="-1"></a>    <span class="at">rownames=</span><span class="cn">FALSE</span></span>
-<span id="cb8-377"><a href="#cb8-377" aria-hidden="true" tabindex="-1"></a>    )  <span class="sc">|&gt;</span> </span>
-<span id="cb8-378"><a href="#cb8-378" aria-hidden="true" tabindex="-1"></a>  <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(df_err), <span class="at">digits =</span> <span class="dv">1</span>)</span>
-<span id="cb8-379"><a href="#cb8-379" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-380"><a href="#cb8-380" aria-hidden="true" tabindex="-1"></a>df_err_show</span>
-<span id="cb8-381"><a href="#cb8-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-382"><a href="#cb8-382" aria-hidden="true" tabindex="-1"></a>Per_sample_err_effect_5 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">0.05</span>)<span class="sc">$</span>effect</span>
-<span id="cb8-383"><a href="#cb8-383" aria-hidden="true" tabindex="-1"></a>Per_sample_err_effect_10 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">0.10</span>)<span class="sc">$</span>effect</span>
-<span id="cb8-384"><a href="#cb8-384" aria-hidden="true" tabindex="-1"></a>nb_err_effectsd_sup100 <span class="ot">&lt;-</span> (<span class="dv">100</span><span class="sc">-</span><span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">1.0</span>)<span class="sc">$</span>effectsd)<span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">1000</span></span>
-<span id="cb8-385"><a href="#cb8-385" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-386"><a href="#cb8-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-387"><a href="#cb8-387" aria-hidden="true" tabindex="-1"></a><span class="in">```{r typeS}</span></span>
-<span id="cb8-388"><a href="#cb8-388" aria-hidden="true" tabindex="-1"></a><span class="in">Count_mu_higher_in_exposed &lt;- length(subset(df_draws_f, bol_contrary_ccl_mu==TRUE)$ID_draws)</span></span>
-<span id="cb8-389"><a href="#cb8-389" aria-hidden="true" tabindex="-1"></a><span class="in">Count_sd_lower_in_exposed &lt;- length(subset(df_draws_f, bol_contrary_ccl_sd==TRUE)$ID_draws)</span></span>
+<span id="cb8-372"><a href="#cb8-372" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-373"><a href="#cb8-373" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Percentage of iteration for which the error on the different model parameters and effects on mean growth rate and its individual variation is inferior to the given x value. </span></span>
+<span id="cb8-374"><a href="#cb8-374" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-resOECDind</span></span>
+<span id="cb8-375"><a href="#cb8-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-376"><a href="#cb8-376" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(.<span class="dv">05</span>,.<span class="dv">10</span>,.<span class="dv">25</span>, .<span class="dv">50</span>, .<span class="dv">75</span>, .<span class="dv">90</span>, .<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb8-377"><a href="#cb8-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-378"><a href="#cb8-378" aria-hidden="true" tabindex="-1"></a>df_err <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x) <span class="sc">%&gt;%</span></span>
+<span id="cb8-379"><a href="#cb8-379" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-380"><a href="#cb8-380" aria-hidden="true" tabindex="-1"></a>    <span class="at">L0       =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_L0) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb8-381"><a href="#cb8-381" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_ctrl   =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_a_ctrl) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb8-382"><a href="#cb8-382" aria-hidden="true" tabindex="-1"></a>    <span class="at">a_trt    =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_a_trt) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb8-383"><a href="#cb8-383" aria-hidden="true" tabindex="-1"></a>    <span class="at">asd_ctrl =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_asd_ctrl) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb8-384"><a href="#cb8-384" aria-hidden="true" tabindex="-1"></a>    <span class="at">asd_trt  =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_asd_trt) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb8-385"><a href="#cb8-385" aria-hidden="true" tabindex="-1"></a>    <span class="at">effect   =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_effect) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>),</span>
+<span id="cb8-386"><a href="#cb8-386" aria-hidden="true" tabindex="-1"></a>    <span class="at">effectsd =</span> <span class="fu">map_dbl</span>(x, <span class="sc">~</span> <span class="fu">sum</span>(<span class="fu">abs</span>(df_draws_f<span class="sc">$</span>err_effectsd) <span class="sc">&lt;=</span> .x) <span class="sc">/</span> <span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span>)</span>
+<span id="cb8-387"><a href="#cb8-387" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb8-388"><a href="#cb8-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-389"><a href="#cb8-389" aria-hidden="true" tabindex="-1"></a>l_df_err <span class="ot">&lt;-</span> <span class="fu">length</span>(df_err)</span>
 <span id="cb8-390"><a href="#cb8-390" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-391"><a href="#cb8-391" aria-hidden="true" tabindex="-1"></a><span class="in">Per_contrary_ccl_mu &lt;- Count_mu_higher_in_exposed/1000*100</span></span>
-<span id="cb8-392"><a href="#cb8-392" aria-hidden="true" tabindex="-1"></a><span class="in">Per_contrary_ccl_sd &lt;- Count_sd_lower_in_exposed/1000*100</span></span>
-<span id="cb8-393"><a href="#cb8-393" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb8-394"><a href="#cb8-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-395"><a href="#cb8-395" aria-hidden="true" tabindex="-1"></a>When compared to our experimental design using 30 individuals, the results of this bootstrap indicate that the population-level effect would still be well estimated with deviations not exceeding ±5% and 10% in <span class="in">`r Per_sample_err_effect_5`</span>% and <span class="in">`r Per_sample_err_effect_10`</span>% of the samples, respectively, but with an average overestimation of <span class="in">`r mean_err_effect`</span>%. However, estimating individual-level variability proved much more challenging, with errors reaching up to 200% in <span class="in">`r nb_err_effectsd_sup100`</span> samples. This suggests that the variation in growth rate among individuals would likely be poorly captured, with the effect often underestimated by approximately 50%, and in some cases, overestimated by more than 200%. We also note that the direction of the effect was misestimated in <span class="in">`r Per_contrary_ccl_mu`</span>% of cases for the mean effect and <span class="in">`r Per_contrary_ccl_sd`</span>% for individual variation (type S error).</span>
-<span id="cb8-396"><a href="#cb8-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-397"><a href="#cb8-397" aria-hidden="true" tabindex="-1"></a>These simulations of an OECD protocol identified important limitations of simplified traditional approaches, particularly in tests with a single control and one concentration. By simulating fewer replicates with measurements at the replicate scale, we demonstrated that small studies may fail to capture the full range of inter-individual differences and, in some cases, increase the risk of misinterpreting the direction of a substance’s effect. For example, in a hypothetical scenario of a simplified design of the OECD earthworm reproduction test with only one concentration tested, estimation errors could have led to incorrect conclusions about the effect direction in a non negligible percentage of cases, suggesting a beneficial effect. These results raise concerns about the robustness of underpowered studies with limited replicates and tested doses for environmental risk assessment, emphasizing the value of adequately sized experiments to improve the reliability of conclusions.</span>
+<span id="cb8-391"><a href="#cb8-391" aria-hidden="true" tabindex="-1"></a>df_err_show <span class="ot">&lt;-</span> df_err <span class="sc">|&gt;</span> </span>
+<span id="cb8-392"><a href="#cb8-392" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(</span>
+<span id="cb8-393"><a href="#cb8-393" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">'t'</span>), </span>
+<span id="cb8-394"><a href="#cb8-394" aria-hidden="true" tabindex="-1"></a>    <span class="at">class=</span><span class="st">"hover"</span>, </span>
+<span id="cb8-395"><a href="#cb8-395" aria-hidden="true" tabindex="-1"></a>    <span class="at">rownames=</span><span class="cn">FALSE</span></span>
+<span id="cb8-396"><a href="#cb8-396" aria-hidden="true" tabindex="-1"></a>    )  <span class="sc">|&gt;</span> </span>
+<span id="cb8-397"><a href="#cb8-397" aria-hidden="true" tabindex="-1"></a>  <span class="fu">formatRound</span>(<span class="at">columns =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(df_err), <span class="at">digits =</span> <span class="dv">1</span>)</span>
+<span id="cb8-398"><a href="#cb8-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-399"><a href="#cb8-399" aria-hidden="true" tabindex="-1"></a>df_err_show</span>
+<span id="cb8-400"><a href="#cb8-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-401"><a href="#cb8-401" aria-hidden="true" tabindex="-1"></a>Per_sample_err_effect_5 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">0.05</span>)<span class="sc">$</span>effect</span>
+<span id="cb8-402"><a href="#cb8-402" aria-hidden="true" tabindex="-1"></a>Per_sample_err_effect_10 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">0.10</span>)<span class="sc">$</span>effect</span>
+<span id="cb8-403"><a href="#cb8-403" aria-hidden="true" tabindex="-1"></a>nb_err_effectsd_sup100 <span class="ot">&lt;-</span> (<span class="dv">100</span><span class="sc">-</span><span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">1.0</span>)<span class="sc">$</span>effectsd)<span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">1000</span></span>
+<span id="cb8-404"><a href="#cb8-404" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-405"><a href="#cb8-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-406"><a href="#cb8-406" aria-hidden="true" tabindex="-1"></a><span class="in">```{r typeS}</span></span>
+<span id="cb8-407"><a href="#cb8-407" aria-hidden="true" tabindex="-1"></a><span class="in">Count_mu_higher_in_exposed &lt;- length(subset(df_draws_f, bol_contrary_ccl_mu==TRUE)$ID_draws)</span></span>
+<span id="cb8-408"><a href="#cb8-408" aria-hidden="true" tabindex="-1"></a><span class="in">Count_sd_lower_in_exposed &lt;- length(subset(df_draws_f, bol_contrary_ccl_sd==TRUE)$ID_draws)</span></span>
+<span id="cb8-409"><a href="#cb8-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-410"><a href="#cb8-410" aria-hidden="true" tabindex="-1"></a><span class="in">Per_contrary_ccl_mu &lt;- Count_mu_higher_in_exposed/1000*100</span></span>
+<span id="cb8-411"><a href="#cb8-411" aria-hidden="true" tabindex="-1"></a><span class="in">Per_contrary_ccl_sd &lt;- Count_sd_lower_in_exposed/1000*100</span></span>
+<span id="cb8-412"><a href="#cb8-412" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb8-413"><a href="#cb8-413" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-414"><a href="#cb8-414" aria-hidden="true" tabindex="-1"></a>When compared to our experimental design using 30 individuals, the results of this bootstrap indicate that the population-level effect would still be well estimated with deviations not exceeding ±5% and 10% in <span class="in">`r Per_sample_err_effect_5`</span>% and <span class="in">`r Per_sample_err_effect_10`</span>% of the samples, respectively, but with an average overestimation of <span class="in">`r mean_err_effect`</span>%. However, estimating individual-level variability proved much more challenging, with errors reaching up to 200% in <span class="in">`r nb_err_effectsd_sup100`</span> samples. This suggests that the variation in growth rate among individuals would likely be poorly captured, with the effect often underestimated by approximately 50%, and in some cases, overestimated by more than 200%. We also note that the direction of the effect was misestimated in <span class="in">`r Per_contrary_ccl_mu`</span>% of cases for the mean effect and <span class="in">`r Per_contrary_ccl_sd`</span>% for individual variation (type S error).</span>
+<span id="cb8-415"><a href="#cb8-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-416"><a href="#cb8-416" aria-hidden="true" tabindex="-1"></a>These simulations of an OECD protocol identified important limitations of simplified traditional approaches, particularly in tests with a single control and one concentration. By simulating fewer replicates with measurements at the replicate scale, we demonstrated that small studies may fail to capture the full range of inter-individual differences and, in some cases, increase the risk of misinterpreting the direction of a substance’s effect. For example, in a hypothetical scenario of a simplified design of the OECD earthworm reproduction test with only one concentration tested, estimation errors could have led to incorrect conclusions about the effect direction in a non negligible percentage of cases, suggesting a beneficial effect. These results raise concerns about the robustness of underpowered studies with limited replicates and tested doses for environmental risk assessment, emphasizing the value of adequately sized experiments to improve the reliability of conclusions.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

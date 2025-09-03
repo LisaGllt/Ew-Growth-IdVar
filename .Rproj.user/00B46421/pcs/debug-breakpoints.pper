@@ -15,6 +15,21 @@
                 "type": 1,
                 "is_package_breakpoint": false,
                 "package_name": ""
+            },
+            {
+                "id": 1,
+                "path": "~/Library/CloudStorage/OneDrive-Personnel/Documents/0_These/0_RepoGit/Ew-Growth-IdVar/functions/functions.R",
+                "line_number": 36,
+                "function_steps": "",
+                "function_name": "f_load_libraries",
+                "state": 2,
+                "editor_state": 2,
+                "editor_line_number": 36,
+                "is_pending_debug_completion": true,
+                "needs_updated_steps": false,
+                "type": 0,
+                "is_package_breakpoint": false,
+                "package_name": ""
             }
         ]
     }
