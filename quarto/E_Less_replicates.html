@@ -2,13 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.34">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>6&nbsp; Can we ignore individual differences? Bias, type M and type S errors in OECD guidelines using a simulation study – Uncovering Hidden Sensitivity - Inter-Individual Growth Variation in Earthworms Under Fungicide Exposure</title>
+<title>6&nbsp; Can we ignore individual differences? Bias, type M and type S errors in OECD guidelines using a simulation study – **Uncovering Hidden Sensitivity** - Inter-Individual Growth Variation in Earthworms Under Fungicide Exposure</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -73,10 +76,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-aaa8e42a972476d77304830e63db33af.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-4d58ae029ca8c4121063b1aa4ad523f6.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-040c828accfd9e55b0f23c3de5d0fb9c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e5b2690cc19e7eeea61b6d43d736fd92.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -126,7 +129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Uncovering Hidden Sensitivity - Inter-Individual Growth Variation in Earthworms Under Fungicide Exposure</span>
+    <span class="navbar-title"><strong>Uncovering Hidden Sensitivity</strong> - Inter-Individual Growth Variation in Earthworms Under Fungicide Exposure</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -247,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>m<span class="fl">.30</span> <span class="ot">&lt;-</span> <span class="fu">brm</span>(<span class="at">file=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mod/m_brms_VI_post"</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>m<span class="fl">.30</span> <span class="ot">&lt;-</span> <span class="fu">brm</span>(<span class="at">file=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"mod/m_brms_VI_post"</span>))</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>res_30 <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">posterior_summary</span>(m<span class="fl">.30</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>L0_est30       <span class="ot">&lt;-</span> res_30<span class="sc">$</span>Estimate[<span class="dv">1</span>]</span>
@@ -263,7 +266,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>res_show <span class="ot">&lt;-</span> res_30[<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>,]<span class="sc">|&gt;</span> </span>
 <span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">signif</span>(.x, <span class="at">digits =</span> <span class="dv">2</span>))) <span class="sc">|&gt;</span> </span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(<span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">'t'</span>), <span class="at">class=</span><span class="st">"hover"</span>) </span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>res_show</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>res_show</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-resmod30ind" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -283,14 +286,14 @@ Table&nbsp;6.1: Results summary of the model with 30 individuals in each group
 <div class="cell">
 <details open="" class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"bootstrap/Bootstrap_VI_OECD_seed121212_28j_OK_f.RData"</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="at">file=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"bootstrap/Bootstrap_VI_OECD_seed121212_28j_OK_f.RData"</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_draws <span class="ot">&lt;-</span> res_f</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>df_draws_show <span class="ot">&lt;-</span> df_draws[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>] <span class="sc">|&gt;</span> </span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), <span class="sc">~</span> <span class="fu">signif</span>(.x, <span class="at">digits =</span> <span class="dv">2</span>))) <span class="sc">|&gt;</span> </span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">datatable</span>(<span class="at">options =</span> <span class="fu">list</span>(<span class="at">dom =</span> <span class="st">'t'</span>), <span class="at">class=</span><span class="st">"hover"</span>, <span class="at">rownames=</span><span class="cn">FALSE</span>) </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df_draws_show</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df_draws_show</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-resOECDindboot" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -310,7 +313,7 @@ Table&nbsp;6.2: 6 first line of the bootstrap result
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_draws_f <span class="ot">&lt;-</span> df_draws <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df_draws_f <span class="ot">&lt;-</span> df_draws <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">err_L0              =</span> (L0_est30<span class="sc">-</span>L0_est)<span class="sc">/</span>L0_est30,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">err_a_ctrl          =</span> (a_ctrl_est<span class="sc">-</span>a_ctrl_est30)<span class="sc">/</span>a_ctrl_est30,</span>
@@ -324,13 +327,13 @@ Table&nbsp;6.2: 6 first line of the bootstrap result
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">err_effectsd        =</span> (effectsd<span class="sc">-</span>effectsd_est30)<span class="sc">/</span>effectsd_est30,</span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">bol_contrary_ccl_mu =</span> (a_trt_est<span class="sc">&gt;</span>a_ctrl_est),</span>
 <span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">bol_contrary_ccl_sd =</span> (asd_trt_est<span class="sc">&lt;</span>asd_ctrl_est)</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alpha_stat <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>alpha_stat <span class="ot">&lt;-</span> <span class="fl">0.7</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>alpha_expo <span class="ot">&lt;-</span> <span class="fl">0.3</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>linevertic <span class="ot">&lt;-</span> <span class="fl">1.2</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>alpha_dens <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
@@ -557,7 +560,7 @@ Table&nbsp;6.2: 6 first line of the bootstrap result
 <span id="cb4-225"><a href="#cb4-225" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"right"</span>, </span>
 <span id="cb4-226"><a href="#cb4-226" aria-hidden="true" tabindex="-1"></a>    <span class="at">title=</span><span class="fu">element_text</span>(<span class="at">size=</span>sizetitle, <span class="at">face=</span><span class="st">"bold"</span>), </span>
 <span id="cb4-227"><a href="#cb4-227" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">face=</span><span class="st">"plain"</span>)</span>
-<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-228"><a href="#cb4-228" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-errOECDboot" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -575,7 +578,7 @@ Figure&nbsp;6.1: Error percentage on the different model parameters and the esti
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_res_draws <span class="ot">&lt;-</span> df_draws_f <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df_res_draws <span class="ot">&lt;-</span> df_draws_f <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">cols =</span> <span class="sc">-</span>ID_draws, <span class="co"># Garde ID_draws intact</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">names_to =</span> <span class="st">"variable"</span>,</span>
@@ -602,7 +605,7 @@ Figure&nbsp;6.1: Error percentage on the different model parameters and the esti
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  ) </span>
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>df_res_draws_show</span>
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>mean_err_effect <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">subset</span>(df_res_draws, variable <span class="sc">==</span> <span class="st">"err_effect"</span>)<span class="sc">$</span>mean,<span class="dv">2</span>)</span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>mean_err_effectsd <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">subset</span>(df_res_draws, variable <span class="sc">==</span> <span class="st">"err_effectsd"</span>)<span class="sc">$</span>mean,<span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>mean_err_effectsd <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">subset</span>(df_res_draws, variable <span class="sc">==</span> <span class="st">"err_effectsd"</span>)<span class="sc">$</span>mean,<span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-resOECDsummary" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -621,7 +624,7 @@ Table&nbsp;6.3: Statistical summary of the parameters distributions (in % or err
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(.<span class="dv">05</span>,.<span class="dv">10</span>,.<span class="dv">25</span>, .<span class="dv">50</span>, .<span class="dv">75</span>, .<span class="dv">90</span>, .<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="fu">c</span>(.<span class="dv">05</span>,.<span class="dv">10</span>,.<span class="dv">25</span>, .<span class="dv">50</span>, .<span class="dv">75</span>, .<span class="dv">90</span>, .<span class="dv">95</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>df_err <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x) <span class="sc">%&gt;%</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -647,7 +650,7 @@ Table&nbsp;6.3: Statistical summary of the parameters distributions (in % or err
 <span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>df_err_show</span>
 <span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>Per_sample_err_effect_5 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">0.05</span>)<span class="sc">$</span>effect</span>
 <span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>Per_sample_err_effect_10 <span class="ot">&lt;-</span> <span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">0.10</span>)<span class="sc">$</span>effect</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>nb_err_effectsd_sup100 <span class="ot">&lt;-</span> (<span class="dv">100</span><span class="sc">-</span><span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">1.0</span>)<span class="sc">$</span>effectsd)<span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">1000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>nb_err_effectsd_sup100 <span class="ot">&lt;-</span> (<span class="dv">100</span><span class="sc">-</span><span class="fu">subset</span>(df_err, x <span class="sc">==</span> <span class="fl">1.0</span>)<span class="sc">$</span>effectsd)<span class="sc">/</span><span class="dv">100</span><span class="sc">*</span><span class="dv">1000</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <div id="tbl-resOECDind" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
@@ -666,11 +669,11 @@ Table&nbsp;6.4: Percentage of iteration for which the error on the different mod
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Count_mu_higher_in_exposed <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">subset</span>(df_draws_f, bol_contrary_ccl_mu<span class="sc">==</span><span class="cn">TRUE</span>)<span class="sc">$</span>ID_draws)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Count_mu_higher_in_exposed <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">subset</span>(df_draws_f, bol_contrary_ccl_mu<span class="sc">==</span><span class="cn">TRUE</span>)<span class="sc">$</span>ID_draws)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>Count_sd_lower_in_exposed <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">subset</span>(df_draws_f, bol_contrary_ccl_sd<span class="sc">==</span><span class="cn">TRUE</span>)<span class="sc">$</span>ID_draws)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>Per_contrary_ccl_mu <span class="ot">&lt;-</span> Count_mu_higher_in_exposed<span class="sc">/</span><span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Per_contrary_ccl_sd <span class="ot">&lt;-</span> Count_sd_lower_in_exposed<span class="sc">/</span><span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>Per_contrary_ccl_sd <span class="ot">&lt;-</span> Count_sd_lower_in_exposed<span class="sc">/</span><span class="dv">1000</span><span class="sc">*</span><span class="dv">100</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
 <p>When compared to our experimental design using 30 individuals, the results of this bootstrap indicate that the population-level effect would still be well estimated with deviations not exceeding ±5% and 10% in 58.3% and 90.7% of the samples, respectively, but with an average overestimation of 2.92%. However, estimating individual-level variability proved much more challenging, with errors reaching up to 200% in 148 samples. This suggests that the variation in growth rate among individuals would likely be poorly captured, with the effect often underestimated by approximately 50%, and in some cases, overestimated by more than 200%. We also note that the direction of the effect was misestimated in 7.1% of cases for the mean effect and 2.7% for individual variation (type S error).</p>
@@ -732,13 +735,14 @@ Table&nbsp;6.4: Percentage of iteration for which the error on the different mod
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -1191,7 +1195,7 @@ Table&nbsp;6.4: Percentage of iteration for which the error on the different mod
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r libraries, include=F, warning=F, message=F}</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r libraries, include=F, warning=F, message=F}</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="at">file =</span> here<span class="sc">::</span><span class="fu">here</span>(<span class="st">"functions/functions.R"</span>))</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">f_load_libraries_colors</span>() </span>
@@ -1601,7 +1605,7 @@ Table&nbsp;6.4: Percentage of iteration for which the error on the different mod
 <span id="cb8-414"><a href="#cb8-414" aria-hidden="true" tabindex="-1"></a>When compared to our experimental design using 30 individuals, the results of this bootstrap indicate that the population-level effect would still be well estimated with deviations not exceeding ±5% and 10% in <span class="in">`r Per_sample_err_effect_5`</span>% and <span class="in">`r Per_sample_err_effect_10`</span>% of the samples, respectively, but with an average overestimation of <span class="in">`r mean_err_effect`</span>%. However, estimating individual-level variability proved much more challenging, with errors reaching up to 200% in <span class="in">`r nb_err_effectsd_sup100`</span> samples. This suggests that the variation in growth rate among individuals would likely be poorly captured, with the effect often underestimated by approximately 50%, and in some cases, overestimated by more than 200%. We also note that the direction of the effect was misestimated in <span class="in">`r Per_contrary_ccl_mu`</span>% of cases for the mean effect and <span class="in">`r Per_contrary_ccl_sd`</span>% for individual variation (type S error).</span>
 <span id="cb8-415"><a href="#cb8-415" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-416"><a href="#cb8-416" aria-hidden="true" tabindex="-1"></a>These simulations of an OECD protocol identified important limitations of simplified traditional approaches, particularly in tests with a single control and one concentration. By simulating fewer replicates with measurements at the replicate scale, we demonstrated that small studies may fail to capture the full range of inter-individual differences and, in some cases, increase the risk of misinterpreting the direction of a substance’s effect. For example, in a hypothetical scenario of a simplified design of the OECD earthworm reproduction test with only one concentration tested, estimation errors could have led to incorrect conclusions about the effect direction in a non negligible percentage of cases, suggesting a beneficial effect. These results raise concerns about the robustness of underpowered studies with limited replicates and tested doses for environmental risk assessment, emphasizing the value of adequately sized experiments to improve the reliability of conclusions.</span>
-</code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 
