@@ -78,11 +78,13 @@ f_load_colors <- function(){
   sizetitle <<- 12
   
   col_blue <<- "#5E81AC"
-  col_red <<- "#f42404"
+  #col_red <<- "#f42404"
+  col_red <<- "#BF616A"
   pal_col <<- c(col_blue, col_red)
   
   pal_blue <<- c("#5E81AC", "#7F9DC4", "#A0C1D9", "#DCE9F2")
-  pal_red <<- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
+  pal_red <<- c("#BF616A", "#CF7E86", "#DFA3AA", "#F2DCDD")
+  #pal_red <<- c("#f42404", "#F65E4B", "#F6876D", "#FBD3D0")  
 }
 
 f_load_libraries_colors <- function(){

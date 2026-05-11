@@ -253,7 +253,7 @@ To get synchronized cohorts of hatchlings, cocoons were collected in the breedin
 
 ### Overview
 
-The growth experiment was performed based on an adaptation of the protocol of @bart_2020a. We monitored the growth of 60 earthworms, each randomly allocated to exposed or unexposed conditions (30 individuals per treatment) in individual vessels, during a total of 56 days. Earthworms were individually weighted every 14 days (with their gut content).
+The growth experiment was performed based on an adaptation of the protocol of @bart_2020. We monitored the growth of 60 earthworms, each randomly allocated to exposed or unexposed conditions (30 individuals per treatment) in individual vessels, during a total of 56 days. Earthworms were individually weighted every 14 days (with their gut content).
 
 The experiment was performed using the LUFA 2.4 soil, a standardized soil from Speyer. This soil was chosen for it is a loamy soil close to agricultural soils, with a pH of 7.5 and an organic carbon percentage of 1.83% (@tbl-lufa). It was maintained at 70% WHC by adding water from the surface. The soil was renewed after 28 days to keep earthworms in fresh soil and therefore in ideal conditions for growth. For the exposed cohort, it meant the pesticides concentrations were renewed after 28 days. We fed individuals every 14 days with 3 g of horse dung mixed to the soil, corresponding to ad libitum conditions. Similarly to our rearing protocol, individuals were kept in a thermoregulated enclosure at 18°C in complete darkness. Earthworms were individually placed in small High Density PolyEthylene vessels (5 cm x 5∅ cm) with 50 g of soil (dry weight).
 
@@ -270,7 +270,7 @@ The experiment was performed using the LUFA 2.4 soil, a standardized soil from S
 
 : LUFA 2.4 soil characteristics {#tbl-lufa .hover}
 
-In the pesticide treatment, we used a mixture of two molecules, , epoxiconazole (EPX) and dimoxystrobin (DMX), which are the main active substances of several pesticides, including the now banned, but largely used in the past, Swing® Gold (BASF Agro SAS, dimoxystrobin 133 g.L-1, epoxiconazole 50 g.L-1), a broad spectrum fungicide for cereal crops. Epoxiconazole is still frequently found in agricultural soils in France because of its persistance [@pelosi_2021]. Pesticide exposure in the exposed cohort was done by adding a diluted solution of DMX and EPX equivalent to 3 RD of Swing® Gold, a dose shown to have sublethal effects on A. caliginosa growth [@bart_2020a]. Swing® Gold recommended dose (RD) is 1.5 L.ha-1. Considering that active substances of pesticides are mainly found in the first ten centimeters of soil [@chabauty_2016; @mcdonald_2013], and that the LUFA 2.4 soil has a density of 1.18, we calculated that the corresponding concentrations of the two molecules should be 165.0 µg of DMX per kg of dry soil and 190.3 µg of EPX per kg of dry soil. The dry soil was spiked with aqueous solutions of the mixture for contamination and to adjust its water holding capacity (WHC) to 70%.
+In the pesticide treatment, we used a mixture of two molecules, , epoxiconazole (EPX) and dimoxystrobin (DMX), which are the main active substances of several pesticides, including the now banned, but largely used in the past, Swing® Gold (BASF Agro SAS, dimoxystrobin 133 g.L-1, epoxiconazole 50 g.L-1), a broad spectrum fungicide for cereal crops. Epoxiconazole is still frequently found in agricultural soils in France because of its persistance [@pelosi_2021]. Pesticide exposure in the exposed cohort was done by adding a diluted solution of DMX and EPX equivalent to 3 RD of Swing® Gold, a dose shown to have sublethal effects on A. caliginosa growth [@bart_2020]. Swing® Gold recommended dose (RD) is 1.5 L.ha-1. Considering that active substances of pesticides are mainly found in the first ten centimeters of soil [@chabauty_2016; @mcdonald_2013], and that the LUFA 2.4 soil has a density of 1.18, we calculated that the corresponding concentrations of the two molecules should be 165.0 µg of DMX per kg of dry soil and 190.3 µg of EPX per kg of dry soil. The dry soil was spiked with aqueous solutions of the mixture for contamination and to adjust its water holding capacity (WHC) to 70%.
 
 ### Detailed processes
 
@@ -393,7 +393,7 @@ p <- ggplot(
   labs(
     x="", 
     y="Weight (mg)",
-    title = "The <span style = 'color:#5E81AC;'>non exposed</span> and <span style = 'color:#f42404;'>exposed</span> cohorts have <br/> similar initial weight distributions"
+    title = "The <span style = 'color:#5E81AC;'>non exposed</span> and <span style = 'color:#BF616A;'>exposed</span> cohorts have <br/> similar initial weight distributions"
     )+
   
   scale_color_manual(
@@ -689,7 +689,7 @@ plot <- ggplot(
     x="Time (days)", 
     y="Weight (mg)",
     title = "Growth monitoring of the first 56 days",
-    subtitle = "For the <span style = 'color:#5E81AC;'>non exposed</span> and <span style = 'color:#f42404;'>exposed</span> groups"
+    subtitle = "For the <span style = 'color:#5E81AC;'>non exposed</span> and <span style = 'color:#BF616A;'>exposed</span> groups"
     )+
   scale_x_continuous(
     limits = c(0, 56),        
@@ -717,23 +717,53 @@ plot
 ```{r, include=F}
 
 plot_save <- ggplot(
-  data=df_growth, 
-  aes(
-    x=t, 
-    y=w, 
-    color=exposition, 
-    group=as.factor(ID)
-    )
+  
   )+
   
   facet_wrap(~exposition)+
   
   geom_line(
+    data=df_growth, 
+    aes(
+      x=t, 
+      y=w, 
+      color=exposition, 
+      group=as.factor(ID)
+      ),
     lwd=0.5, 
     alpha=alpha_line, 
     color = "grey70"
     )+
-  geom_point(alpha=alpha_point, size=2) +
+  geom_point(
+    data=df_growth, 
+    aes(
+      x=t, 
+      y=w, 
+      color=exposition, 
+      group=as.factor(ID)
+      ),
+    alpha=alpha_point, 
+    size=2
+    ) +
+  
+    geom_line(
+    data=df_growth_mean, 
+    aes(
+      x=t, 
+      y=w, 
+      color=exposition
+      ),
+    lwd=1.2
+    )+
+  geom_point(
+    data=df_growth_mean, 
+    aes(
+      x=t, 
+      y=w, 
+      color=exposition
+      ),
+    size=3
+    ) +
   
   scale_color_manual(
     values = pal_col, 
@@ -765,20 +795,20 @@ plot_save <- ggplot(
 
 ```{r, include=F}
 ggsave(
-  filename="Growth_experiment_56.png", 
+  filename="Growth_experiment_56_mean.png", 
   plot=plot_save, 
   width=8, height = 4, 
   path=here::here("fig/")
   )
 ggsave(
-  filename="Growth_experiment_56.jpg", 
+  filename="Growth_experiment_56_mean.jpg", 
   plot=plot_save, 
   width=8, height = 4, 
   path=here::here("fig/")
   )
 
 ggsave(
-  filename="Growth_experiment_56.svg", 
+  filename="Growth_experiment_56_mean.svg", 
   plot=plot_save, 
   width=8, height = 4, 
   path=here::here("fig/")

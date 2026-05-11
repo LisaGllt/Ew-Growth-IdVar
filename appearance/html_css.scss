@@ -3,36 +3,40 @@
 
 /*-- scss:defaults --*/
 
-$primary: #5E81AC !default;
+$primary: #81A1C1 !default;
 $font-size-root: 18px !default;
+
+.navbar-title {
+  color: white !important;
+}
 
 $code-annotation-higlight-color: #E5E9F0  !default;
 $code-annotation-higlight-bg: #E5E9F0  !default;
 
 .code-annotation-anchor {
   background-color: inherit !important;
-  color: #5E81AC !important;
+  color: #81A1C1 !important;
 }
 
 .code-annotation-active {
-  background-color: #5E81AC !important;
+  background-color: #81A1C1 !important;
   color: #ECEFF4  !important;
-  border-color: #5E81AC !important;
+  border-color: #81A1C1 !important;
 }
 
 /* Background of the annotation box*/
 .tippy-box[data-theme~=quarto] {
     background-color: white !important;
-    color: #5E81AC !important;
-    border-color: #5E81AC !important;
+    color: #81A1C1 !important;
+    border-color: #81A1C1 !important;
 }
 
 .tippy-box[data-theme~="quarto"] > .tippy-svg-arrow {
-  border-color: #5E81AC !important
+  border-color: #81A1C1 !important
 }
 
 .tippy-box[data-theme~="quarto"] > .tippy-arrow:before {
-  border-color: #5E81AC !important
+  border-color: #81A1C1 !important
 }
 
 
@@ -113,7 +117,7 @@ pre, code {
 }
 
 .sidebar-title {
-  color: #5E81AC;
+  color: #81A1C1;
   text-align: left !important;
 }
 
@@ -146,7 +150,7 @@ h4 { margin-top: 1.5em; font-size: 1.1rem; }
 h5 { margin-top: 1.5em; font-size: 1rem; }
 
 .quarto-section-identifier {
-  color: #5E81AC;
+  color: #81A1C1;
   font-weight: normal;
 }
 

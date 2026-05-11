@@ -8,9 +8,9 @@ f_load_libraries_colors()
 
 ## Model definition
 
-To evaluate individual variations in growth and fungicide sensitivity parameters, a simplified version of the bioenergetic model from @bart_2020a was developed.
+To evaluate individual variations in growth and fungicide sensitivity parameters, a simplified version of the bioenergetic model from @bart_2020 was developed.
 
-We used an individual reaction norm approach [@dingemanse_2013] to compare growth rate across exposed and non-exposed individuals. As indicated by [@bart_2020a], *A. caliginosa* growth is approximately linear with the structural volumetric length $L$ during the juvenile phase of the life-cycle. This structural volumetric length can be calculated as the cubic root of the wet weight of the organisms.
+We used an individual reaction norm approach [@dingemanse_2013] to compare growth rate across exposed and non-exposed individuals. As indicated by [@bart_2020], *A. caliginosa* growth is approximately linear with the structural volumetric length $L$ during the juvenile phase of the life-cycle. This structural volumetric length can be calculated as the cubic root of the wet weight of the organisms.
 
 Here, we assume that both cohorts can have a different growth rate $a$ (mg$^{1/3}$/d). We suppose the structural volumetric length at the start of the experiment ($L0$) does not depend on the treatment as individuals came from the same pool of individuals.
 
@@ -58,7 +58,7 @@ A first step is to look at the parameter recovery with a fit on simulated data.
 
 ### Data simulation
 
-According to @bart_2020a, earthworm initial size is 2.25 mg$^{1/3}$ ($L0$) with a standard deviation of 0.45 mg$^{1/3}$ and grow at xxx mg$^{1/3}$/day ($a$). Next, we simulate data according to a variation attenuation scenario. To do so, we assume that the average growth rate in earthworms exposed to 3 RD of Swing Gold decreases by 10 % compared to a control cohort, as shown in @bart_2020a. We set the individual variability in the control group to 10% around the average growth rate which is coherent with Bart's data. We set the change in among-individiual variance to 50 %, which would correspond to a moderate effect size of pesticide exposure on growth rate variation.
+According to @bart_2020, earthworm initial size is 2.25 mg$^{1/3}$ ($L0$) with a standard deviation of 0.45 mg$^{1/3}$ and grow at xxx mg$^{1/3}$/day ($a$). Next, we simulate data according to a variation attenuation scenario. To do so, we assume that the average growth rate in earthworms exposed to 3 RD of Swing Gold decreases by 10 % compared to a control cohort, as shown in @bart_2020. We set the individual variability in the control group to 10% around the average growth rate which is coherent with Bart's data. We set the change in among-individiual variance to 50 %, which would correspond to a moderate effect size of pesticide exposure on growth rate variation.
 
 This gives us the following simulation parameters :
 
@@ -223,7 +223,7 @@ p_growth <- ggplot() +
     y         = "Weight (mg)",
     title     = "Growth of simulated individuals",
     subtitle  = "For the <span style = 'color:#5E81AC;'>non exposed</span> 
-       and <span style = 'color:#f42404;'>exposed</span> groups"
+       and <span style = 'color:#BF616A;'>exposed</span> groups"
     )+
   
   scale_x_continuous(
@@ -307,11 +307,11 @@ The model parameters are named as follows by `brms` :
 
 ### Priors definitions {#sec-Cpriorsdef}
 
-The priors cannot be defined according to the results of @bart_2020a. Therefore we base the prior to our general knowledge about *A. caliginosa* :
+The priors cannot be defined according to the results of @bart_2020. Therefore we base the prior to our general knowledge about *A. caliginosa* :
 
 -   Weight at birth is often around 10 to 15 mg and might range from 8 to 20 mg. The prior on $L0_{\mu}$ can be a normal distribution with a mean of 12.5$^{1/3}$ = 2.32 mg$^{1/3}$ and coefficient of variation of 20%. The prior on $L0_{\sigma}$ can be a normal distribution with a mean of 2.32 $\times$ 0.2 and a coefficient of variation of 100%. We also know that $L0_{\mu}$ cannot be less than 0.
 -   An individual typically takes 4 months to be an adult weighting around 600 mg. It gives us a growth rate of 600$^{1/3}$/(30 $\times$ 4) = 0.070 mg$^{1/3}$/d. The prior on $a_{ctrl,\mu}$ can be a normal distribution with a mean of 0.070 and a coefficient of variation of 20% so our prior is less restrictive.
--   We have no real *a priori* knowledge about the change inter-individual variation of growth. We therefore want a large prior for individual variations such as a normal distribution with a mean of 20% of the mean growth rate and a coefficient of variation of 100%. We are however sure of the existence of individual variation throught our expertise of the breeding culture and the data from @bart_2019d.
+-   We have no real *a priori* knowledge about the change inter-individual variation of growth. We therefore want a large prior for individual variations such as a normal distribution with a mean of 20% of the mean growth rate and a coefficient of variation of 100%. We are however sure of the existence of individual variation throught our expertise of the breeding culture and the data from @bart_2019.
 
 The same priors are given to the two cohorts. A growth rate individual variation of 20% was given as a prior for the two cohort.
 

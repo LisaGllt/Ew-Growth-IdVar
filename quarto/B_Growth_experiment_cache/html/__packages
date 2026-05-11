@@ -54,6 +54,7 @@ plotly
 ggpubr
 gridExtra
 extrafont
+flextable
 modelsummary
 carData
 car

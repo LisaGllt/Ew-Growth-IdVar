@@ -82,7 +82,7 @@ p_growth <- ggplot(
     y         = "Weight (mg)",
     title     = "Growth monitoring",
     subtitle  = "For the <span style = 'color:#5E81AC;'>non exposed</span> 
-       and <span style = 'color:#f42404;'>exposed</span> groups"
+       and <span style = 'color:#BF616A;'>exposed</span> groups"
     )+
   
   scale_x_continuous(
@@ -1001,7 +1001,7 @@ df_pred_Q <- pred |>
 df_pred <- df_pred_mean |> 
   cbind(df_pred_Q$.prediction[,1]) |> 
   cbind(df_pred_Q$.prediction[,2]) |>
-  mutate(Expo=case_when(exposition==0 ~ "Non exposed",
+  mutate(Expo=case_when(exposition==0 ~ "Non-exposed",
                         exposition==1 ~ "Exposed"))
 
 colnames(df_pred) <- c("t", "ID", "exposition", 
@@ -1074,7 +1074,9 @@ plot_predobs_log <- ggplot()+
       ymax=pred_L_Q97.5^3, 
       color=Expo
       ), 
-    alpha=0.5
+    alpha=0.5#,
+    # size = 0.2,
+    # line_width = 0.7
     )+
   
   scale_x_log10(limits=c(1.6, 700))+
@@ -1088,8 +1090,12 @@ plot_predobs_log <- ggplot()+
     y="Predicted weight (mg)"
     )+
   
-  theme_minimal(24)+
-  theme(legend.position = "bottom")
+  theme_minimal(12)+
+  theme(
+    legend.position = "bottom",
+    axis.title = element_text(size = 20),
+    axis.text = element_text(size = 16),
+    legend.text = element_text(size = 14))
 
 plot_predobs_log
 ```
@@ -1269,6 +1275,7 @@ ggsave(
   width=12, height = 13, 
   path=here::here("fig/")
   )
+
 
 ggsave(
   filename="ModVI_predobs_weights_ind_ctrl.png", 

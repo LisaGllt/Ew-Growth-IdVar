@@ -221,6 +221,7 @@ bf.mod.trt.vi.cor <- bf(
   center=T,
   nl=T
   )
+
 ```
 
 We use the same priors for all models.
@@ -286,6 +287,8 @@ m.null <- brm(
   file=here::here("mod/model_choice/m.null")
   )
 
+summary(m.null)
+
 m.vi <- brm(
   data = df_growth, 
   bf.mod.vi, 
@@ -302,6 +305,8 @@ m.vi <- brm(
     ),
   file=here::here("mod/model_choice/m.vi")
   )
+
+summary(m.vi)
 
 m.trt <- brm(
   data = df_growth, 
@@ -320,7 +325,11 @@ m.trt <- brm(
   file=here::here("mod/model_choice/m.trt")
   )
 
+summary(m.trt)
+
 m.trt.vi <- m.post
+
+summary(m.trt.vi)
 
 m.trt.vi.cor <- brm(
   data = df_growth, 
@@ -338,6 +347,8 @@ m.trt.vi.cor <- brm(
     ),
   file=here::here("mod/model_choice/m.trt.vi.cor")
   )
+
+summary(m.trt.vi.cor)
 
 ```
 

@@ -54,6 +54,7 @@ plotly
 ggpubr
 gridExtra
 extrafont
+flextable
 modelsummary
 carData
 car
@@ -69,4 +70,3 @@ readxl
 usethis
 devtools
 officer
-rvg
